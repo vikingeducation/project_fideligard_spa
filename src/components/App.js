@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Navbar from './Navbar';
-import DateSlider from './DateSlider';
+import DateSliderContainer from '../containers/DateSliderContainer';
 
 class App extends Component {
   render() {
@@ -55,7 +55,7 @@ class App extends Component {
                 </nav>
         
                 <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
-                    <DateSlider />
+                    <DateSliderContainer />
         
                   <h2>Section title</h2>
                   <div className="table-responsive">

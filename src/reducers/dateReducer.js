@@ -1,6 +1,6 @@
-import { changeDate, CHANGE_DATE } from "../actions/dateAction";
+import { CHANGE_DATE } from "../actions/dateAction";
 
-export function date(state = 0, action) {
+export function date(state = "2017-05-01", action) {
   switch (action.type) {
     case CHANGE_DATE:
       return action.data;
