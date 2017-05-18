@@ -1,6 +1,6 @@
-export const GET_STOCKS_SUCCESS = 'GET_STOCKS_SUCCESS';
-export const GET_STOCKS_REQUEST = 'GET_STOCKS_REQUEST';
-export const GET_STOCKS_FAILURE = 'GET_STOCKS_FAILURE';
+export const GET_STOCKS_SUCCESS = "GET_STOCKS_SUCCESS";
+export const GET_STOCKS_REQUEST = "GET_STOCKS_REQUEST";
+export const GET_STOCKS_FAILURE = "GET_STOCKS_FAILURE";
 
 export function getStocksRequest() {
   return {
@@ -40,4 +40,8 @@ export function getStocks(date) {
         dispatch(getStocksFailure(error));
       });
   };
+}
+
+export function getInitialStocks() {
+  getStocks(20160129);
 }
