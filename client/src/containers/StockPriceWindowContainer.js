@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { getInitialStocks } from '../actions';
-import Table from '../components/table';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { getInitialStocks } from "../actions";
+import Table from "../components/table";
 
 class StockPriceWindowContainer extends Component {
   constructor() {
@@ -10,7 +10,6 @@ class StockPriceWindowContainer extends Component {
   }
 
   componentDidMount() {
-    console.log('StockPriceWindowContainer mounted');
     this.props.getInitialStocks();
   }
 
