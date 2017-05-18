@@ -12,28 +12,38 @@
 //     error: null,
 //     isFetching: false
 // };
+import {
+    FETCH_STOCKS_SUCCESS,
+    FETCH_STOCKS_REQUEST,
+    FETCH_STOCKS_FAILURE
+}
+from "../actions/stocksAction";
 
 
 
-
-
-function stocks(state = {}, action) {
-    switch (action.type){
-        case FETCH_STOCKS_REQUEST: 
+export function stocks(state = {}, action) {
+    switch (action.type) {
+        case FETCH_STOCKS_REQUEST:
             return {
                 ...state,
                 isFetching: true,
                 error: null
-            }
+            };
         case FETCH_STOCKS_FAILURE:
             return {
                 ...state,
                 isFetching: false,
                 error: action.error
-            }
+            };
+        case FETCH_STOCKS_SUCCESS:
+            return {
+                ...state,
+                isFetching: false,
+                data: action.data
+            };
         default:
             return state;
     }
-    
-    
+
+
 }

@@ -38,12 +38,6 @@ app.get("/api/quandl/stocks/:date", (req, res, next) => {
         })
         .then(stocksArray => {
             console.log(JSON.stringify(stocksArray, null, 2));
-
-            let frontEndStocks = {
-                date: day_0,
-                stocks: []
-            };
-
             // stock = {
             //     Day0Price: Number,
             //     Day1Price: Number,
@@ -58,16 +52,17 @@ app.get("/api/quandl/stocks/:date", (req, res, next) => {
                 tempObj.symbol = stocksArray[0].datatable.data[j][1];
                 stocks.push(tempObj);
             }
-            console.log("stocks", stocks);
-
             for (let i = 0; i < 4; i++) {
                 for (let j = 0; j < stocksArray[i].datatable.data.length; j++) {
                     stocks[j][daysInfo[i]] =
                         stocksArray[i].datatable.data[j][2];
                 }
             }
-            console.log("after stocks", stocks);
-            return res.json(stocksArray);
+            let frontEndStocks = {
+                date: day_0,
+                stocks
+            };
+            return res.json(frontEndStocks);
         })
         .catch(next);
 });
