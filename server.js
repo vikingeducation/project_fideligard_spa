@@ -38,9 +38,10 @@ function parseJSON(response) {
   return response.json();
 }
 
-app.get('/api/quandl', (req, res, next) => {
+app.get('/api/quandl/:date', (req, res, next) => {
   console.log('Requesting stock data from QUANDL...');
-  let date = req.body.date;
+  let date = req.params.date;
+  //let date = req.body.date;
   //?date=20160912&qopts.per_page=100&qopts.columns=ticker,date,close&api_key=soaV8Boit143qWZAubE4
   fetch(
     `${baseUrl}?qopts.per_page=100&=qopts.columns=ticker,date,close&date=${date}&api_key=${QUANDL_API_KEY}`
