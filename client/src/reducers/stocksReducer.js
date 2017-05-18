@@ -16,12 +16,15 @@ import {
     FETCH_STOCKS_SUCCESS,
     FETCH_STOCKS_REQUEST,
     FETCH_STOCKS_FAILURE
-}
-from "../actions/stocksAction";
+} from "../actions/stocksAction";
 
+const initialState = {
+    data: [],
+    error: null,
+    isFetching: false
+};
 
-
-export function stocks(state = {}, action) {
+export function stocks(state = initialState, action) {
     switch (action.type) {
         case FETCH_STOCKS_REQUEST:
             return {
@@ -39,11 +42,9 @@ export function stocks(state = {}, action) {
             return {
                 ...state,
                 isFetching: false,
-                data: action.data
+                data: action.data.stocks
             };
         default:
             return state;
     }
-
-
 }

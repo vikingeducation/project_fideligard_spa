@@ -1,31 +1,30 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import Stocks from '../components/Stocks';
-import { getStocks } from '../actions/stocksAction';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import Stocks from "../components/Stocks";
+import { fetchStocks } from "../actions/stocksAction";
 
-class StocksContainer extends Component{
-    
+class StocksContainer extends Component {
     componentDidMount() {
-        this.props.getStocks();
+        this.props.fetchStocks(this.props.date);
     }
-    
-    render(){
-        
-        return (
-            <Stocks />    
-        );
+
+    render() {
+        return <Stocks stocks={this.props.stocks} />;
     }
+}
+function mapStateToProps(state) {
+    return {
+        stocks: state.stocks.data,
+        date: state.date
+    };
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        getStocks: () => {
-            dispatch(getStocks())
+        fetchStocks: date => {
+            dispatch(fetchStocks(date));
         }
-    }
+    };
 }
 
-
-
-
-export default connect(null, mapDispatchToProps)(StocksContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(StocksContainer);

@@ -1,9 +1,8 @@
-import moment from 'moment';
+import moment from "moment";
 
 export const FETCH_STOCKS_SUCCESS = "FETCH_STOCKS_SUCCESS";
 export const FETCH_STOCKS_REQUEST = "FETCH_STOCKS_REQUEST";
 export const FETCH_STOCKS_FAILURE = "FETCH_STOCKS_FAILURE";
-
 
 export function fetchStocksSuccess(data) {
     return {
@@ -25,27 +24,22 @@ export function fetchStocksRequest() {
     };
 }
 
-
 export function fetchStocks(date) {
-    date = date ? date : moment().subtract(1, 'day').format('YYYYMMDD');
-    return (dispatch) => {
+    date = date ? date : moment().subtract(1, "day").format("YYYYMMDD");
+    console.log("date", date);
+    return dispatch => {
         dispatch(fetchStocksRequest());
-        
+
         fetch(`api/quandl/stocks/${date}`)
-        .then(checkStatus)
-        .then((json) => {
-            dispatch(fetchStocksSuccess(json));
-        })
-        .catch((error) => {
-            dispatch(fetchStocksFailure(error.message + error.response));
-        });
-        
+            .then(checkStatus)
+            .then(json => {
+                dispatch(fetchStocksSuccess(json));
+            })
+            .catch(error => {
+                dispatch(fetchStocksFailure(error.message + error.response));
+            });
     };
 }
-
-
-
-
 
 function checkStatus(response) {
     // If response not okay, throw an error

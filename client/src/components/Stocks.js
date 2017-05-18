@@ -1,26 +1,21 @@
 import React from "react";
 
 function makeStockRows(stocks) {
-    return stocks.map((stock) => {
-        return (
-            <tr>
-              <td>1,001</td>
-              <td>Lorem</td>
-              <td>ipsum</td>
-              <td>dolor</td>
-              <td>sit</td>
-              <td>trade</td>
-            </tr>
-        );
-    });
+  return stocks.map(stock => {
+    return (
+      <tr key={stock.symbol}>
+        <td>{stock.symbol}</td>
+        <td>{stock.day_0}</td>
+        <td>{stock.day_1}</td>
+        <td>{stock.day_7}</td>
+        <td>{stock.day_30}</td>
+        <td>trade</td>
+      </tr>
+    );
+  });
 }
 
-
-const stocks = [1, 2, 3, 4, 5, 6];
-
-
-
-const Stocks = () => {
+const Stocks = ({ stocks }) => {
   return (
     <nav className="col-sm-4 col-md-4 hidden-xs-down bg-faded sidebar">
       <h1>Stocks</h1>
@@ -37,7 +32,7 @@ const Stocks = () => {
             </tr>
           </thead>
           <tbody>
-            {makeStockRows(stocks)}
+            {stocks.length ? makeStockRows(stocks) : null}
           </tbody>
         </table>
       </div>

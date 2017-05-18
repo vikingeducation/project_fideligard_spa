@@ -6,7 +6,7 @@ import {
   Redirect
 } from "react-router-dom";
 import Navbar from "./Navbar";
-import Stocks from "./Stocks";
+import StocksContainer from "../containers/StocksContainer";
 import Dashboard from "./Dashboard";
 import Transactions from "./Transactions";
 import Trade from "./Trade";
@@ -21,7 +21,7 @@ class App extends Component {
           <Navbar />
           <div className="container-fluid">
             <div className="row">
-              <Stocks />
+              <StocksContainer />
 
               <main className="col-sm-8 offset-sm-4 col-md-8 offset-md-4 pt-3">
                 <DateSliderContainer />
