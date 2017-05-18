@@ -33,14 +33,46 @@ app.get("/api/quandl/stocks/:date", (req, res, next) => {
     });
 
     Promise.all(promiseArray)
-        .then(response => {
-            return response.json();
+        .then(responses => {
+            return Promise.all(responses.map(response => response.json()));
         })
-        .then(json => {
-            console.log(JSON.stringify(json, null, 2));
-            return res.json(json);
+        .then(stocksArray => {
+            console.log(JSON.stringify(stocksArray, null, 2));
+            
+            let frontEndStocks = {
+                date: day_0,
+                stocks: []
+            }
+            
+            // stock = {
+            //     Day0Price: Number,
+            //     Day1Price: Number,
+            //     Day7Price: Number,
+            //     Day30Price: Number,
+            //     Symbol: ""
+            // }
+            let firstStocks = [];
+            for (let i = 0; i < stocksArray.length; i++) {
+                
+                for (let j = 0; j < stocksArray[i].datatable.data; j++) {
+                    let tempObj = {};
+                    tempObj.day_O = stocksArray[i].datatable.data[j][1];
+                    tempObj.symbol = stocksArray[i].datatable.data[j][2];
+                    firstStocks.push(tempObj);
+                    
+                }
+            }
+            
+            
+            
+            return res.json(stocksArray);
         })
         .catch(next);
+});
+
+
+app.get('/', (req, res, next) => {
+    res.end("Server is up!");
 });
 
 // Defines next action for errors
