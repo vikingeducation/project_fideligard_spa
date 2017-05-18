@@ -7,7 +7,6 @@ class App extends Component {
     return (
         <div>
              <Navbar /> 
-        
             <div className="container-fluid">
               <div className="row">
                 <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">

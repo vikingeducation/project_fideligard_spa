@@ -1,3 +1,20 @@
+<Router>
+    <div>
+        <Sidebar />
+        <Dashboard>
+            <Route path="/trade" render={() => <h1>Trade</h1>}/>
+            <Route path="/transactions" render={() => <h1>Transactions</h1>}/>
+            <Route path="/portfolio" render={() => <h1>Portfolio</h1>}/>
+        </Dashboard>
+    </div>
+<Router>
+
+
+
+
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
