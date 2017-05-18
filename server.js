@@ -1,23 +1,23 @@
 // Import our needed node modules
-require("es6-promise").polyfill;
-require("isomorphic-fetch");
-require("dotenv").config();
-const express = require("express");
+require('es6-promise').polyfill;
+require('isomorphic-fetch');
+require('dotenv').config();
+const express = require('express');
 
 // Initialize our app
 const app = express();
 // Set a const for our api key in .env
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
-const baseUrl = "https://quandl.com/api/v3/datatables/WIKI/PRICES.json";
+const baseUrl = 'https://quandl.com/api/v3/datatables/WIKI/PRICES.json';
 
 // Set the port to 3001 instead of 3000
-app.set("port", process.env.PORT || 3001);
+app.set('port', process.env.PORT || 3001);
 
 // For later when we deploy to production, use the static
 // assets built in the client/build folder instead of
 // hosted at localhost:3000
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
 }
 
 // Extract checking the status of the response for reuse
@@ -38,8 +38,8 @@ function parseJSON(response) {
   return response.json();
 }
 
-app.get("/api/quandl/:date", (req, res, next) => {
-  console.log("Requesting stock data from QUANDL...");
+app.get('/api/quandl/:date', (req, res, next) => {
+  console.log('Requesting stock data from QUANDL...');
   let date = req.params.date;
 
   //let date = req.body.date;
@@ -70,10 +70,10 @@ app.get("/api/quandl/:date", (req, res, next) => {
     }
 
     if (newDay < 10) {
-      newDay = "0" + newDay.toString();
+      newDay = '0' + newDay.toString();
     }
     if (newMonth < 10) {
-      newMonth = "0" + newMonth.toString();
+      newMonth = '0' + newMonth.toString();
     }
     return newYear.toString() + newMonth.toString() + newDay.toString();
   }
@@ -84,7 +84,7 @@ app.get("/api/quandl/:date", (req, res, next) => {
 
   promises.push(
     fetch(
-      `${baseUrl}?qopts.per_page=3&=qopts.columns=ticker,date,close&date=${date}&api_key=${QUANDL_API_KEY}`
+      `${baseUrl}?qopts.per_page=3&qopts.columns=ticker,close&date=${date}&api_key=${QUANDL_API_KEY}`
     )
       .then(checkStatus)
       .then(parseJSON)
@@ -98,7 +98,7 @@ app.get("/api/quandl/:date", (req, res, next) => {
 
   promises.push(
     fetch(
-      `${baseUrl}?qopts.per_page=3&=qopts.columns=ticker,date,close&date=${dateGen(1)}&api_key=${QUANDL_API_KEY}`
+      `${baseUrl}?qopts.per_page=3&qopts.columns=ticker,close&date=${dateGen(1)}&api_key=${QUANDL_API_KEY}`
     )
       .then(checkStatus)
       .then(parseJSON)
@@ -111,7 +111,7 @@ app.get("/api/quandl/:date", (req, res, next) => {
   );
   promises.push(
     fetch(
-      `${baseUrl}?qopts.per_page=3&=qopts.columns=ticker,date,close&date=${dateGen(7)}&api_key=${QUANDL_API_KEY}`
+      `${baseUrl}?qopts.per_page=3&qopts.columns=ticker,close&date=${dateGen(7)}&api_key=${QUANDL_API_KEY}`
     )
       .then(checkStatus)
       .then(parseJSON)
@@ -125,7 +125,7 @@ app.get("/api/quandl/:date", (req, res, next) => {
 
   promises.push(
     fetch(
-      `${baseUrl}?qopts.per_page=3&=qopts.columns=ticker,date,close&date=${dateGen(30)}&api_key=${QUANDL_API_KEY}`
+      `${baseUrl}?qopts.per_page=3&qopts.columns=ticker,close&date=${dateGen(30)}&api_key=${QUANDL_API_KEY}`
     )
       .then(checkStatus)
       .then(parseJSON)
@@ -138,10 +138,41 @@ app.get("/api/quandl/:date", (req, res, next) => {
   );
 
   Promise.all(promises).then(results => {
-    let scrubbedResult = results.map(day => {
-      return;
+    let stockObjects = results[0].datatable.data.map(stock => {
+      return {
+        ticker: stock[0],
+        currentPrice: stock[1]
+      };
     });
-    res.json(results);
+
+    results[1].datatable.data.forEach(stock => {
+      stockObjects.forEach(el => {
+        if (stock[0] === el.ticker) {
+          el.price1 = stock[1];
+          return;
+        }
+      });
+    });
+
+    results[2].datatable.data.forEach(stock => {
+      stockObjects.forEach(el => {
+        if (stock[0] === el.ticker) {
+          el.price7 = stock[1];
+          return;
+        }
+      });
+    });
+
+    results[3].datatable.data.forEach(stock => {
+      stockObjects.forEach(el => {
+        if (stock[0] === el.ticker) {
+          el.price30 = stock[1];
+          return;
+        }
+      });
+    });
+
+    res.json(stockObjects);
   });
 });
 
@@ -155,6 +186,6 @@ function errorHandler(err, req, res, next) {
 // Tell the app to use the errorHandler middleware
 app.use(errorHandler);
 
-app.listen(app.get("port"), () => {
-  console.log(`Find the server at http://localhost:${app.get("port")}/`);
+app.listen(app.get('port'), () => {
+  console.log(`Find the server at http://localhost:${app.get('port')}/`);
 });
