@@ -22,9 +22,9 @@ app.get("/api/quandl/stocks/:date", (req, res, next) => {
     console.log("Getting stocks...");
     let date = moment(req.params.date);
     let day_0 = date;
-    let day_1 = date.subtract(1, "day");
-    let day_7 = date.subtract(7, "day");
-    let day_30 = date.subtract(30, "day");
+    let day_1 = date.clone().subtract(1, "day");
+    let day_7 = date.clone().subtract(7, "day");
+    let day_30 = date.clone().subtract(30, "day");
 
     let correctedDates = [day_0, day_1, day_7, day_30].map(date => {
         console.log("date", date);
