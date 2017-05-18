@@ -1,24 +1,26 @@
 import React from "react";
+import currencyFormatter from 'currency-formatter';
 
 function makeStockRows(stocks) {
   return stocks.map(stock => {
     return (
       <tr key={stock.symbol}>
         <td>{stock.symbol}</td>
-        <td>{stock.day_0}</td>
-        <td>{stock.day_1}</td>
-        <td>{stock.day_7}</td>
-        <td>{stock.day_30}</td>
+        <td>{stock.day_0 ? currencyFormatter.format(+stock.day_0, { code: "USD" }) : "N/A"}</td>
+        <td>{stock.day_1 ? currencyFormatter.format(+stock.day_0 - +stock.day_1, { code: "USD"}) : "N/A"}</td>
+        <td>{stock.day_7 ? currencyFormatter.format(+stock.day_0 - +stock.day_7, { code: "USD"}) : "N/A"}</td>
+        <td>{stock.day_30 ? currencyFormatter.format(+stock.day_0 - +stock.day_30, { code: "USD"})  : "N/A"}</td>
         <td>trade</td>
       </tr>
     );
   });
 }
 
-const Stocks = ({ stocks }) => {
+const Stocks = ({ stocks, date }) => {
   return (
     <nav className="col-sm-4 col-md-4 hidden-xs-down bg-faded sidebar">
       <h1>Stocks</h1>
+      <p>Date: {date}</p>
       <div className="table-responsive">
         <table className="table table-striped">
           <thead>

@@ -6,7 +6,7 @@ const moment = require("moment");
 
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
 
-app.set("port", process.env.PORT || 3001);
+app.set("port", 8081 || process.env.PORT || 3001);
 
 function checkStatus(response) {
     // If response not okay, throw an error
@@ -37,7 +37,9 @@ app.get("/api/quandl/stocks/:date", (req, res, next) => {
             return Promise.all(responses.map(response => response.json()));
         })
         .then(stocksArray => {
-            console.log(JSON.stringify(stocksArray, null, 2));
+            if (!stocksArray[0].datatable.data.length) {
+                throw new Error("Quandl does not have info available on this day. Recommend trying a weekday");
+            }
             // stock = {
             //     Day0Price: Number,
             //     Day1Price: Number,

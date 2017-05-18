@@ -7,9 +7,15 @@ class StocksContainer extends Component {
     componentDidMount() {
         this.props.fetchStocks(this.props.date);
     }
+    
+    componentWillReceiveProps(newProps) {
+        if (newProps.date !== this.props.date) {
+            this.props.fetchStocks(newProps.date);
+        }
+    }
 
     render() {
-        return <Stocks stocks={this.props.stocks} />;
+        return <Stocks stocks={this.props.stocks} date={this.props.date}/>;
     }
 }
 function mapStateToProps(state) {
