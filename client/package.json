@@ -2,6 +2,7 @@
   "name": "project_fideligard_spa",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:3001",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "react": "^15.5.4",
