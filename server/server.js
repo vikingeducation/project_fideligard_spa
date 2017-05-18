@@ -2,6 +2,7 @@ require("isomorphic-fetch");
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const moment = require("moment");
 
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
 
@@ -18,14 +19,24 @@ function checkStatus(response) {
 }
 
 app.get("/api/quandl/stocks/:date", (req, res, next) => {
-    console.log("Getting stocks...")
-    let date = req.params.date || "2017-05-17";
-    fetch(`https://www.quandl.com/api/v3/datasets/EOD/AAPL.json?api_key=${QUANDL_API_KEY}&start_date=${date}&end_date=${date}&column_index=4`)
-        .then(checkStatus)
-        .then((response) => {
+    console.log("Getting stocks...");
+    let date = moment(req.params.date);
+    let day_0 = date.format("YYYYMMDD");
+    let day_1 = date.subtract(1, "day").format("YYYYMMDD");
+    let day_7 = date.subtract(7, "day").format("YYYYMMDD");
+    let day_30 = date.subtract(30, "day").format("YYYYMMDD");
+
+    let promiseArray = [day_0, day_1, day_7, day_30].map(date => {
+        return fetch(
+            `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=${date}&api_key=${QUANDL_API_KEY}&qopts.columns=date,ticker,close&qopts.per_page=20`
+        ).then(checkStatus);
+    });
+
+    Promise.all(promiseArray)
+        .then(response => {
             return response.json();
         })
-        .then((json) => {
+        .then(json => {
             console.log(JSON.stringify(json, null, 2));
             return res.json(json);
         })
