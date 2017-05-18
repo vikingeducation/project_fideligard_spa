@@ -42,8 +42,6 @@ app.get('/api/quandl/:date', (req, res, next) => {
   console.log('Requesting stock data from QUANDL...');
   let date = req.params.date;
 
-  //let date = req.body.date;
-  //?date=20160912&qopts.per_page=100&qopts.columns=ticker,date,close&api_key=soaV8Boit143qWZAubE4
   let year = Number(date.substring(0, 4));
   let month = Number(date.substring(4, 6));
   let day = Number(date.substring(6, 8));
@@ -78,8 +76,6 @@ app.get('/api/quandl/:date', (req, res, next) => {
     return newYear.toString() + newMonth.toString() + newDay.toString();
   }
 
-  //${baseUrl}?qopts.per_page=100&=qopts.columns=ticker,date,close&date=${date}&api_key=${QUANDL_API_KEY}
-  //`${baseUrl}?qopts.per_page=100&=qopts.columns=ticker,date,close&date.lt=${date}&date.gt=&api_key=${QUANDL_API_KEY}`;
   let promises = [];
 
   promises.push(

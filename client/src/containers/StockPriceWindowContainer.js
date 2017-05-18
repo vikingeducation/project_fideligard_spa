@@ -1,17 +1,26 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { getInitialStocks } from "../actions";
-import Table from "../components/table";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { getInitialStocks } from '../actions';
+import Table from '../components/table';
 
 class StockPriceWindowContainer extends Component {
+  constructor() {
+    super();
+  }
+
   componentDidMount() {
-    //  this.props.getInitialStocks();
+    console.log('StockPriceWindowContainer mounted');
+    this.props.getInitialStocks();
   }
 
   render() {
     const { results, isFetching } = this.props;
-    return <div />;
+    return (
+      <div>
+        <Table results={results} isFetching={isFetching} />
+      </div>
+    );
   }
 }
 

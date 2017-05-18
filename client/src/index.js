@@ -1,14 +1,17 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import App from "./components/App";
-import "bootstrap/dist/css/bootstrap.css";
-import "./index.css";
-import "react-bootstrap";
-//import { createStore, applyMiddleware } from "redux";
-//import { Provider } from "react-redux";
-//import thunk from "redux-thunk";
-//import {} from "./reducers";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './components/App';
+import 'bootstrap/dist/css/bootstrap.css';
+import './index.css';
+import 'react-bootstrap';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { stocksApp } from './reducers';
 
-//let store = createStore(starWars, applyMiddleware(thunk));
+let store = createStore(stocksApp, applyMiddleware(thunk));
 
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}><App /></Provider>,
+  document.getElementById('root')
+);

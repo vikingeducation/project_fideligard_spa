@@ -31,5 +31,9 @@ export function stocksApp(state = initialState, action) {
         isFetching: false,
         error: action.error
       };
+    default:
+      return {
+        ...state
+      };
   }
 }

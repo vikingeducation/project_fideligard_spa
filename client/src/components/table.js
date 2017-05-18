@@ -1,6 +1,7 @@
-import React from "react";
+import React from 'react';
 
 const Table = ({ results, isFetching }) => {
+  console.log('Results inside table component:', results);
   if (isFetching) {
     return <p>loading...</p>;
   }
