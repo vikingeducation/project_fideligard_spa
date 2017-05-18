@@ -1,9 +1,10 @@
 import React from "react";
 
-const Table = ({ results, isFetching }) => {
+const Table = ({ results, isFetching, searchTerm }) => {
   if (isFetching) {
     return <p>loading...</p>;
   }
+
   const tableRows = results.map(stock => {
     return (
       <tr key={stock.ticker}>

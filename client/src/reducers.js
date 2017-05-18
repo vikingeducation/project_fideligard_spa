@@ -1,4 +1,4 @@
-import * as Actions from './actions';
+import * as Actions from "./actions";
 
 const initialState = {
   stocks: [],
@@ -6,7 +6,8 @@ const initialState = {
   transactions: [],
   selectedDate: new Date(),
   results: [],
-  searchTerm: '',
+  filteredResults: [],
+  searchTerm: "",
   isFetching: false,
   error: null
 };

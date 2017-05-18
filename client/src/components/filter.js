@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
 
 class Filter extends Component {
   constructor() {
@@ -9,10 +8,11 @@ class Filter extends Component {
 
   onChange = e => {
     let searchTerm = e.target.value;
-
+    console.log(this.state);
     this.setState({
       searchTerm
     });
+    console.log(this.state);
   };
 
   render() {
@@ -27,11 +27,5 @@ class Filter extends Component {
     );
   }
 }
-
-const mapStateToProps = state => {
-  return {
-    searchTerm: this.state.searchTerm
-  };
-};
 
 export default Filter;
