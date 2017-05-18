@@ -3,7 +3,8 @@ import {
   BrowserRouter as Router,
   Route,
   NavLink,
-  Switch
+  Switch,
+  Redirect
 } from "react-router-dom";
 import Navbar from "./Navbar";
 import Stocks from "./Stocks";
@@ -23,13 +24,14 @@ class App extends Component {
             <div className="row">
               <Stocks />
 
-              <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
+              <main className="col-sm-8 offset-sm-4 col-md-8 offset-md-4 pt-3">
                 <DateSliderContainer />
                 <Dashboard>
                   <Switch>
-                    <Route path="/trade" component={Trade} />
                     <Route path="/transactions" component={Transactions} />
                     <Route path="/portfolio" component={Portfolio} />
+                    <Route path="/trade" component={Trade} />
+                    <Redirect exact from="/" to="/trade" />
                     <Route render={() => <h1>Page Not Found</h1>} />
                   </Switch>
                 </Dashboard>

@@ -1,52 +1,46 @@
 import React from "react";
 
+function makeStockRows(stocks) {
+    return stocks.map((stock) => {
+        return (
+            <tr>
+              <td>1,001</td>
+              <td>Lorem</td>
+              <td>ipsum</td>
+              <td>dolor</td>
+              <td>sit</td>
+              <td>trade</td>
+            </tr>
+        );
+    });
+}
+
+
+const stocks = [1, 2, 3, 4, 5, 6];
+
+
+
 const Stocks = () => {
   return (
-    <nav className="col-sm-3 col-md-2 hidden-xs-down bg-faded sidebar">
+    <nav className="col-sm-4 col-md-4 hidden-xs-down bg-faded sidebar">
       <h1>Stocks</h1>
-      <ul className="nav nav-pills flex-column">
-        <li className="nav-item">
-          <a className="nav-link active" href="#">
-            Overview <span className="sr-only">(current)</span>
-          </a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Reports</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Analytics</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Export</a>
-        </li>
-      </ul>
-
-      <ul className="nav nav-pills flex-column">
-        <li className="nav-item">
-          <a className="nav-link" href="#">Nav item</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Nav item again</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">One more nav</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Another nav item</a>
-        </li>
-      </ul>
-
-      <ul className="nav nav-pills flex-column">
-        <li className="nav-item">
-          <a className="nav-link" href="#">Nav item again</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">One more nav</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Another nav item</a>
-        </li>
-      </ul>
+      <div className="table-responsive">
+        <table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>1D</th>
+              <th>7D</th>
+              <th>30D</th>
+              <th>Trade?</th>
+            </tr>
+          </thead>
+          <tbody>
+            {makeStockRows(stocks)}
+          </tbody>
+        </table>
+      </div>
     </nav>
   );
 };

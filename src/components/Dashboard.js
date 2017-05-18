@@ -1,9 +1,10 @@
 import React from "react";
 import Select from "./elements/Select";
+import { withRouter } from 'react-router-dom';
 
-const DropDown = () => {};
 
-const Dashboard = ({ children }) => {
+const Dashboard = ({ children, history }) => {
+    console.log("history obj", history);
   let options = [
     { value: "trade", text: "Trade" },
     { value: "transactions", text: "Transactions" },
@@ -11,9 +12,9 @@ const Dashboard = ({ children }) => {
   ];
   return (
     <div>
-      <Select options={options} />
+      <Select options={options} onChange={(e) => history.push(`/${e.target.value}`)}/>
       {children}
     </div>
   );
 };
-export default Dashboard;
+export default withRouter(Dashboard);
