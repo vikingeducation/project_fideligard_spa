@@ -1,8 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { getInitialStocks } from "../actions";
-import Table from "../components/table";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { getInitialStocks } from '../actions';
+import Table from '../components/table';
+import Filter from '../components/filter';
 
 class StockPriceWindowContainer extends Component {
   constructor() {
@@ -17,6 +18,7 @@ class StockPriceWindowContainer extends Component {
     const { results, isFetching } = this.props;
     return (
       <div>
+        <Filter />
         <Table results={results} isFetching={isFetching} />
       </div>
     );
