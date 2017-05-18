@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import Navbar from "../components/Navbar";
-import Dropdown from "../components/dropdown";
-import StockPriceWindowContainer from "../containers/StockPriceWindowContainer";
-import DatePickerContainer from "../containers/DatePickerContainer";
-import MainPanelContainer from "../containers/MainPanelContainer";
+import Navbar from '../components/Navbar';
+import Dropdown from '../components/dropdown';
+import StockPriceWindowContainer from '../containers/StockPriceWindowContainer';
+import DatePickerContainer from '../containers/DatePickerContainer';
+import MainPanelContainer from '../containers/MainPanelContainer';
 
 class App extends Component {
   render() {
@@ -18,6 +18,7 @@ class App extends Component {
           <StockPriceWindowContainer />
           <Switch>
             <Route exact path="/" render={() => <h1>Portfolio</h1>} />
+            <Route exact path="/portfolio" render={() => <h1>Portfolio</h1>} />
             <Route exact path="/trade" render={() => <h1>trade</h1>} />
             <Route
               exact

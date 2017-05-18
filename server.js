@@ -41,20 +41,60 @@ function parseJSON(response) {
 app.get('/api/quandl/:date', (req, res, next) => {
   console.log('Requesting stock data from QUANDL...');
   let date = req.params.date;
+
   //let date = req.body.date;
   //?date=20160912&qopts.per_page=100&qopts.columns=ticker,date,close&api_key=soaV8Boit143qWZAubE4
-  fetch(
-    `${baseUrl}?qopts.per_page=100&=qopts.columns=ticker,date,close&date=${date}&api_key=${QUANDL_API_KEY}`
-  )
-    .then(checkStatus)
-    .then(parseJSON)
-    .then(json => {
-      // Sends a json response from Express
-      res.json(json);
-    })
-    .catch(error => {
-      next(error);
-    });
+  let year = date.substring(0, 4);
+  let month = date.substring(4, 6);
+  let day = date.substring(6, 8);
+
+  //${baseUrl}?qopts.per_page=100&=qopts.columns=ticker,date,close&date=${date}&api_key=${QUANDL_API_KEY}
+  //`${baseUrl}?qopts.per_page=100&=qopts.columns=ticker,date,close&date.lt=${date}&date.gt=&api_key=${QUANDL_API_KEY}`;
+  let promises = [];
+
+  promises.push(
+    fetch(
+      `${baseUrl}?qopts.per_page=3&=qopts.columns=ticker,date,close&date=${date}&api_key=${QUANDL_API_KEY}`
+    )
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(json => {
+        return json;
+      })
+      .catch(error => {
+        next(error);
+      })
+  );
+
+  promises.push(
+    fetch(
+      `${baseUrl}?qopts.per_page=3&=qopts.columns=ticker,date,close&date=${date - 1}&api_key=${QUANDL_API_KEY}`
+    )
+      .then(checkStatus)
+      .then(parseJSON)
+      .then(json => {
+        return json;
+      })
+      .catch(error => {
+        next(error);
+      })
+  );
+
+  Promise.all(promises).then(results => {
+    res.json(results);
+  });
+  // fetch(
+  //   `${baseUrl}?qopts.per_page=3&=qopts.columns=ticker,date,close&date.lt=${date}&date.gt=${date - 30}&api_key=${QUANDL_API_KEY}`
+  // )
+  //   .then(checkStatus)
+  //   .then(parseJSON)
+  //   .then(json => {
+  //     // Sends a json response from Express
+  //     res.json(json);
+  //   })
+  //   .catch(error => {
+  //     next(error);
+  //   });
 });
 
 // Defines next action for errors
