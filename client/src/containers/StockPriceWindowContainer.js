@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
-import { getInitialStocks } from "../actions";
-import Table from "../components/table";
-import Filter from "../components/filter";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import { getInitialStocks } from '../actions';
+import Table from '../components/table';
+import Filter from '../components/filter';
 
 class StockPriceWindowContainer extends Component {
   constructor() {
@@ -15,14 +15,19 @@ class StockPriceWindowContainer extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    console.log("this is in will receive props", newProps);
-    if (newProps.searchTerm !== "") {
-      newProps.results = newProps.results.filter(stock => {
+    console.log('this is in will receive props', newProps);
+
+    let newResults = newProps.results;
+
+    if (newProps.searchTerm !== '') {
+      newResults = newResults.filter(stock => {
         return stock.ticker.includes(newProps.searchTerm);
       });
     }
+    console.log(newResults);
+
     this.setState({
-      results: newProps.results
+      filteredResults: newResults
     });
   }
 
@@ -46,7 +51,8 @@ const mapStateToProps = state => {
   return {
     results: state.results,
     isFetching: state.isFetching,
-    searchTerm: state.searchTerm
+    searchTerm: state.searchTerm,
+    filteredResults: state.filteredResults
   };
 };
 
@@ -54,7 +60,8 @@ const mapDispatchToProps = dispatch => {
   return {
     getInitialStocks: () => {
       dispatch(getInitialStocks());
-    }
+    },
+    updateResults: newResults => {}
   };
 };
 

@@ -1,4 +1,4 @@
-import * as Actions from "./actions";
+import * as Actions from './actions';
 
 const initialState = {
   stocks: [],
@@ -7,7 +7,7 @@ const initialState = {
   selectedDate: new Date(),
   results: [],
   filteredResults: [],
-  searchTerm: "",
+  searchTerm: '',
   isFetching: false,
   error: null
 };
@@ -31,6 +31,11 @@ export function stocksApp(state = initialState, action) {
         ...state,
         isFetching: false,
         error: action.error
+      };
+    case Actions.SET_SEARCH_TERM:
+      return {
+        ...state,
+        searchTerm: action.data
       };
     default:
       return {

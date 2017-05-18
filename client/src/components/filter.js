@@ -1,18 +1,22 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { setSearchTerm } from '../actions';
 
 class Filter extends Component {
   constructor() {
     super();
-    this.onChange = this.onChange.bind(this);
+    //this.onChange = this.onChange.bind(this);
   }
 
   onChange = e => {
     let searchTerm = e.target.value;
-    console.log(this.state);
-    this.setState({
-      searchTerm
-    });
-    console.log(this.state);
+
+    // this.setState({
+    //   searchTerm
+    // });
+    this.props.setSearchTerm(searchTerm);
+
+    console.log(this.props);
   };
 
   render() {
@@ -28,4 +32,18 @@ class Filter extends Component {
   }
 }
 
-export default Filter;
+const mapStateToProps = state => {
+  return {
+    searchTerm: state.searchTerm
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setSearchTerm: term => {
+      dispatch(setSearchTerm(term));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Filter);
