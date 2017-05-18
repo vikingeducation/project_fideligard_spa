@@ -21,12 +21,23 @@ function checkStatus(response) {
 app.get("/api/quandl/stocks/:date", (req, res, next) => {
     console.log("Getting stocks...");
     let date = moment(req.params.date);
-    let day_0 = date.format("YYYYMMDD");
-    let day_1 = date.subtract(1, "day").format("YYYYMMDD");
-    let day_7 = date.subtract(7, "day").format("YYYYMMDD");
-    let day_30 = date.subtract(30, "day").format("YYYYMMDD");
+    let day_0 = date;
+    let day_1 = date.subtract(1, "day");
+    let day_7 = date.subtract(7, "day");
+    let day_30 = date.subtract(30, "day");
 
-    let promiseArray = [day_0, day_1, day_7, day_30].map(date => {
+    let correctedDates = [day_0, day_1, day_7, day_30].map(date => {
+        console.log("date", date);
+        if (date.day() === 0) {
+            return date.subtract(2, "day").format("YYYYMMDD");
+        } else if (date.day() === 6) {
+            return date.subtract(1, "day").format("YYYYMMDD");
+        } else {
+            return date.format("YYYYMMDD");
+        }
+    });
+
+    let promiseArray = correctedDates.map(date => {
         return fetch(
             `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=${date}&api_key=${QUANDL_API_KEY}&qopts.columns=date,ticker,close&qopts.per_page=20`
         ).then(checkStatus);
@@ -38,7 +49,9 @@ app.get("/api/quandl/stocks/:date", (req, res, next) => {
         })
         .then(stocksArray => {
             if (!stocksArray[0].datatable.data.length) {
-                throw new Error("Quandl does not have info available on this day. Recommend trying a weekday");
+                throw new Error(
+                    "Quandl does not have info available on this day. Recommend trying a weekday"
+                );
             }
             // stock = {
             //     Day0Price: Number,
