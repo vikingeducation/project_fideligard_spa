@@ -4,6 +4,12 @@ import Input from "./elements/Input";
 import Select from "./elements/Select";
 import Button from "./elements/Button";
 import currencyFormatter from "currency-formatter";
+import { Prompt } from "react-router-dom";
+
+const ownedQuantity = (portfolio, symbol) => {
+  let stock = portfolio.find(port => port.symbol === symbol);
+  return stock.quantity;
+};
 
 const StocksDropdown = ({ stocks, trade, history }) => {
   let options = stocks.map(stock => {
@@ -13,9 +19,36 @@ const StocksDropdown = ({ stocks, trade, history }) => {
     <Select
       options={options}
       value={trade.symbol}
+      name="symbol"
       onChange={e => history.push(`/trade?symbol=${e.target.value}`)}
     />
   );
+};
+
+const OrderStatus = (trade, cash, portfolio, symbol) => {
+  console.log(trade.type);
+  if (cash < trade.quantity * trade.day_0 && trade.type === "buy") {
+    return (
+      <p>
+        <strong>ORDER STATUS: </strong>
+        <span className="invalid">You don't have enough money.</span>
+      </p>
+    );
+  } else if (
+    trade.type === "sell" &&
+    ownedQuantity(portfolio, symbol) < trade.quantity
+  ) {
+    return (
+      <p>
+        <strong>ORDER STATUS: </strong>
+        <span className="invalid">You don't have that many stocks.</span>
+      </p>
+    );
+  } else {
+    return (
+      <p><strong>ORDER STATUS: </strong><span className="valid">Valid</span></p>
+    );
+  }
 };
 
 const Trade = ({
@@ -24,22 +57,29 @@ const Trade = ({
   changeQuantity,
   changeDate,
   stocks,
-  history
+  history,
+  onSubmit,
+  cash,
+  transactions,
+  changeType,
+  portfolio
 }) => {
   return (
     <div className="border">
       <h2>Trade</h2>
       <div className="row">
-        <form className="col">
+        <form className="col" onSubmit={onSubmit(cash)}>
           <InputGroup name="symbol" labelText="Symbol">
             <StocksDropdown stocks={stocks} trade={trade} history={history} />
           </InputGroup>
-          <InputGroup name="buyOrSell" labelText="Buy/Sell">
+          <InputGroup name="type" labelText="Buy/Sell">
             <Select
               options={[
                 { value: "buy", text: "Buy" },
                 { value: "sell", text: "Sell" }
               ]}
+              name="type"
+              onChange={changeType}
             />
           </InputGroup>
           <InputGroup name="quantity" labelText="Quantity">
@@ -76,17 +116,25 @@ const Trade = ({
               disabled
             />
           </InputGroup>
+          <Prompt
+            when={trade.quantity > 1}
+            message="Are you sure you want to continue?"
+          />
           <Button color="primary" type="submit">
             Place Order!
           </Button>
+
         </form>
 
         <div className="col padding">
+          {trade.type === "sell"
+            ? <p>You have: {ownedQuantity(portfolio, trade.symbol)}</p>
+            : null}
           <p>
             <strong>Cash available: </strong>
-            {currencyFormatter.format(1000, { code: "USD" })}
+            {currencyFormatter.format(cash, { code: "USD" })}
           </p>
-          <p><strong>ORDER STATUS: </strong>Valid</p>
+          {OrderStatus(trade, cash, portfolio, trade.symbol)}
         </div>
       </div>
     </div>

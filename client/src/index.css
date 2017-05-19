@@ -7,12 +7,19 @@ body {
   padding-top: 50px;
 }
 
+.invalid {
+  color: red;
+}
+.valid {
+  color: green;
+}
 /*
  * Typography
  */
 
 h1 {
   margin-bottom: 20px;
+  
   padding-bottom: 9px;
   border-bottom: 1px solid #eee;
 }

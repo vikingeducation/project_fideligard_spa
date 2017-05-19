@@ -6,7 +6,7 @@ const moment = require("moment");
 
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
 
-app.set("port", 8081 || process.env.PORT || 3001);
+app.set("port", 8081 || process.env.PORT);
 
 function checkStatus(response) {
     // If response not okay, throw an error
@@ -27,7 +27,6 @@ app.get("/api/quandl/stocks/:date", (req, res, next) => {
     let day_30 = date.clone().subtract(30, "day");
 
     let correctedDates = [day_0, day_1, day_7, day_30].map(date => {
-        console.log("date", date);
         if (date.day() === 0) {
             return date.subtract(2, "day").format("YYYYMMDD");
         } else if (date.day() === 6) {

@@ -8,10 +8,11 @@ import {
 import Navbar from "./Navbar";
 import StocksContainer from "../containers/StocksContainer";
 import Dashboard from "./Dashboard";
-import Transactions from "./Transactions";
+import TransactionsContainer from "../containers/TransactionsContainer";
 import TradeContainer from "../containers/TradeContainer";
-import Portfolio from "./Portfolio";
+import PortfolioContainer from "../containers/PortfolioContainer";
 import DateSliderContainer from "../containers/DateSliderContainer";
+import SuccessTrade from "./SuccessTrade";
 
 class App extends Component {
   render() {
@@ -27,8 +28,16 @@ class App extends Component {
                 <DateSliderContainer />
                 <Dashboard>
                   <Switch>
-                    <Route path="/transactions" component={Transactions} />
-                    <Route path="/portfolio" component={Portfolio} />
+                    <Route
+                      path="/transactions"
+                      component={TransactionsContainer}
+                    />
+                    <Route path="/portfolio" component={PortfolioContainer} />
+                    <Route
+                      exact
+                      path="/trade/success"
+                      component={SuccessTrade}
+                    />
                     <Route path="/trade" component={TradeContainer} />
                     <Redirect exact from="/trade" to="/trade?symbol=A" />
                     <Route

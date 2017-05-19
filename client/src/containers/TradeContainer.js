@@ -3,8 +3,15 @@ import { connect } from "react-redux";
 import Trade from "../components/Trade";
 import parse from "url-parse";
 import serialize from "form-serialize";
-import { selectTrade, changeQuantity } from "../actions/tradeAction";
+import {
+  selectTrade,
+  changeQuantity,
+  changeType,
+  removeTrade
+} from "../actions/tradeAction";
 import { changeDate } from "../actions/dateAction";
+import { changeCash } from "../actions/cashAction";
+import { makeTransaction } from "../actions/transactionsAction";
 
 class TradeContainer extends Component {
   componentDidMount() {
@@ -32,11 +39,14 @@ const mapStateToProps = state => {
   return {
     date: state.date,
     stocks: state.stocks.data,
-    trade: state.trade
+    trade: state.trade,
+    cash: state.cash,
+    transactions: state.transactions,
+    portfolio: state.portfolio
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     selectTrade: (stocks, symbol) => {
       let trade = stocks.find(stock => stock.symbol === symbol);
@@ -47,6 +57,31 @@ const mapDispatchToProps = dispatch => {
     },
     changeDate: e => {
       dispatch(changeDate(e.target.value));
+    },
+    changeType: e => {
+      dispatch(changeType(e.target.value));
+    },
+    onSubmit: cash => e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = serialize(form, { hash: true, disabled: true });
+      let adjustedData = {
+        date: data.date,
+        symbol: data.symbol,
+        type: data.type,
+        quantity: +data.quantity,
+        price: +data.price.slice(1)
+      };
+      if (cash >= +data.cost.slice(1)) {
+        let totalCost = data.type === "buy"
+          ? +data.cost.slice(1)
+          : -data.cost.slice(1);
+        dispatch(changeCash(totalCost));
+        dispatch(makeTransaction(adjustedData));
+        dispatch(removeTrade());
+
+        ownProps.history.push(`/trade/success`);
+      }
     }
   };
 };

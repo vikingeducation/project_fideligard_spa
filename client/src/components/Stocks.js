@@ -47,27 +47,28 @@ const Stocks = ({ stocks, date, setStocksFilter, isFetching }) => {
 
       <h1>Stocks</h1>
       <p>Date: {date}</p>
-      <Filter onChange={setStocksFilter} />
-      <div className="table-responsive">
-        {isFetching ? <Spinner /> : null}
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>Symbol</th>
-              <th>Price</th>
-              <th>1D</th>
-              <th>7D</th>
-              <th>30D</th>
-              <th>Trade?</th>
-            </tr>
-          </thead>
+      <Filter name="searchStocks" onChange={setStocksFilter} />
+      {isFetching
+        ? <Spinner />
+        : <div className="table-responsive">
+            <table className="table table-striped">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Price</th>
+                  <th>1D</th>
+                  <th>7D</th>
+                  <th>30D</th>
+                  <th>Trade?</th>
+                </tr>
+              </thead>
 
-          <tbody>
-            {stocks.length && !isFetching ? makeStockRows(stocks) : null}
+              <tbody>
+                {stocks.length ? makeStockRows(stocks) : null}
 
-          </tbody>
-        </table>
-      </div>
+              </tbody>
+            </table>
+          </div>}
     </nav>
   );
 };

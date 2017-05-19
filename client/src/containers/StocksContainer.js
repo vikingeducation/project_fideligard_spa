@@ -27,7 +27,9 @@ function mapStateToProps(state) {
   return {
     stocks: filterStocks(state.stocks.data, state.stocks.filter),
     isFetching: state.stocks.isFetching,
-    date: state.date
+    date: state.date,
+    transactions: state.transactions,
+    allStocks: state.stocks.data
   };
 }
 

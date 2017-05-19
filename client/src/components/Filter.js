@@ -2,10 +2,10 @@ import React from "react";
 import InputGroup from "./elements/InputGroup";
 import Input from "./elements/Input";
 
-const Filter = ({ onChange }) => {
+const Filter = ({ name, onChange, onKeyUp }) => {
   return (
     <InputGroup>
-      <Input name="searchStock" onChange={onChange} />
+      <Input name={name} onChange={onChange} onKeyUp={onKeyUp} />
     </InputGroup>
   );
 };

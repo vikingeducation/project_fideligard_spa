@@ -1,17 +1,3 @@
-// stock = {
-//     Day0Price: Number,
-//     Day1Price: Number,
-//     Day7Price: Number,
-//     Day30Price: Number,
-//     Symbol: ""
-// }
-
-// stocks = {
-//     date: "",
-//     stocks: [],
-//     error: null,
-//     isFetching: false
-// };
 import {
     FETCH_STOCKS_SUCCESS,
     FETCH_STOCKS_REQUEST,

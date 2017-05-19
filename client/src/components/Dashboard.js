@@ -3,7 +3,6 @@ import Select from "./elements/Select";
 import { withRouter } from "react-router-dom";
 
 const Dashboard = ({ children, history }) => {
-  console.log("history", history);
   let options = [
     { value: "", text: "Select Action" },
     { value: "trade", text: "Trade" },
@@ -14,7 +13,13 @@ const Dashboard = ({ children, history }) => {
     <div>
       <Select
         options={options}
-        onChange={e => history.push(`/${e.target.value}`)}
+        onChange={e => {
+          if (e.target.value === "trade") {
+            return history.push(`/${e.target.value}?symbol=A`);
+          } else {
+            return history.push(`/${e.target.value}`);
+          }
+        }}
         value={history.location.pathname.slice(1)}
       />
       {children}
