@@ -1,7 +1,7 @@
 import React from "react";
 // import { InputGroup, Input } from "reactstrap";
 
-const DateSlider = ({changeDate}) => {
+const DateSlider = ({ changeDate }) => {
   return (
     <div className="form-group">
       <input

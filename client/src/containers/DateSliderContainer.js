@@ -1,16 +1,14 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
-import DateSlider from '../components/DateSlider';
-import {changeDate} from '../actions/dateAction';
+import { connect } from "react-redux";
+import DateSlider from "../components/DateSlider";
+import { changeDate } from "../actions/dateAction";
 
 function mapDispatchToProps(dispatch) {
-    return {
-        changeDate: (e) => {
-            dispatch(changeDate(e.target.value));
-        }
-    };
+  return {
+    changeDate: e => {
+      dispatch(changeDate(e.target.value));
+    }
+  };
 }
-
 
 const DateSliderContainer = connect(null, mapDispatchToProps)(DateSlider);
 export default DateSliderContainer;

@@ -3,13 +3,11 @@ import ReactDOM from "react-dom";
 import App from "./components/App";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import { date } from "./reducers/dateReducer";
+import { createStore, applyMiddleware } from "redux";
+import { stockAppReducer } from "./reducers/index";
 import { Provider } from "react-redux";
-import { stocks } from "./reducers/stocksReducer";
-import thunk from "redux-thunk";
 
-let stockAppReducer = combineReducers({ date, stocks });
+import thunk from "redux-thunk";
 
 let store = createStore(stockAppReducer, applyMiddleware(thunk));
 let unsubscribe = store.subscribe(() => {

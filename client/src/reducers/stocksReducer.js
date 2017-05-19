@@ -15,13 +15,15 @@
 import {
     FETCH_STOCKS_SUCCESS,
     FETCH_STOCKS_REQUEST,
-    FETCH_STOCKS_FAILURE
+    FETCH_STOCKS_FAILURE,
+    SET_STOCKS_FILTER
 } from "../actions/stocksAction";
 
 const initialState = {
     data: [],
     error: null,
-    isFetching: false
+    isFetching: false,
+    filter: ""
 };
 
 export function stocks(state = initialState, action) {
@@ -43,6 +45,11 @@ export function stocks(state = initialState, action) {
                 ...state,
                 isFetching: false,
                 data: action.data.stocks
+            };
+        case SET_STOCKS_FILTER:
+            return {
+                ...state,
+                filter: action.data
             };
         default:
             return state;

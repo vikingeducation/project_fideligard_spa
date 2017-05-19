@@ -9,7 +9,7 @@ import Navbar from "./Navbar";
 import StocksContainer from "../containers/StocksContainer";
 import Dashboard from "./Dashboard";
 import Transactions from "./Transactions";
-import Trade from "./Trade";
+import TradeContainer from "../containers/TradeContainer";
 import Portfolio from "./Portfolio";
 import DateSliderContainer from "../containers/DateSliderContainer";
 
@@ -29,8 +29,13 @@ class App extends Component {
                   <Switch>
                     <Route path="/transactions" component={Transactions} />
                     <Route path="/portfolio" component={Portfolio} />
-                    <Route path="/trade" component={Trade} />
-                    <Redirect exact from="/" to="/trade" />
+                    <Route path="/trade" component={TradeContainer} />
+                    <Redirect exact from="/trade" to="/trade?symbol=A" />
+                    <Route
+                      exact
+                      path="/"
+                      render={() => <p>Select an Action</p>}
+                    />
                     <Route render={() => <h1>Page Not Found</h1>} />
                   </Switch>
                 </Dashboard>
