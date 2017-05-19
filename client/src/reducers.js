@@ -4,7 +4,7 @@ const initialState = {
   stocks: [],
   money: 10000,
   transactions: [],
-  selectedDate: new Date(),
+  selectedDate: 20160129,
   selectedStock: {},
   quantity: 0,
   results: [],
@@ -60,9 +60,83 @@ export function stocksApp(state = initialState, action) {
         ...state,
         quantity: action.data
       };
+    case Actions.BUY_STOCK:
+      return {
+        ...state,
+        money: state.money -
+          action.data.quantity * action.data.stock.currentPrice,
+        stocks: stockListUpdate(state, action.data),
+        transactions: [
+          ...state.transactions,
+          {
+            date: state.selectedDate,
+            quantity: action.data.quantity,
+            stock: action.data.stock,
+            type: "buy"
+          }
+        ],
+        selectedStock: {},
+        quantity: 0
+      };
+    case Actions.SELL_STOCK:
+      return {
+        ...state,
+        money: state.money +
+          action.data.quantity * action.data.stock.currentPrice,
+        stocks: stockSellUpdate(state, action.data),
+        transactions: [
+          ...state.transactions,
+          {
+            date: state.selectedDate,
+            quantity: action.data.quantity,
+            stock: action.data.stock,
+            type: "sell"
+          }
+        ],
+        selectedStock: {},
+        quantity: 0
+      };
     default:
       return {
         ...state
       };
   }
+}
+
+function stockSellUpdate(state, data) {
+  let newStocks = state.stocks.map(stock => {
+    if (stock.ticker === data.stock.ticker) {
+      stock.quantity -= data.stock.quantity;
+    }
+    return stock;
+  });
+  return newStocks;
+}
+
+function stockListUpdate(state, data) {
+  let found = false;
+  let newStocks;
+  state.stocks.forEach(stock => {
+    if (stock.ticker === data.stock.ticker) {
+      found = true;
+    }
+  });
+
+  if (found) {
+    newStocks = state.stocks.map(stock => {
+      if (stock.ticker === data.stock.ticker) {
+        stock.quantity += data.quantity;
+      }
+      return stock;
+    });
+  } else {
+    newStocks = [
+      ...state.stocks,
+      {
+        ticker: data.stock.ticker,
+        quantity: data.quantity
+      }
+    ];
+  }
+  return newStocks;
 }

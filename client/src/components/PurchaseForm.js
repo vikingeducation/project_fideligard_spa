@@ -22,7 +22,6 @@ class PurchaseForm extends Component {
     } else {
       this.props.selectStock({});
     }
-    console.log(selected);
   };
 
   onQuantChange = e => {
@@ -38,14 +37,13 @@ class PurchaseForm extends Component {
   onSubmit = e => {
     e.preventDefault();
     const data = {};
-    data.stock = this.selectedStock;
+    data.stock = this.props.selectedStock;
     data.quantity = this.props.quantity;
     if (e.target.type.value === "buy") {
       this.props.buyStock(data);
-    } else {
+    } else if (this.checkForSale(data)) {
       this.props.sellStock(data);
     }
-    console.log(e.target.type.value);
   };
 
   calcTotalCost = () => {
@@ -54,6 +52,24 @@ class PurchaseForm extends Component {
       return (price * this.props.quantity).toFixed(2);
     }
     return 0;
+  };
+
+  checkForSale = data => {
+    let sale = false;
+    console.log("data", data.stock.ticker);
+    console.log("props", this.props.stocks[0].ticker);
+    console.log("data", data.quantity);
+    console.log("props", this.props.stocks[0].quantity);
+    this.props.stocks.forEach(stock => {
+      if (
+        stock.ticker === data.stock.ticker &&
+        stock.quantity >= data.quantity
+      ) {
+        sale = true;
+      }
+    });
+    console.log(sale);
+    return sale;
   };
 
   render() {
@@ -103,7 +119,8 @@ const mapStateToProps = state => {
   return {
     results: state.results,
     selectedStock: state.selectedStock,
-    quantity: state.quantity
+    quantity: state.quantity,
+    stocks: state.stocks
   };
 };
 

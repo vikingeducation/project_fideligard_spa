@@ -31,7 +31,7 @@ class TransactionContainer extends Component {
         <MainPanelContainer />
         <Filter />
         <div className="row">
-          <TransactionTable />
+          <TransactionTable transactions={this.props.transactions} />
         </div>
 
       </div>
@@ -44,7 +44,8 @@ const mapStateToProps = state => {
     money: state.money,
     results: state.results,
     searchTerm: state.searchTerm,
-    filteredResults: state.filteredResults
+    filteredResults: state.filteredResults,
+    transactions: state.transactions
   };
 };
 

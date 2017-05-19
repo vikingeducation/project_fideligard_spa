@@ -94,6 +94,7 @@ export function sellStock(data) {
   };
 }
 export function buyStock(data) {
+  console.log(data);
   return {
     type: BUY_STOCK,
     data
