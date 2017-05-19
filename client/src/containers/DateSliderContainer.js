@@ -10,5 +10,13 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const DateSliderContainer = connect(null, mapDispatchToProps)(DateSlider);
+function mapStateToProps(state) {
+  return {
+    date: state.date
+  };
+}
+
+const DateSliderContainer = connect(mapStateToProps, mapDispatchToProps)(
+  DateSlider
+);
 export default DateSliderContainer;

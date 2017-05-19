@@ -3,7 +3,7 @@ import Select from "./elements/Select";
 import { withRouter } from "react-router-dom";
 
 const Dashboard = ({ children, history }) => {
-  console.log("history obj", history);
+  console.log("history", history);
   let options = [
     { value: "", text: "Select Action" },
     { value: "trade", text: "Trade" },
@@ -15,6 +15,7 @@ const Dashboard = ({ children, history }) => {
       <Select
         options={options}
         onChange={e => history.push(`/${e.target.value}`)}
+        value={history.location.pathname.slice(1)}
       />
       {children}
     </div>

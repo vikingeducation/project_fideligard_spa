@@ -4,6 +4,7 @@ import Trade from "../components/Trade";
 import parse from "url-parse";
 import serialize from "form-serialize";
 import { selectTrade, changeQuantity } from "../actions/tradeAction";
+import { changeDate } from "../actions/dateAction";
 
 class TradeContainer extends Component {
   componentDidMount() {
@@ -43,6 +44,9 @@ const mapDispatchToProps = dispatch => {
     },
     changeQuantity: e => {
       dispatch(changeQuantity(+e.target.value));
+    },
+    changeDate: e => {
+      dispatch(changeDate(e.target.value));
     }
   };
 };
