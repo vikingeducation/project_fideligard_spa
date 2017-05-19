@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Table = ({ results, isFetching, searchTerm }) => {
   if (isFetching) {
@@ -9,25 +10,25 @@ const Table = ({ results, isFetching, searchTerm }) => {
     return (
       <tr key={stock.ticker}>
         <td>{stock.ticker}</td>
-        <td>{stock.currentPrice}</td>
-        <td>{(stock.currentPrice - stock.price1).toFixed(2)}</td>
-        <td>{(stock.currentPrice - stock.price7).toFixed(2)}</td>
-        <td>{(stock.currentPrice - stock.price30).toFixed(2)}</td>
-        <td>trade</td>
+        <td>${stock.currentPrice}</td>
+        <td>${(stock.currentPrice - stock.price1).toFixed(2)}</td>
+        <td>${(stock.currentPrice - stock.price7).toFixed(2)}</td>
+        <td>${(stock.currentPrice - stock.price30).toFixed(2)}</td>
+        <td><Link to="/trade">trade</Link></td>
       </tr>
     );
   });
 
   return (
-    <div className="col-sm-4">
-      <table>
+    <div className="well">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>ticker</th>
             <th>today</th>
-            <th>-1</th>
-            <th>-7</th>
-            <th>-30 </th>
+            <th>1d</th>
+            <th>7d</th>
+            <th>30d</th>
           </tr>
         </thead>
         <tbody>

@@ -1,43 +1,36 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { getInitialStocks } from '../actions';
-import Table from '../components/table';
-import Filter from '../components/filter';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { getInitialStocks, updateResults } from "../actions";
+import Table from "../components/table";
+import Filter from "../components/filter";
 
 class StockPriceWindowContainer extends Component {
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
 
   componentDidMount() {
     this.props.getInitialStocks();
   }
 
   componentWillReceiveProps(newProps) {
-    console.log('this is in will receive props', newProps);
-
     let newResults = newProps.results;
 
-    if (newProps.searchTerm !== '') {
+    if (newProps.searchTerm !== "") {
       newResults = newResults.filter(stock => {
         return stock.ticker.includes(newProps.searchTerm);
       });
+      this.props.updateResults(newResults);
     }
-    console.log(newResults);
-
-    this.setState({
-      filteredResults: newResults
-    });
   }
 
   render() {
-    const { results, isFetching, searchTerm } = this.props;
+    const { filteredResults, isFetching, searchTerm } = this.props;
     return (
-      <div>
+      <div className="col-sm-6">
         <Filter />
         <Table
-          results={results}
+          results={filteredResults}
           isFetching={isFetching}
           searchTerm={searchTerm}
         />
@@ -47,7 +40,6 @@ class StockPriceWindowContainer extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state);
   return {
     results: state.results,
     isFetching: state.isFetching,
@@ -61,7 +53,9 @@ const mapDispatchToProps = dispatch => {
     getInitialStocks: () => {
       dispatch(getInitialStocks());
     },
-    updateResults: newResults => {}
+    updateResults: newResults => {
+      dispatch(updateResults(newResults));
+    }
   };
 };
 

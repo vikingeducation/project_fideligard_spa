@@ -1,7 +1,4 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Link } from 'react-router-dom';
-import { MenuItem, DropdownButton } from 'react-bootstrap';
+import React from "react";
 
 const dropdown = ({ onChange }) => {
   return (

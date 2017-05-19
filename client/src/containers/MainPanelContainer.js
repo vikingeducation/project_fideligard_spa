@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import Dropdown from "../components/dropdown";
 
 class MainPanelContainer extends Component {
@@ -10,7 +9,7 @@ class MainPanelContainer extends Component {
   }
   onChange = e => {
     let page = e.target.value;
-    if (page != "select") {
+    if (page !== "select") {
       this.props.history.push(page);
     }
   };

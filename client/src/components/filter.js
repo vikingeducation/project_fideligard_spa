@@ -1,22 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { setSearchTerm } from '../actions';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { setSearchTerm } from "../actions";
 
 class Filter extends Component {
   constructor() {
     super();
-    //this.onChange = this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   onChange = e => {
     let searchTerm = e.target.value;
 
-    // this.setState({
-    //   searchTerm
-    // });
     this.props.setSearchTerm(searchTerm);
 
-    console.log(this.props);
+    console.log("this is props for filter", this.props);
   };
 
   render() {
