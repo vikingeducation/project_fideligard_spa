@@ -10,7 +10,7 @@ You can clone it and test it on your machine! You have to have the server (run n
 ## Built With
 
 * [QuandlAPI](https://blog.quandl.com/) - API to get historical stock data
-* [React] - front-end framework to build single-page app
+* [React] - front-end library to build single-page app
 * [Node, Express] - back-end
 * [Bootstrap] - styling
 
