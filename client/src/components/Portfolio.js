@@ -1,7 +1,6 @@
 import React from "react";
 import currencyFormatter from "currency-formatter";
 import { Link } from "react-router-dom";
-import { getTotals } from "../helpers";
 
 const portfolioTransactionsList = portfolio => {
   return portfolio.map(transaction => {
@@ -51,7 +50,6 @@ const portfolioTransactionsList = portfolio => {
 };
 
 const Portfolio = ({ portfolio, cash }) => {
-  const totals = getTotals(portfolio);
   return (
     <div className="border">
       <h2>Portfolio</h2>

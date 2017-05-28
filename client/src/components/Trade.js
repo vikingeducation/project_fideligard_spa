@@ -95,7 +95,7 @@ const Trade = ({
               name="date"
               type="date"
               min="2017-05-01"
-              max="2017-05-18"
+              max="2017-05-27"
               value={date}
               onChange={changeDate}
             />

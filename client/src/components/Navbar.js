@@ -5,7 +5,9 @@ const Navbar = () => {
   return (
     <nav className="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
 
-      <Link className="navbar-brand" to={"/"}>Rideligard Stocks</Link>
+      <Link className="navbar-brand" to={"/"}>
+        Fideligard Historical Portfolio Simulator
+      </Link>
 
     </nav>
   );

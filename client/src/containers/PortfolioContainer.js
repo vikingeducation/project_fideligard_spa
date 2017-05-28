@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Portfolio from "../components/Portfolio";
-import { modifyPortfolio } from "../actions/portfolioAction";
 import { getPortfolio } from "../helpers";
 
 class PortfolioContainer extends Component {

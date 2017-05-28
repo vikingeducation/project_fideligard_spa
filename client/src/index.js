@@ -10,9 +10,6 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 
 let store = createStore(stockAppReducer, applyMiddleware(thunk));
-let unsubscribe = store.subscribe(() => {
-  console.log("state", store.getState());
-});
 
 ReactDOM.render(
   <Provider store={store}><App /></Provider>,
