@@ -1,3 +1,4 @@
+https://fideligard-stocks.herokuapp.com/
 # Fideligard Historical Portfolio Simulator
 
 A tool which allows to test the performance of historical portfolios of stocks.
@@ -15,6 +16,9 @@ You can clone it and test it on your machine! You have to have the server (run n
 * [Node, Express] - back-end
 * [Bootstrap] - styling
 
+## Deployment
+https://fideligard-stocks.herokuapp.com/ - front-end React app
+https://fideligard-server.herokuapp.com/ - server
 
 ## Authors
 
