@@ -1,12 +1,14 @@
 require("isomorphic-fetch");
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 const express = require("express");
 const app = express();
 const moment = require("moment");
 
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
 
-app.set("port", 8081 || process.env.PORT);
+app.set("port", process.env.PORT || 8081);
 
 function checkStatus(response) {
     // If response not okay, throw an error
