@@ -2,7 +2,7 @@
   "name": "project_fideligard_spa",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8081",
+  "proxy": "https://fideligard-server.herokuapp.com/",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "currency-formatter": "^1.2.1",
