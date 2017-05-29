@@ -27,10 +27,16 @@ export function fetchStocksRequest() {
 
 export function fetchStocks(date) {
   date = date ? date : moment().subtract(1, "day").format("YYYYMMDD");
+  let header = new Headers({
+    "Access-Control-Allow-Origin": "*"
+  });
   return dispatch => {
     dispatch(fetchStocksRequest());
 
-    fetch(`api/quandl/stocks/${date}`)
+    fetch(
+      `https://fideligard-server.herokuapp.com/api/quandl/stocks/${date}`,
+      header
+    )
       .then(checkStatus)
       .then(json => {
         dispatch(fetchStocksSuccess(json));

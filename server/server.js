@@ -5,10 +5,29 @@ if (process.env.NODE_ENV !== "production") {
 const express = require("express");
 const app = express();
 const moment = require("moment");
+const cors = require("cors");
 
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
 
 app.set("port", process.env.PORT || 8081);
+
+//---------------------------------------
+//Set response headers for CORS
+//---------------------------------------
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Methods",
+        "GET, POST, PUT, DELETE, OPTIONS"
+    );
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization, Access-Control-Allow-Credentials"
+    );
+    res.header("Access-Control-Allow-Credentials", "true");
+    next();
+});
+app.use(cors());
 
 function checkStatus(response) {
     // If response not okay, throw an error

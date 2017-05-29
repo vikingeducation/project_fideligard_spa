@@ -5,6 +5,9 @@ import Select from "./elements/Select";
 import Button from "./elements/Button";
 import currencyFormatter from "currency-formatter";
 import { Prompt } from "react-router-dom";
+import moment from "moment";
+
+let dateMax = moment().subtract(1, "day").format("YYYY-MM-DD");
 
 const ownedQuantity = (portfolio, symbol) => {
   let stock = portfolio.find(port => port.symbol === symbol);
@@ -26,7 +29,6 @@ const StocksDropdown = ({ stocks, trade, history }) => {
 };
 
 const OrderStatus = (trade, cash, portfolio, symbol) => {
-  console.log(trade.type);
   if (cash < trade.quantity * trade.day_0 && trade.type === "buy") {
     return (
       <p>
@@ -95,7 +97,7 @@ const Trade = ({
               name="date"
               type="date"
               min="2017-05-01"
-              max="2017-05-27"
+              max={dateMax}
               value={date}
               onChange={changeDate}
             />

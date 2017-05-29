@@ -1,4 +1,7 @@
 import React from "react";
+import moment from "moment";
+
+let dateMax = moment().subtract(1, "day").format("YYYY-MM-DD");
 
 const DateSlider = ({ changeDate, date }) => {
   return (
@@ -8,7 +11,7 @@ const DateSlider = ({ changeDate, date }) => {
         className="form-control"
         type="date"
         min="2017-05-01"
-        max="2017-05-27"
+        max={dateMax}
         value={date}
       />
     </div>
