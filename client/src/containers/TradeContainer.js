@@ -12,6 +12,7 @@ import {
 import { changeDate } from "../actions/dateAction";
 import { changeCash } from "../actions/cashAction";
 import { makeTransaction } from "../actions/transactionsAction";
+import { getPortfolio } from "../helpers";
 
 class TradeContainer extends Component {
   componentDidMount() {
@@ -42,7 +43,7 @@ const mapStateToProps = state => {
     trade: state.trade,
     cash: state.cash,
     transactions: state.transactions,
-    portfolio: state.portfolio
+    portfolio: getPortfolio(state.transactions, state.date, state.stocks.data)
   };
 };
 

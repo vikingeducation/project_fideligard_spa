@@ -47,7 +47,11 @@ const Stocks = ({ stocks, date, setStocksFilter, isFetching }) => {
 
       <h1>Stocks</h1>
       <p>Date: {date}</p>
-      <Filter name="searchStocks" onChange={setStocksFilter} />
+      <Filter
+        name="searchStocks"
+        onChange={setStocksFilter}
+        placeholder="Filter"
+      />
       {isFetching
         ? <Spinner />
         : <div className="table-responsive">

@@ -20,7 +20,11 @@ const Transactions = ({ transactions, onKeyUp }) => {
   return (
     <div className="border">
       <h2>Transactions</h2>
-      <Filter onKeyUp={onKeyUp} name="searchTransactions" />
+      <Filter
+        onKeyUp={onKeyUp}
+        name="searchTransactions"
+        placeholder="Filter by date or by symbol. Press enter to proceed"
+      />
       <div className="table-responsive">
         <table className="table table-striped">
           <thead>
