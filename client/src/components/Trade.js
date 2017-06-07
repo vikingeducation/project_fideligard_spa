@@ -11,7 +11,7 @@ let dateMax = moment().subtract(1, "day").format("YYYY-MM-DD");
 
 const ownedQuantity = (portfolio, symbol) => {
   let stock = portfolio.find(port => port.symbol === symbol);
-  return stock.quantity;
+  return stock ? stock.quantity : 0;
 };
 
 const StocksDropdown = ({ stocks, trade, history }) => {

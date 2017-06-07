@@ -8,7 +8,8 @@ import {
 export function trade(state = {}, action) {
   switch (action.type) {
     case SELECT_TRADE:
-      return { ...action.data, type: "buy", quantity: 1 } || state;
+      let type = state.type ? state.type : "buy";
+      return { ...action.data, type, quantity: 1 } || state;
     case CHANGE_QUANTITY:
       return {
         ...state,
