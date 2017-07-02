@@ -7,16 +7,21 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux'
 import registerServiceWorker from './registerServiceWorker';
-import { getYesterday } from './helpers/dates'
+import { getDaysAgo } from './helpers/dates'
 import fideligard from './reducers/fideligard'
+import { stock } from './data/stocks'
 
-const yesterday = getYesterday()
+const yesterday = getDaysAgo(new Date(), 1)
 
 const preloadedState = {
   dates: {
     current: yesterday,
     max: yesterday,
     min: '1999-01-01'
+  },
+  stocks: {
+    prices: stock,
+    order: 1
   }
 }
 
