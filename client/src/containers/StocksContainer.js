@@ -5,13 +5,9 @@ import { getStockPrices, setFilter, sortSymbols } from '../actions/stocks'
 
 
 function filterSymbols(symbols, filter) {
-  let matched = []
-  for (let sym in symbols) {
-    if (sym.indexOf(filter.toUpperCase()) > -1) {
-      matched.push(sym)
-    }
-  }
-  return matched
+  return symbols.filter((symbol) => {
+    return symbol.indexOf(filter.toUpperCase()) > -1
+  })
 }
 
 
