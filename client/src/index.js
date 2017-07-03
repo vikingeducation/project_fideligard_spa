@@ -25,7 +25,7 @@ const preloadedState = {
     symbols: Object.keys(stock),
   },
   trade: {
-    quantity: 1
+    quantity: 0
   },
   account: {
     balance: 1000

@@ -2,6 +2,12 @@ import * as Actions from '../actions/account'
 
 export function account(state = {}, action) {
   switch (action.type) {
-    default: return state
+    case Actions.UPDATE_BALANCE:
+      return {
+        ...state,
+        balance: state.balance + action.data
+      }
+    default:
+      return state
   }
 }

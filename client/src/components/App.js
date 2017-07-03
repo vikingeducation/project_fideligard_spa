@@ -27,7 +27,6 @@ class App extends Component {
       <Route exact path="/trade/success" component={SuccessContainer} />
       <Redirect exact from='/' to='/trade' />
       <Route exact path="/trade" component={TradeContainer} />
-
     </Switch>
       </div>
       </div>

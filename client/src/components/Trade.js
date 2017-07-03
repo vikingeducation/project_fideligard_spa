@@ -4,17 +4,15 @@ import Form from './Form'
 import Select from './elements/Select'
 import InputGroup from './elements/InputGroup'
 import Input from './elements/Input'
+import { Prompt } from 'react-router-dom'
 
 
 const Trade = (props) => {
 
-  let { onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance } = props
-  // symbols = symbols
-  // let symbolOptions = symbols.map((symbol) => {
-  //   return <option value={symbol} key={symbol}>{symbol}</option>
-  // })
+  let { onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate } = props
 
-  const cost = (price * quantity).toFixed(2)
+
+  const cost = (price && quantity) ? (price * quantity).toFixed(2) : ''
 
 
   return (
@@ -25,7 +23,7 @@ const Trade = (props) => {
     <div className="col-md-6">
      <Form onSubmit={onSubmit}>
      <InputGroup name="symbol" text="Symbol">
-     <Select value={stock} className="form-control" onChange={updateSymbol} name="symbol" options={symbols} />
+     <Select value={stock} className="form-control" onChange={ updateSymbol} name="symbol" options={symbols} />
      </InputGroup>
       <InputGroup name="type" text="Buy/Sell">
       <Select name="type">
@@ -36,8 +34,8 @@ const Trade = (props) => {
       <InputGroup name="quantity" text="Quantity">
       <Input type="quantity" min="1" className="form-control" name="quantity" onChange={updateQuantity} value={quantity}/>
       </InputGroup>
-      <InputGroup name="date" text="date">
-         <Input type="date" min={minDate} max={maxDate} className="form-control" name="date" value={currentDate}/>
+      <InputGroup name="date" text="Date">
+         <Input type="date" min={minDate} max={maxDate} className="form-control" name="date" value={currentDate} onChange={updateCurrentDate}/>
       </InputGroup>
       <InputGroup name="price" text="Price">
         <Input type="number" disabled className="form-control" value={`${price}`} name="price" />
@@ -50,14 +48,18 @@ const Trade = (props) => {
     </div>
     <div className="col-md-6">
     <h5>Cash Available:</h5>
-<p>${balance.toFixed(2)}</p>
-<h5>Order Status:</h5>
-<p>{balance > cost ? 'VALID' : 'INVALID'}</p>
+      <p>${balance.toFixed(2)}</p>
+      <h5>Order Status:</h5>
+      <p>{balance > cost ? 'VALID' : 'INVALID'}</p>
     </div>
     </div>
-   
+   <Prompt
+          when={quantity > 0}
+          message="Are you sure you want to leave? Your form data will be lost!"
+        />
     </section>
   )
 }
+
 
 export default Trade
