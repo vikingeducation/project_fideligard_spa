@@ -12,7 +12,7 @@ const StockPriceList = ({ symbols, dates, prices, currentDate }) => {
   }
 
   let rows = []
-  if (symbols && prices) {
+  if (symbols && prices && dates) {
     symbols.forEach((symbol) => {
       let row = []
       let currentPrice = prices[symbol][currentDate]
@@ -26,7 +26,7 @@ const StockPriceList = ({ symbols, dates, prices, currentDate }) => {
             row.push(<td key={`${symbol}-${date}-${prices[symbol][date]}`}>{isNaN(price) ? '-' : formatDifference(price)}</td>)
           }
         } else {
-          row.push(<td key={`${symbol}=${date}`}>-</td>)
+          row.push(<td key={`${symbol}-${date}`}>-</td>)
         }
       })
       row.push(<td key={`trade-${symbol}`}>
@@ -39,7 +39,7 @@ const StockPriceList = ({ symbols, dates, prices, currentDate }) => {
           'Trade'
         }
           </td>)
-      rows.push(<tr key={symbol}>{row}</tr>)
+      rows.push(<tr key={'row-' + symbol}>{row}</tr>)
 
     })
   }

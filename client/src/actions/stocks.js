@@ -66,6 +66,7 @@ export function getStockPrices(start) {
       })
       .then(json => {
         const prices = parseStockPrices(json.datatable.data)
+        console.log('json response', prices, Object.keys(prices))
         dispatch(getPricesSuccess({
             prices: prices,
             symbols: Object.keys(prices)

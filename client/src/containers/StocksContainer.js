@@ -12,12 +12,14 @@ function filterSymbols(symbols, filter) {
 
 
 function filterAndSort(symbols, filter, order) {
+  console.log('filterAndSort', symbols, filter, order)
   if (!symbols) {
     return
   }
-  symbols = filter ? filterSymbols(symbols, filter) : symbols
-  symbols = order > 0 ? symbols.sort() : symbols.reverse()
-  return symbols
+  let filtered = [...symbols]
+  filtered = filter ? filterSymbols(filtered, filter) : symbols
+  filtered = order > 0 ? filtered.sort() : filtered.reverse()
+  return filtered
 }
 
 

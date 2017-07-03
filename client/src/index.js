@@ -21,7 +21,14 @@ const preloadedState = {
   },
   stocks: {
     prices: stock,
-    order: 1
+    order: 1,
+    symbols: Object.keys(stock),
+  },
+  trade: {
+    quantity: 1
+  },
+  account: {
+    balance: 1000
   }
 }
 

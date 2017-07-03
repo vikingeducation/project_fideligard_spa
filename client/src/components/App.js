@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from 'react-router-dom'
 import DatePickerContainer from '../containers/DatePickerContainer'
 import StocksContainer from '../containers/StocksContainer'
 import TradeContainer from '../containers/TradeContainer'
+import SuccessContainer from '../containers/SuccessContainer'
 
 class App extends Component {
   render() {
@@ -21,7 +23,10 @@ class App extends Component {
       <div className="col">
       <DatePickerContainer />
       <Switch>
+      <Route exact path="/trade/success" component={SuccessContainer} />
+      <Redirect exact from='/' to='/trade' />
       <Route exact path="/trade" component={TradeContainer} />
+
     </Switch>
       </div>
       </div>
