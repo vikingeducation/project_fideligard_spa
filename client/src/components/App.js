@@ -22,6 +22,7 @@ class App extends Component {
       </div>
       <div className="col">
       <DatePickerContainer />
+      <hr />
       <Switch>
       <Route exact path="/trade/success" component={SuccessContainer} />
       <Redirect exact from='/' to='/trade' />

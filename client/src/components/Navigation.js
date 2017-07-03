@@ -1,5 +1,6 @@
 import React from 'react'
 import Select from './elements/Select'
+import Form from './Form'
 
 const Navigation = ({ history }) => {
 
@@ -9,13 +10,13 @@ const Navigation = ({ history }) => {
 
   let path = history.location.pathname
   return (
-    <form onChange={updateRoute} className="float-right form-inline">
+    <Form onChange={updateRoute} className="float-right form-inline">
   <Select defaultValue={path}>
   <option value="/trade">Trade</option>
   <option value="/portfolio">Portfolio</option>
   <option value="/transactions">Transactions</option>
   </Select>
-  </form>
+  </Form>
 
   )
 }

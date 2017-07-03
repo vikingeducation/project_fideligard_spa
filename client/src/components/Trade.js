@@ -1,65 +1,52 @@
 import React from 'react'
 import Navigation from './Navigation'
+import Form from './Form'
+import Select from './elements/Select'
+import InputGroup from './elements/InputGroup'
+import Input from './elements/Input'
 
 
 const Trade = (props) => {
 
   let { onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance } = props
-  symbols = symbols
-  let symbolOptions = symbols.map((symbol) => {
-    return <option value={symbol} key={symbol}>{symbol}</option>
-  })
+  // symbols = symbols
+  // let symbolOptions = symbols.map((symbol) => {
+  //   return <option value={symbol} key={symbol}>{symbol}</option>
+  // })
 
   const cost = (price * quantity).toFixed(2)
 
 
   return (
     <section id="trade">
-    <h3>Trade</h3>
+    <h3 className="inline-block">Trade</h3>
   <Navigation history={props.history}/>
     <div className="row">
     <div className="col-md-6">
-     <form onSubmit={onSubmit}>
-      <div className="row">
-        <label htmlFor="symbol" className="col-form-label col-md-3">Symbol</label>
-      <div className="col-md-9">
-          <select value={stock} className="form-control" onChange={updateSymbol} name="symbol">
-        {symbolOptions}
-        </select>
-      </div>
-      </div>
-      <div className="row">
-        <label htmlFor="type" className="col-fom-label col-md-3">Buy/Sell</label>
-       <div className="col-md-9">
-          <select name="type" className="form-control">
-         <option value="BUY">Buy</option>
+     <Form onSubmit={onSubmit}>
+     <InputGroup name="symbol" text="Symbol">
+     <Select value={stock} className="form-control" onChange={updateSymbol} name="symbol" options={symbols} />
+     </InputGroup>
+      <InputGroup name="type" text="Buy/Sell">
+      <Select name="type">
+       <option value="BUY">Buy</option>
          <option value="SELL">Sell</option>
-         </select>
-       </div>
-      </div>
-     <div className="row">
-        <label htmlFor="quantity"  className="col-fom-label col-md-3">Quantity</label>
-      <div className="col-md-9">
-         <input type="quantity" min="1" className="form-control" name="quantity" onChange={updateQuantity} value={quantity}/>
-      </div>
-     </div>
-     <div className="row"> <label htmlFor="date"  className="col-fom-label col-md-3">Date</label>
-       <div className="col">
-         <input type="date" min={minDate} max={maxDate} className="form-control" name="date" value={currentDate}/>
-       </div>
-       </div>
-      <div className="row"> 
-      <label htmlFor="price"  className="col-fom-label col-md-3">Price</label>
-       <div className="col"> <input type="number" disabled className="form-control" value={`${price}`} name="price" /> </div>
-        </div>
-     <div className="row">
-        <label htmlFor="cost"  className="col-fom-label col-md-3">Cost</label>
-      <div className="col">
-         <input type="text" disabled className="form-control" value={cost}/>
-      </div>
-     </div>
+      </Select>
+      </InputGroup>
+      <InputGroup name="quantity" text="Quantity">
+      <Input type="quantity" min="1" className="form-control" name="quantity" onChange={updateQuantity} value={quantity}/>
+      </InputGroup>
+      <InputGroup name="date" text="date">
+         <Input type="date" min={minDate} max={maxDate} className="form-control" name="date" value={currentDate}/>
+      </InputGroup>
+      <InputGroup name="price" text="Price">
+        <Input type="number" disabled className="form-control" value={`${price}`} name="price" />
+      </InputGroup>
+      <InputGroup name="cost" text="Cost">
+      <Input type="text" disabled className="form-control" value={cost}/>
+      </InputGroup>
       <button type="submit" className="btn btn-primary">Place Order</button>
-    </form>
+    </Form>
     </div>
     <div className="col-md-6">
     <h5>Cash Available:</h5>
