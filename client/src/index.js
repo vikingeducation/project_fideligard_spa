@@ -29,6 +29,25 @@ const preloadedState = {
   },
   account: {
     balance: 1000
+  },
+  transactions: {
+    sortBy: 'Date',
+    order: 1,
+    history: [{
+      date: "2017-06-30",
+      id: 1,
+      price: 59.31,
+      quantity: 1,
+      symbol: "A",
+      type: "BUY",
+    }, {
+      date: "2017-06-28",
+      id: 2,
+      price: 2,
+      quantity: 1,
+      symbol: "BCB",
+      type: "BUY",
+    }]
   }
 }
 

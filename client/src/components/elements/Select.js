@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-const Select = ({ classes, defaultValue, options, children, ...rest }) => {
+const Select = ({ classes, options, children, ...rest }) => {
 
   classes = classes || ''
 

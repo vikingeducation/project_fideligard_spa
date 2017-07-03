@@ -9,6 +9,8 @@ import DatePickerContainer from '../containers/DatePickerContainer'
 import StocksContainer from '../containers/StocksContainer'
 import TradeContainer from '../containers/TradeContainer'
 import SuccessContainer from '../containers/SuccessContainer'
+import TransactionsContainer from '../containers/TransactionsContainer'
+import NotFound from '../components/NotFound'
 
 class App extends Component {
   render() {
@@ -25,8 +27,10 @@ class App extends Component {
       <hr />
       <Switch>
       <Route exact path="/trade/success" component={SuccessContainer} />
+      <Route path="/transactions" component={TransactionsContainer} />
       <Redirect exact from='/' to='/trade' />
       <Route exact path="/trade" component={TradeContainer} />
+      <Route path="/" component={NotFound} />
     </Switch>
       </div>
       </div>

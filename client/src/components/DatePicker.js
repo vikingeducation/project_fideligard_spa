@@ -1,13 +1,14 @@
 import React from 'react'
 import Input from './elements/Input'
 import Form from './Form'
+import InputGroup from './elements/InputGroup'
 
 const DatePicker = ({ min, max, current, onChange }) => {
   return (
     <Form inline={true}>
-  <label htmlFor="currentDate" className="mr-2">
-  Select a date:</label>
+ <InputGroup name="currentDate" text="Select a Date:">
   <Input type="date" min={min} max={max}name="currentDate" value={current} onChange={onChange}/>
+  </InputGroup>
 </Form>
   )
 }

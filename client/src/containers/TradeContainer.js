@@ -66,6 +66,7 @@ class TradeContainer extends Component {
     this.props.history.push('/trade/?symbol=A')
   }
 
+
   render() {
     return (<Trade {...this.props} />)
   }

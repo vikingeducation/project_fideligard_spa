@@ -9,6 +9,7 @@ const Navigation = ({ history }) => {
   }
 
   let path = history.location.pathname
+
   return (
     <Form onChange={updateRoute} className="float-right form-inline">
   <Select defaultValue={path}>

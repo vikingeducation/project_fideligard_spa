@@ -11,7 +11,6 @@ const Trade = (props) => {
 
   let { onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate } = props
 
-
   const cost = (price && quantity) ? (price * quantity).toFixed(2) : ''
 
 
@@ -32,15 +31,15 @@ const Trade = (props) => {
       </Select>
       </InputGroup>
       <InputGroup name="quantity" text="Quantity">
-      <Input type="quantity" min="1" className="form-control" name="quantity" onChange={updateQuantity} value={quantity}/>
+      <Input type="quantity" min="1" className="form-control" name="quantity" onChange={updateQuantity} placeholder={0}/>
       </InputGroup>
       <InputGroup name="date" text="Date">
          <Input type="date" min={minDate} max={maxDate} className="form-control" name="date" value={currentDate} onChange={updateCurrentDate}/>
       </InputGroup>
-      <InputGroup name="price" text="Price">
+      <InputGroup name="price" text="Price ($)">
         <Input type="number" disabled className="form-control" value={`${price}`} name="price" />
       </InputGroup>
-      <InputGroup name="cost" text="Cost">
+      <InputGroup name="cost" text="Cost ($)">
       <Input type="text" disabled className="form-control" value={cost}/>
       </InputGroup>
       <button type="submit" className="btn btn-primary">Place Order</button>
@@ -53,10 +52,7 @@ const Trade = (props) => {
       <p>{balance > cost ? 'VALID' : 'INVALID'}</p>
     </div>
     </div>
-   <Prompt
-          when={quantity > 0}
-          message="Are you sure you want to leave? Your form data will be lost!"
-        />
+  
     </section>
   )
 }

@@ -12,7 +12,6 @@ function filterSymbols(symbols, filter) {
 
 
 function filterAndSort(symbols, filter, order) {
-  console.log('filterAndSort', symbols, filter, order)
   if (!symbols) {
     return
   }

@@ -50,8 +50,6 @@ export function sortSymbols(data) {
 }
 
 export function getStockPrices(start) {
-  console.log('getStockPrices called', start)
-  console.log('getQueryDates', getQueryDates(start))
   const dates = getQueryDates(start)
   return (dispatch) => {
     dispatch(getPricesRequest())
@@ -66,7 +64,6 @@ export function getStockPrices(start) {
       })
       .then(json => {
         const prices = parseStockPrices(json.datatable.data)
-        console.log('json response', prices, Object.keys(prices))
         dispatch(getPricesSuccess({
             prices: prices,
             symbols: Object.keys(prices)
@@ -74,7 +71,6 @@ export function getStockPrices(start) {
           // store response
       })
       .catch(error => {
-        console.log('getStockPrices error', error)
         dispatch(getPricesFailure())
       })
 

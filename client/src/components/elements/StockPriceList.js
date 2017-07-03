@@ -5,8 +5,6 @@ import {
 
 const StockPriceList = ({ symbols, dates, prices, currentDate }) => {
 
-  console.log('StockPriceList', symbols, prices)
-
   function formatDifference(amount) {
     return amount < 0 ? '-$' + amount.toFixed(2).slice(1) : '+$' + amount.toFixed(2)
   }

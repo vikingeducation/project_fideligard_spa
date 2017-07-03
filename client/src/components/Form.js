@@ -1,6 +1,6 @@
 import React from 'react'
 const Form = ({ children, classes, inline, ...rest }) => {
-  inline = inline ? 'form-inline ' : ''
+  inline = inline ? 'inline-form' : ''
   classes = classes || ''
   return (
     <form className={`${inline} ${classes}`} {...rest}>
