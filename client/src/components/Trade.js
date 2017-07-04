@@ -9,10 +9,9 @@ import { Prompt } from 'react-router-dom'
 
 const Trade = (props) => {
 
-  let { onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate } = props
+  let { onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate, halfFilled, updateFormStatus } = props
 
   const cost = (price && quantity) ? (price * quantity).toFixed(2) : ''
-
 
   return (
     <section id="trade">
@@ -42,7 +41,7 @@ const Trade = (props) => {
       <InputGroup name="cost" text="Cost ($)">
       <Input type="text" disabled className="form-control" value={cost}/>
       </InputGroup>
-      <button type="submit" className="btn btn-primary">Place Order</button>
+      <button type="submit" className="btn btn-primary" onClick={updateFormStatus}>Place Order</button>
     </Form>
     </div>
     <div className="col-md-6">
@@ -52,7 +51,10 @@ const Trade = (props) => {
       <p>{balance > cost ? 'VALID' : 'INVALID'}</p>
     </div>
     </div>
-  
+    <Prompt
+    when={halfFilled}
+    message="Looks like you're in the middle of a trade. Are you sure you want to leave before completing it?" />
+
     </section>
   )
 }

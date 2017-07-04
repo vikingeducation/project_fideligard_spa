@@ -59,7 +59,7 @@ class StocksContainer extends Component {
   componentDidUpdate(prev) {
     if (prev.currentDate !== this.props.currentDate) {
       console.log('StocksContainer date did update', this.props.currentDate)
-        // this.props.getStockPrices(this.props.currentDate)
+      this.props.getStockPrices(this.props.currentDate)
     }
   }
 

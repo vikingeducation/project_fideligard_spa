@@ -5,7 +5,7 @@ import { displayPriceHistory, numDisplay } from '../helpers/general'
 import { Link } from 'react-router-dom'
 import SortIcon from './elements/SortIcon'
 
-const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, transactions, sort }) => {
+const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, transactions, sort, balance }) => {
 
   let headers = ['Symbol', 'Quantity', 'Cost Basis', 'Current Value', 'Profit/Loss', 'Current Price', '1d', '7d', '30d', 'Trade'].map((header) => {
     if (header === 'Symbol') {
@@ -13,9 +13,25 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
     }
     return <th key={header}>{header}</th>
   })
+
+  const cashRow = (
+    <tr key={`cash`}><td>CASH</td>
+    <td>${balance.toFixed(2)}</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    <td>-</td>
+    </tr>
+  )
+
+
   const keys = order > 0 ? symbols.sort() : symbols.reverse()
 
-  let rows = []
+  let rows = [cashRow]
   keys.forEach((stock) => {
     let row = []
     let currentPrice = allPrices[stock][currentDate]

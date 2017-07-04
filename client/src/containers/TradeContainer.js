@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { createTransaction } from '../actions/transactions'
 import { updateBalance } from '../actions/account'
 import { setCurrentDate } from '../actions/dates'
-import { setStock, setQuantity } from '../actions/trade'
+import { setStock, setQuantity, updateFormStatus } from '../actions/trade'
 import serialize from 'form-serialize'
 
 function getStockPrice(prices, stock, date) {
@@ -27,6 +27,7 @@ const mapStateToProps = (state, props) => {
     currentDate: state.dates.current,
     quantity: state.trade.quantity,
     balance: state.account.balance,
+    halfFilled: !!state.trade.halfFilled
   }
 }
 
@@ -48,6 +49,7 @@ const mapDispatchToProps = (dispatch, props) => {
       } else {
         props.history.push('/trade')
       }
+      dispatch(setQuantity(0))
     },
     updateSymbol: (e) => {
       props.history.push('/trade/?symbol=' + e.target.value)
@@ -55,9 +57,13 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateQuantity: (e) => {
       dispatch(setQuantity(e.target.value))
+      dispatch(updateFormStatus(!!e.target.value))
     },
     updateCurrentDate: (e) => {
       dispatch(setCurrentDate(e.target.value))
+    },
+    updateFormStatus: () => {
+      dispatch(updateFormStatus(false))
     }
   }
 }
@@ -68,7 +74,6 @@ class TradeContainer extends Component {
     let symbol = this.props.location.search.split('=')[1] || 'A'
     this.props.history.push(`/trade/?symbol=${symbol}`)
   }
-
 
   render() {
     return (<Trade {...this.props} />)

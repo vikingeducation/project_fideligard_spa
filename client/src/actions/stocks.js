@@ -66,7 +66,6 @@ export function getStockPrices(start) {
         return response.json()
       })
       .then(json => {
-        console.log('fetch dates', json)
         const prices = parseStockPrices(json.datatable.data)
         dispatch(getPricesSuccess({
             prices: prices,

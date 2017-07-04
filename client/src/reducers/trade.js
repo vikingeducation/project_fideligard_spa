@@ -1,4 +1,5 @@
 import * as Actions from '../actions/trade'
+
 export function trade(state = {}, action) {
   switch (action.type) {
     case Actions.SET_STOCK:
@@ -10,6 +11,11 @@ export function trade(state = {}, action) {
       return {
         ...state,
         quantity: action.data
+      }
+    case Actions.UPDATE_FORM_STATUS:
+      return {
+        ...state,
+        halfFilled: action.data
       }
     default:
       return state

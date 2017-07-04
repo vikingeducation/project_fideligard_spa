@@ -27,7 +27,8 @@ const mapStateToProps = (state, props) => {
     dateKeys: state.stocks.dates || [],
     transactions: aggregated,
     symbols: Object.keys(aggregated),
-    order: state.portfolio.order
+    order: state.portfolio.order,
+    balance: state.account.balance
   }
 }
 
