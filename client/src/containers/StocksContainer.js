@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Stocks from '../components/Stocks'
-import { getQueryDates } from '../helpers/dates'
+import { getQueryDates, getDaysAgo } from '../helpers/dates'
 import { getStockPrices, setFilter, sortSymbols } from '../actions/stocks'
 
 
@@ -26,7 +26,7 @@ function filterAndSort(symbols, filter, order) {
 const mapStateToProps = (state) => {
   return {
     order: state.stocks.order,
-    currentDate: state.dates.current,
+    currentDate: getDaysAgo(state.dates.current),
     prices: state.stocks.prices,
     symbols: filterAndSort(state.stocks.symbols, state.stocks.filter, state.stocks.order),
     dates: state.stocks.dates

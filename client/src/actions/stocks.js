@@ -56,7 +56,7 @@ export function getStockPrices(start) {
   return (dispatch) => {
     const dates = getQueryDates(start)
     dispatch(getPricesRequest())
-    dispatch(storeLookupDates(dates.slice(1)))
+    dispatch(storeLookupDates(dates))
 
     fetch(`/api/quandl/?dates=${datesToQueryString(dates)}`)
       .then(response => {
@@ -66,7 +66,7 @@ export function getStockPrices(start) {
         return response.json()
       })
       .then(json => {
-        const prices = parseStockPrices(json.datatable.data)
+        const prices = parseStockPrices(json.datatable.data, dates)
         dispatch(getPricesSuccess({
             prices: prices,
             symbols: Object.keys(prices)

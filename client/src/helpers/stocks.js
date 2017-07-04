@@ -1,6 +1,7 @@
-export function parseStockPrices(data) {
+export function parseStockPrices(data, dates) {
   // [symbol, price, date]
   let parsed = {};
+
   for (let i = 0, day = 0; i < data.length; i++) {
     let symbol = data[i][0]
     let price = data[i][1]
@@ -8,6 +9,5 @@ export function parseStockPrices(data) {
     parsed[symbol] = {...parsed[symbol] }
     parsed[symbol][date] = price
   }
-  console.log('parsed', parsed)
   return parsed
 }

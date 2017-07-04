@@ -6,14 +6,15 @@ import { numDisplay } from '../../helpers/general'
 
 const StockPriceList = ({ symbols, dates, prices, currentDate }) => {
 
+
   let rows = []
   if (symbols && prices && dates) {
     symbols.forEach((symbol) => {
       let row = []
       let currentPrice = prices[symbol][currentDate]
       row.push(<td key={`symbol-${symbol}`}>{symbol}</td>)
-      row.push(<td key={`${symbol}-${currentDate}-${prices[symbol][currentDate]}`}>{numDisplay(currentPrice)}</td>)
-      dates.forEach((date) => {
+      row.push(<td key={`current-${symbol}-${currentDate}-${prices[symbol][currentDate]}`}>{numDisplay(currentPrice)}</td>)
+      dates.slice(1).forEach((date) => {
         row.push(<td key={`date-${symbol}-${date}`}>{numDisplay(prices[symbol][date] - currentPrice)}</td>)
       })
       row.push(<td key={`trade-${symbol}`}>
