@@ -3,24 +3,20 @@ import Navigation from './Navigation'
 import Table from './Table'
 import { displayPriceHistory, numDisplay } from '../helpers/general'
 import { Link } from 'react-router-dom'
+import SortIcon from './elements/SortIcon'
 
-const Portfolio = ({ history, currentDate, allPrices, symbols, dateKeys, transactions }) => {
+const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, transactions, sort }) => {
 
-  let headers = ['Symbol', 'Quantity', 'Cost Basis', 'Current Value', 'Profit/Loss', 'Current Price', '1d', '7d', '30d', 'Trade'].map((header) => (
-    <th key={header}>{header}</th>
-  ))
-
-  console.log('keys', Object.keys(transactions), dateKeys)
-  console.log('transactions', transactions)
-
-  // function numDisplay(num) {
-  //   return isNaN(num) ? '-' : '$' + num.toFixed(2)
-  // }
+  let headers = ['Symbol', 'Quantity', 'Cost Basis', 'Current Value', 'Profit/Loss', 'Current Price', '1d', '7d', '30d', 'Trade'].map((header) => {
+    if (header === 'Symbol') {
+      return <th key={header}> <Link to="#" onClick={sort} data-sort-order={order}>{header}<SortIcon order={order}/></Link></th>
+    }
+    return <th key={header}>{header}</th>
+  })
+  const keys = order > 0 ? symbols.sort() : symbols.reverse()
 
   let rows = []
-  Object.keys(transactions).forEach((stock) => {
-    console.log('stock', stock, allPrices)
-    console.log('transaction', transactions[stock])
+  keys.forEach((stock) => {
     let row = []
     let currentPrice = allPrices[stock][currentDate]
     let record = transactions[stock]
@@ -30,7 +26,6 @@ const Portfolio = ({ history, currentDate, allPrices, symbols, dateKeys, transac
     row.push(<td key={`cost-basis-${stock}`}>{numDisplay(record.costBasis)}</td>)
     row.push(<td key={`current-value-${stock}`}>{numDisplay(currentVal)}</td>)
     row.push(<td key={`profit-loss-${stock}`}>{numDisplay(currentVal - record.costBasis)}</td>)
-      // console.log('displayPriceHistory', displayPriceHistory(dateKeys, stock, allPrices))
     row.push(<td key={`currentPrice-${stock}`}>{ numDisplay(currentPrice)}</td>)
     dateKeys.forEach((date) => {
       row.push(<td key={`date-${stock}-${date}`}>{numDisplay(allPrices[stock][date] - currentPrice)}</td>)

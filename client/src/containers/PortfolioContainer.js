@@ -1,5 +1,6 @@
 import { connect } from 'react-redux'
 import Portfolio from '../components/Portfolio'
+import { setOrder } from '../actions/portfolio'
 
 function aggregateTransactions(transactions) {
 
@@ -16,20 +17,26 @@ function aggregateTransactions(transactions) {
   return aggregated
 }
 
+
 const mapStateToProps = (state, props) => {
-  console.log('Portfolio Container', state)
+  const aggregated = aggregateTransactions(state.transactions.history)
   return {
     history: props.history,
     currentDate: state.dates.current,
     allPrices: state.stocks.prices,
     dateKeys: state.stocks.dates || [],
-    transactions: aggregateTransactions(state.transactions.history),
+    transactions: aggregated,
+    symbols: Object.keys(aggregated),
+    order: state.portfolio.order
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    sort: (e) => {
+      e.preventDefault()
+      dispatch(setOrder(e.target.getAttribute('data-sort-order')))
+    }
   }
 }
 
