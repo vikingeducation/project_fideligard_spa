@@ -1,7 +1,6 @@
 import * as Actions from '../actions/portfolio'
 
 export function portfolio(state = {}, action) {
-  console.log('portfolio reducer', action)
   switch (action.type) {
     case Actions.SET_ORDER:
       return {

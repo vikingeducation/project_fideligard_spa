@@ -53,3 +53,18 @@ export function sortTransactions(transactions, sortBy, order) {
     return 0
   })
 }
+
+export function groupByStock(transactions) {
+  let grouped = {}
+  transactions.forEach((trans) => {
+    if (!grouped[trans.symbol]) {
+      grouped[trans.symbol] = {}
+    }
+    let stock = grouped[trans.symbol]
+    let isPurchase = trans.type === 'BUY'
+    stock.quantity = (stock.quantity || 0) + (isPurchase ? trans.quantity : trans.quantity * -1)
+    stock.costBasis = (stock.costBasis || 0) + (trans.quantity * trans.price * (isPurchase ? 1 : -1))
+  })
+  return grouped
+
+}

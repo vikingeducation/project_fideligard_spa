@@ -51,14 +51,11 @@ const mapDispatchToProps = (dispatch) => {
 class StocksContainer extends Component {
 
   componentDidMount() {
-    // fetch stock prices
-    console.log('StocksContainer did mount')
     this.props.getStockPrices(this.props.currentDate)
   }
 
   componentDidUpdate(prev) {
     if (prev.currentDate !== this.props.currentDate) {
-      console.log('StocksContainer date did update', this.props.currentDate)
       this.props.getStockPrices(this.props.currentDate)
     }
   }

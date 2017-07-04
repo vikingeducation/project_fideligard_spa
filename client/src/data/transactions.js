@@ -18,7 +18,7 @@ export const transactions = [{
     price: 4.3,
     quantity: 34,
     symbol: 'AAL',
-    type: 'SELL'
+    type: 'BUY'
   }
 
 ]

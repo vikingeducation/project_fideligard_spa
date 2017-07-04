@@ -5,25 +5,45 @@ import Select from './elements/Select'
 import InputGroup from './elements/InputGroup'
 import Input from './elements/Input'
 import { Prompt } from 'react-router-dom'
+import { numDisplay } from '../helpers/general'
 
 
-const Trade = (props) => {
+const Trade = ({ history, onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate, halfFilled, updateFormStatus, portfolio, setType, type }) => {
 
-  let { history, onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate, halfFilled, updateFormStatus } = props
 
-  const cost = (price && quantity) ? (price * quantity).toFixed(2) : ''
+  const cost = numDisplay(price * quantity)
+
+
+  let enoughFunds = balance >= (price * quantity)
+  let stocksAvailable = portfolio[stock] ? portfolio[stock].quantity : 0
+  let enoughStocks = stocksAvailable >= quantity
+  let isValid = (enoughFunds && type === 'BUY') || (enoughStocks && type === 'SELL')
+
+
+  function validateForm(e) {
+    e.preventDefault()
+    if (!enoughFunds && type === 'BUY') {
+      return alert('Sorry, you don\'t have enough money to buy those shares.')
+    }
+    if (!enoughStocks && type === 'SELL') {
+      return alert('Sorry, you don\'t have that many stocks')
+    }
+    if (quantity > 0) {
+      onSubmit(e)
+    }
+  }
 
   return (
     <main id="trade">
       <Header title="Trade" history={history} />
     <div className="row">
     <div className="col-md-8">
-     <Form onSubmit={onSubmit}>
+     <Form onSubmit={validateForm}>
      <InputGroup name="symbol" text="Symbol">
      <Select value={stock} className="form-control" onChange={ updateSymbol} name="symbol" options={symbols} />
      </InputGroup>
       <InputGroup name="type" text="Buy/Sell">
-      <Select name="type">
+      <Select name="type" value={type} onChange={setType}>
        <option value="BUY">Buy</option>
          <option value="SELL">Sell</option>
       </Select>
@@ -46,8 +66,10 @@ const Trade = (props) => {
     <div className="col">
     <h5>Cash Available:</h5>
       <p>${balance.toFixed(2)}</p>
+      <h5>Shares Owned:</h5>
+      <p>{stocksAvailable}</p>
       <h5>Order Status:</h5>
-      <p>{balance > cost ? 'VALID' : 'INVALID'}</p>
+      <p>{isValid ? 'VALID' : 'INVALID'}</p>
     </div>
     </div>
     <Prompt

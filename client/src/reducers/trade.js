@@ -17,6 +17,11 @@ export function trade(state = {}, action) {
         ...state,
         halfFilled: action.data
       }
+    case Actions.SET_TYPE:
+      return {
+        ...state,
+        type: action.data
+      }
     default:
       return state
   }

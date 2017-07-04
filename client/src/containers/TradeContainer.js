@@ -5,8 +5,9 @@ import { createTransaction } from '../actions/transactions'
 import { updateBalance } from '../actions/account'
 import { setCurrentDate } from '../actions/dates'
 import { updatePortfolio } from '../actions/portfolio'
-import { setStock, setQuantity, updateFormStatus } from '../actions/trade'
+import { setStock, setQuantity, updateFormStatus, setType } from '../actions/trade'
 import serialize from 'form-serialize'
+import { groupByStock } from '../helpers/transactions'
 
 function getStockPrice(prices, stock, date) {
   if (!prices || !stock || !date) {
@@ -17,6 +18,7 @@ function getStockPrice(prices, stock, date) {
   }
   return ''
 }
+
 
 const mapStateToProps = (state, props) => {
   return {
@@ -29,6 +31,8 @@ const mapStateToProps = (state, props) => {
     quantity: state.trade.quantity,
     balance: state.account.balance,
     halfFilled: !!state.trade.halfFilled,
+    type: state.trade.type || 'BUY',
+    portfolio: groupByStock(state.transactions.history)
   }
 }
 
@@ -65,6 +69,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateFormStatus: () => {
       dispatch(updateFormStatus(false))
+    },
+    setType: (e) => {
+      dispatch(setType(e.target.value))
     }
   }
 }

@@ -4,7 +4,6 @@ import Navigation from '../components/Navigation'
 import { Link } from 'react-router-dom'
 
 const mapStateToProps = (state, props) => {
-  console.log('succssContinear', props)
   return {
     trade: state.transactions.history[state.transactions.history.length - 1] || {},
     balance: state.account.balance,
