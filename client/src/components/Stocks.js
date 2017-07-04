@@ -18,7 +18,7 @@ const Stocks = ({ order, currentDate, dates, prices, symbols, onChange, sortSymb
 
   return (
     <aside>
-      <h2 className="inline-block">Stocks</h2>
+      <h2 className="inline-block h4">Stocks</h2>
       <StocksFilter onChange={onChange} />
       <Table>
         <thead>

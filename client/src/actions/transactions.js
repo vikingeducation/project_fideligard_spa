@@ -3,7 +3,7 @@ export const SET_TRANSACTION_FILTER = 'SET_TRANSACTION_FILTER'
 export const SET_SORT_ORDER = 'SET_SORT_ORDER'
 export const SET_SORT_BY = 'SET_SORT_BY'
 
-let id = 1
+let id = 4
 export function createTransaction(data) {
   return {
     type: CREATE_TRANSACTION,

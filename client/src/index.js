@@ -38,6 +38,7 @@ const preloadedState = {
   },
   portfolio: {
     order: 1,
+    investments: {}
   }
 }
 

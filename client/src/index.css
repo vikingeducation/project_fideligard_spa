@@ -7,3 +7,7 @@ body {
 .inline-block {
     display: inline-block;
 }
+
+.col-form-label {
+    font-weight: bold;
+}

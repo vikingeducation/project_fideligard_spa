@@ -2,31 +2,29 @@ import { connect } from 'react-redux'
 import Portfolio from '../components/Portfolio'
 import { setOrder } from '../actions/portfolio'
 
-function aggregateTransactions(transactions) {
-
-  let aggregated = {}
+function groupByStock(transactions) {
+  let grouped = {}
   transactions.forEach((trans) => {
-    if (!aggregated[trans.symbol]) {
-      aggregated[trans.symbol] = {}
+    if (!grouped[trans.symbol]) {
+      grouped[trans.symbol] = {}
     }
-    let stock = aggregated[trans.symbol]
+    let stock = grouped[trans.symbol]
     let isPurchase = trans.type === 'BUY'
-    stock.quantity = (stock.quantity || trans.quantity) + (isPurchase ? trans.quantity : trans.quantity * -1)
+    stock.quantity = (stock.quantity || 0) + (isPurchase ? trans.quantity : trans.quantity * -1)
     stock.costBasis = (stock.costBasis || 0) + (trans.quantity * trans.price * (isPurchase ? 1 : -1))
   })
-  return aggregated
+  return grouped
 }
 
 
-const mapStateToProps = (state, props) => {
-  const aggregated = aggregateTransactions(state.transactions.history)
+const mapStateToProps = (state) => {
+  const grouped = groupByStock(state.transactions.history)
   return {
-    history: props.history,
     currentDate: state.dates.current,
     allPrices: state.stocks.prices,
     dateKeys: state.stocks.dates || [],
-    transactions: aggregated,
-    symbols: Object.keys(aggregated),
+    transactions: grouped,
+    symbols: Object.keys(grouped),
     order: state.portfolio.order,
     balance: state.account.balance
   }

@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Table = ({ children }) => {
-
+const Table = ({ children, classes }) => {
+  classes = classes || ''
   return (
-    <table className="table">
+    <table className={`table table-hover ${classes}`}>
     {children}
     </table>
   )

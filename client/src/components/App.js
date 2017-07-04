@@ -11,16 +11,19 @@ import TradeContainer from '../containers/TradeContainer'
 import SuccessContainer from '../containers/SuccessContainer'
 import TransactionsContainer from '../containers/TransactionsContainer'
 import PortfolioContainer from '../containers/PortfolioContainer'
-import NotFound from '../components/NotFound'
+import NotFound from './NotFound'
+import Navbar from './Navbar'
+import ScrollToTop from './ScrollToTop'
 
 class App extends Component {
   render() {
     return (
       <Router>
+      <ScrollToTop>
       <div className="container-fluid">
-      <h1>Fideligard</h1>
+      <Navbar title="Fideligard" />
       <div className="row">
-      <div className="col-md-4">
+      <div className="col">
       <StocksContainer />
       </div>
       <div className="col">
@@ -37,6 +40,7 @@ class App extends Component {
       </div>
       </div>
       </div>
+      </ScrollToTop>
      </Router>
     );
   }

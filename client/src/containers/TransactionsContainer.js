@@ -23,7 +23,6 @@ const mapStateToProps = (state, props) => {
   const order = parseInt(params.order) || state.transactions.order
 
   return {
-    history: props.history,
     transactions: filterAndSort(state.transactions.history, sortBy, order, params.filter),
     sortBy: sortBy,
     order: order

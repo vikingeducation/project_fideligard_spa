@@ -1,9 +1,10 @@
 import React from 'react'
-import Navigation from './Navigation'
 import Table from './Table'
 import { displayPriceHistory, numDisplay } from '../helpers/general'
 import { Link } from 'react-router-dom'
 import SortIcon from './elements/SortIcon'
+import Aggregated from './Aggregated'
+import Header from './Header'
 
 const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, transactions, sort, balance }) => {
 
@@ -13,6 +14,7 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
     }
     return <th key={header}>{header}</th>
   })
+
 
   const cashRow = (
     <tr key={`cash`}><td>CASH</td>
@@ -28,11 +30,13 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
     </tr>
   )
 
-
   const keys = order > 0 ? symbols.sort() : symbols.reverse()
+
+  let aggregated = { costBasis: 0, currentValue: 0, profitLoss: 0, d0: 0, d1: 0, d2: 0 }
 
   let rows = [cashRow]
   keys.forEach((stock) => {
+
     let row = []
     let currentPrice = allPrices[stock][currentDate]
     let record = transactions[stock]
@@ -43,18 +47,25 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
     row.push(<td key={`current-value-${stock}`}>{numDisplay(currentVal)}</td>)
     row.push(<td key={`profit-loss-${stock}`}>{numDisplay(currentVal - record.costBasis)}</td>)
     row.push(<td key={`currentPrice-${stock}`}>{ numDisplay(currentPrice)}</td>)
-    dateKeys.forEach((date) => {
+    dateKeys.map((date, i) => {
       row.push(<td key={`date-${stock}-${date}`}>{numDisplay(allPrices[stock][date] - currentPrice)}</td>)
+      aggregated['d' + i] += allPrices[stock][date] - currentPrice
     })
     row.push(<td key={`trade-${stock}`}>{
       currentPrice ? <Link to={{ pathname: '/trade/', search: `symbol=${stock}`}}>Trade</Link> :'Trade'}</td>)
     rows.push(<tr key={`row-${stock}`}>{row}</tr>)
+
+    aggregated.costBasis += record.costBasis
+    aggregated.currentValue += currentVal
+    aggregated.profitLoss += currentVal - record.costBasis
   })
 
+
+
   return (
-    <section id="portfolio">
-    <Navigation history={history}/>
-    <h2>Portfolio</h2>
+    <main id="portfolio">
+   <Header title="Portfolio" history={history} />
+    <Aggregated data={aggregated} />
     <Table>
     <thead>
       <tr>{headers}</tr>
@@ -63,7 +74,7 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
       {rows}
     </tbody>
     </Table>
-    </section>
+    </main>
   )
 }
 export default Portfolio

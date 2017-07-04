@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { createTransaction } from '../actions/transactions'
 import { updateBalance } from '../actions/account'
 import { setCurrentDate } from '../actions/dates'
+import { updatePortfolio } from '../actions/portfolio'
 import { setStock, setQuantity, updateFormStatus } from '../actions/trade'
 import serialize from 'form-serialize'
 
@@ -27,7 +28,7 @@ const mapStateToProps = (state, props) => {
     currentDate: state.dates.current,
     quantity: state.trade.quantity,
     balance: state.account.balance,
-    halfFilled: !!state.trade.halfFilled
+    halfFilled: !!state.trade.halfFilled,
   }
 }
 
@@ -39,11 +40,11 @@ const mapDispatchToProps = (dispatch, props) => {
       data.quantity = parseInt(data.quantity)
       data.price = parseFloat(data.price)
 
-      let amount = data.price * data.quantity
-      amount = data.type === 'BUY' ? amount * -1 : amount
+      let cost = data.price * data.quantity
+      cost = data.type === 'BUY' ? cost * -1 : cost
 
-      if (!isNaN(amount)) {
-        dispatch(updateBalance(amount))
+      if (!isNaN(cost)) {
+        dispatch(updateBalance(cost))
         dispatch(createTransaction(data))
         props.history.push('/trade/success')
       } else {

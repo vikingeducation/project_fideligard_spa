@@ -1,5 +1,5 @@
 import React from 'react'
-import Navigation from './Navigation'
+import Header from './Header'
 import Form from './Form'
 import Select from './elements/Select'
 import InputGroup from './elements/InputGroup'
@@ -9,16 +9,15 @@ import { Prompt } from 'react-router-dom'
 
 const Trade = (props) => {
 
-  let { onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate, halfFilled, updateFormStatus } = props
+  let { history, onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate, halfFilled, updateFormStatus } = props
 
   const cost = (price && quantity) ? (price * quantity).toFixed(2) : ''
 
   return (
-    <section id="trade">
-    <h3 className="inline-block">Trade</h3>
-  <Navigation history={props.history}/>
+    <main id="trade">
+      <Header title="Trade" history={history} />
     <div className="row">
-    <div className="col-md-6">
+    <div className="col-md-8">
      <Form onSubmit={onSubmit}>
      <InputGroup name="symbol" text="Symbol">
      <Select value={stock} className="form-control" onChange={ updateSymbol} name="symbol" options={symbols} />
@@ -41,10 +40,10 @@ const Trade = (props) => {
       <InputGroup name="cost" text="Cost ($)">
       <Input type="text" disabled className="form-control" value={cost}/>
       </InputGroup>
-      <button type="submit" className="btn btn-primary" onClick={updateFormStatus}>Place Order</button>
+      <button type="submit" className="btn btn-primary mb-4" onClick={updateFormStatus}>Place Order</button>
     </Form>
     </div>
-    <div className="col-md-6">
+    <div className="col">
     <h5>Cash Available:</h5>
       <p>${balance.toFixed(2)}</p>
       <h5>Order Status:</h5>
@@ -55,7 +54,7 @@ const Trade = (props) => {
     when={halfFilled}
     message="Looks like you're in the middle of a trade. Are you sure you want to leave before completing it?" />
 
-    </section>
+    </main>
   )
 }
 
