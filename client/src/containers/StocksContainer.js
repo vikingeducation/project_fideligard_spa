@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Stocks from '../components/Stocks'
+import { getQueryDates } from '../helpers/dates'
 import { getStockPrices, setFilter, sortSymbols } from '../actions/stocks'
 
 

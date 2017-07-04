@@ -5,6 +5,7 @@ import InputGroup from './elements/InputGroup'
 import Input from './elements/Input'
 import { Link } from 'react-router-dom'
 import SortIcon from './elements/SortIcon'
+import Table from './Table'
 
 const Transactions = ({
   history,
@@ -47,14 +48,14 @@ const Transactions = ({
       <Input type="text" name="filter" onChange={setFilter}/>
       </InputGroup>
     </Form>
-    <table className="table">
+    <Table>
     <thead>
       <tr>{headers}</tr>
     </thead>
     <tbody key="transactions">
     {rows}
     </tbody>
-    </table>
+    </Table>
   </section>
   )
 }

@@ -4,13 +4,15 @@ import { stocks } from './stocks'
 import { trade } from './trade'
 import { account } from './account'
 import { transactions } from './transactions'
+import { portfolio } from './portfolio'
 
 const fideligard = combineReducers({
   dates,
   stocks,
   trade,
   account,
-  transactions
+  transactions,
+  portfolio
 })
 
 export default fideligard

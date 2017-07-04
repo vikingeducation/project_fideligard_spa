@@ -10,6 +10,7 @@ import StocksContainer from '../containers/StocksContainer'
 import TradeContainer from '../containers/TradeContainer'
 import SuccessContainer from '../containers/SuccessContainer'
 import TransactionsContainer from '../containers/TransactionsContainer'
+import PortfolioContainer from '../containers/PortfolioContainer'
 import NotFound from '../components/NotFound'
 
 class App extends Component {
@@ -28,6 +29,7 @@ class App extends Component {
       <Switch>
       <Route exact path="/trade/success" component={SuccessContainer} />
       <Route path="/transactions" component={TransactionsContainer} />
+      <Route path="/portfolio" component={PortfolioContainer} />
       <Redirect exact from='/' to='/trade' />
       <Route exact path="/trade" component={TradeContainer} />
       <Route path="/" component={NotFound} />

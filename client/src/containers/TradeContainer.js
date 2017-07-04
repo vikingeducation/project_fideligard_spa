@@ -37,8 +37,10 @@ const mapDispatchToProps = (dispatch, props) => {
       let data = serialize(e.target, { hash: true, disabled: true })
       data.quantity = parseInt(data.quantity)
       data.price = parseFloat(data.price)
+
       let amount = data.price * data.quantity
       amount = data.type === 'BUY' ? amount * -1 : amount
+
       if (!isNaN(amount)) {
         dispatch(updateBalance(amount))
         dispatch(createTransaction(data))
@@ -63,7 +65,8 @@ const mapDispatchToProps = (dispatch, props) => {
 class TradeContainer extends Component {
 
   componentDidMount() {
-    this.props.history.push('/trade/?symbol=A')
+    let symbol = this.props.location.search.split('=')[1] || 'A'
+    this.props.history.push(`/trade/?symbol=${symbol}`)
   }
 
 
