@@ -20,7 +20,7 @@ const Stocks = ({ order, currentDate, dates, prices, symbols, onChange, sortSymb
     <aside>
       <h2 className="inline-block h4">Stocks</h2>
       <StocksFilter onChange={onChange} />
-      <Table>
+      <Table classes="table-responsive">
         <thead>
           <tr>
             {thead}

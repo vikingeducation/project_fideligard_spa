@@ -2,26 +2,11 @@ import { connect } from 'react-redux'
 import Portfolio from '../components/Portfolio'
 import { setOrder } from '../actions/portfolio'
 import { getDaysAgo } from '../helpers/dates'
-import {groupByStock} from '../helpers/transactions'
-
-// function groupByStock(transactions) {
-  //   let grouped = {}
-  //   transactions.forEach((trans) => {
-  //     if (!grouped[trans.symbol]) {
-  //       grouped[trans.symbol] = {}
-  //     }
-  //     let stock = grouped[trans.symbol]
-  //     let isPurchase = trans.type === 'BUY'
-  //     stock.quantity = (stock.quantity || 0) + (isPurchase ? trans.quantity : trans.quantity * -1)
-  //     stock.costBasis = (stock.costBasis || 0) + (trans.quantity * trans.price * (isPurchase ? 1 : -1))
-  //   })
-  //   return grouped
-  // }
-
+import { groupByStock } from '../helpers/transactions'
 
 
 const mapStateToProps = (state) => {
-  const grouped = groupByStock(state.transactions.history)
+  const grouped = groupByStock(state.transactions.history, state.dates.current)
   return {
     currentDate: getDaysAgo(state.dates.current),
     allPrices: state.stocks.prices,

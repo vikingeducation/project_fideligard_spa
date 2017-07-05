@@ -20,12 +20,27 @@ const Success = ({ trade, balance, history }) => {
     <section id="success">
     <h2 className="inline-block">Success</h2>
     <Navigation className="float-right" history={history} />
-    <p>Stock: {trade.symbol}</p>
-    <p>Transaction type: {trade.type}</p>
-    <p>Price: ${trade.price}</p>
-    <p>Quantity: {trade.quantity}</p>
-    <p>Remaining Balance: ${balance.toLocaleString()}</p>
-    <Link to="/">Make another trade</Link>
+    <dl className="row">
+    <dt className="col-md-3">Stock</dt>
+    <dd className="col-md-9">{trade.symbol}</dd>
+    <dt className="col-md-3">Transaction Type:</dt>
+    <dd className="col-md-9">{trade.type}</dd>
+    <dt className="col-md-3">Price:</dt>
+    <dd className="col-md-9">{trade.price.toFixed(2)}</dd>
+    <dt className="col-md-3">Quantity:</dt>
+    <dd className="col-md-9">{trade.quantity}</dd>
+    <dt className="col-md-3">Remaining Balance:</dt>
+    <dd className="col-md-9">${balance.toLocaleString()}</dd>
+    </dl>
+    <p>
+      <Link to="/">Make another trade</Link>
+    </p>
+    <p>
+      <Link to="/portfolio">View Portfolio</Link>
+    </p>
+    <p>
+      <Link to="/transactions">View Transaction History</Link>
+    </p>
     </section>
 
   )

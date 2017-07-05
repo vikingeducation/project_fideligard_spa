@@ -47,13 +47,15 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
     row.push(<td key={`current-value-${stock}`}>{numDisplay(currentVal)}</td>)
     row.push(<td key={`profit-loss-${stock}`}>{numDisplay(currentVal - record.costBasis)}</td>)
     row.push(<td key={`currentPrice-${stock}`}>{ numDisplay(currentPrice)}</td>)
-    dateKeys.map((date, i) => {
+    dateKeys.slice(1).map((date, i) => {
       row.push(<td key={`date-${stock}-${date}`}>{numDisplay(allPrices[stock][date] - currentPrice)}</td>)
       aggregated['d' + i] += allPrices[stock][date] - currentPrice
     })
     row.push(<td key={`trade-${stock}`}>{
       currentPrice ? <Link to={{ pathname: '/trade/', search: `symbol=${stock}`}}>Trade</Link> :'Trade'}</td>)
     rows.push(<tr key={`row-${stock}`}>{row}</tr>)
+
+    console.log('Portfolio', record)
 
     aggregated.costBasis += record.costBasis
     aggregated.currentValue += currentVal
@@ -63,7 +65,7 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
 
 
   return (
-    <main id="portfolio">
+    <section id="portfolio">
    <Header title="Portfolio" history={history} />
     <Aggregated data={aggregated} />
     <Table>
@@ -74,7 +76,7 @@ const Portfolio = ({ history, currentDate, order, allPrices, dateKeys, symbols, 
       {rows}
     </tbody>
     </Table>
-    </main>
+    </section>
   )
 }
 export default Portfolio

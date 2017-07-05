@@ -10,18 +10,20 @@ import { numDisplay } from '../helpers/general'
 
 const Trade = ({ history, onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate, halfFilled, updateFormStatus, portfolio, setType, type }) => {
 
-
   const cost = numDisplay(price * quantity)
 
+  console.log('price * quantity', price * quantity)
 
   let enoughFunds = balance >= (price * quantity)
   let stocksAvailable = portfolio[stock] ? portfolio[stock].quantity : 0
   let enoughStocks = stocksAvailable >= quantity
   let isValid = (enoughFunds && type === 'BUY') || (enoughStocks && type === 'SELL')
 
-
   function validateForm(e) {
     e.preventDefault()
+    if (isNaN(price)) {
+      return
+    }
     if (!enoughFunds && type === 'BUY') {
       return alert('Sorry, you don\'t have enough money to buy those shares.')
     }
@@ -49,7 +51,7 @@ const Trade = ({ history, onSubmit, minDate, maxDate, symbols, stock, updateSymb
       </Select>
       </InputGroup>
       <InputGroup name="quantity" text="Quantity">
-      <Input type="quantity" min="1" className="form-control" name="quantity" onChange={updateQuantity} placeholder={0}/>
+      <Input type="number" min="1" className="form-control" name="quantity" onChange={updateQuantity} placeholder={0}/>
       </InputGroup>
       <InputGroup name="date" text="Date">
          <Input type="date" min={minDate} max={maxDate} className="form-control" name="date" value={currentDate} onChange={updateCurrentDate}/>
