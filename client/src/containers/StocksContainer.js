@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
 class StocksContainer extends Component {
 
   componentDidMount() {
-    // this.props.getStockPrices(this.props.currentDate)
+    this.props.getStockPrices(this.props.currentDate)
   }
 
   componentDidUpdate(prev) {

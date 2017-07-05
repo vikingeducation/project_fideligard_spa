@@ -3,7 +3,7 @@ class QuandlController < ApplicationController
 
   def index
     @key = Rails.application.secrets.quandl_key
-    @quandl = Quandl.new(params[:date], params[:columns], @key)
+    @quandl = Quandl.new(params[:dates], params[:columns], @key)
     @quandl.get_prices
     if @quandl.success?
       render json: @quandl.response, status: :ok

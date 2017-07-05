@@ -6,7 +6,7 @@ import SortIcon from './elements/SortIcon'
 import Aggregated from './Aggregated'
 import Header from './Header'
 
-const Portfolio = ({ history, currentDate, order, allPrices, dates, symbols, transactions, sort, balance }) => {
+const Portfolio = ({ history, currentDate, isFetching, order, allPrices, dates, symbols, transactions, sort, balance }) => {
 
   let headers = ['Symbol', 'Quantity', 'Cost Basis', 'Current Value', 'Profit/Loss', 'Current Price', '1d', '7d', '30d', 'Trade'].map((header) => {
     if (header === 'Symbol') {
@@ -66,8 +66,13 @@ const Portfolio = ({ history, currentDate, order, allPrices, dates, symbols, tra
   return (
     <section id="portfolio">
    <Header title="Portfolio" history={history} />
-    <Aggregated data={aggregated} />
-    <Table>
+   
+    { isFetching ? 
+      <p>Loading...</p>
+      :
+      (<div>
+        <Aggregated data={aggregated} />
+        <Table>
     <thead>
       <tr>{headers}</tr>
     </thead>
@@ -75,6 +80,10 @@ const Portfolio = ({ history, currentDate, order, allPrices, dates, symbols, tra
       {rows}
     </tbody>
     </Table>
+    </div>
+    )
+    }
+   
     </section>
   )
 }

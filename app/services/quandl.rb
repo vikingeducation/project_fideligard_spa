@@ -26,7 +26,7 @@ class Quandl
   private
 
   def request_prices
-    @data = HTTParty.get("https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=#{dates_to_string(@dates)}&&qopts.columns=#{@columns}&api_key=#{@key}&qopts.per_page=40")
+    @data = HTTParty.get("https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date=#{dates_to_string(@dates)}&&qopts.columns=#{@columns}&api_key=#{@key}&qopts.per_page=100")
     get_missing_dates
   end
 

@@ -14,6 +14,7 @@ const mapStateToProps = (state) => {
     symbols: Object.keys(grouped) || [],
     order: state.portfolio.order,
     balance: state.account.balance,
+    isFetching: state.stocks.isFetching
   }
 }
 

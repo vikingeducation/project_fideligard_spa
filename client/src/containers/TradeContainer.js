@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { createTransaction } from '../actions/transactions'
 import { updateBalance } from '../actions/account'
 import { setCurrentDate } from '../actions/dates'
-import { setStock, setQuantity, updateFormStatus, setType } from '../actions/trade'
+import { setQuantity, updateFormStatus, setType } from '../actions/trade'
 import serialize from 'form-serialize'
 import { groupByStock } from '../helpers/transactions'
 
@@ -58,7 +58,6 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateSymbol: (e) => {
       props.history.push('/trade/?symbol=' + e.target.value)
-        // dispatch(setStock(e.target.value))
     },
     updateQuantity: (e) => {
       dispatch(setQuantity(e.target.value))

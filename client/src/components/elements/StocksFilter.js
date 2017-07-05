@@ -5,7 +5,7 @@ import InputGroup from './InputGroup'
 
 const StocksFilter = ({ onChange }) => {
   return (<Form inline={true} classes="float-right">
-    <InputGroup name="filter" classes="mr-2" text="Filter:">
+    <InputGroup name="filter" text="Filter:">
           <Input type="text" onChange={onChange}/>
     </InputGroup>
       </Form>)
