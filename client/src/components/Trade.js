@@ -5,7 +5,7 @@ import Select from './elements/Select'
 import InputGroup from './elements/InputGroup'
 import Input from './elements/Input'
 import { Prompt } from 'react-router-dom'
-import { numDisplay } from '../helpers/general'
+import { numDisplay } from '../helpers/helpers'
 
 
 const Trade = ({ history, onSubmit, minDate, maxDate, symbols, stock, updateSymbol, price, currentDate, quantity, updateQuantity, balance, updateCurrentDate, halfFilled, updateFormStatus, portfolio, setType, type }) => {
@@ -16,6 +16,7 @@ const Trade = ({ history, onSubmit, minDate, maxDate, symbols, stock, updateSymb
   let stocksAvailable = portfolio[stock] ? portfolio[stock].quantity : 0
   let enoughStocks = stocksAvailable >= quantity
   let isValid = (enoughFunds && type === 'BUY') || (enoughStocks && type === 'SELL')
+
 
   function validateForm(e) {
     e.preventDefault()
@@ -55,7 +56,7 @@ const Trade = ({ history, onSubmit, minDate, maxDate, symbols, stock, updateSymb
          <Input type="date" min={minDate} max={maxDate} className="form-control" name="date" value={currentDate} onChange={updateCurrentDate}/>
       </InputGroup>
       <InputGroup name="price" text="Price ($)">
-        <Input type="number" disabled className="form-control" value={`${price}`} name="price" />
+        <Input type="number" disabled className="form-control" value={`${price ? price.toFixed(2) : '-'}`} name="price" />
       </InputGroup>
       <InputGroup name="cost" text="Cost ($)">
       <Input type="text" disabled className="form-control" value={cost}/>

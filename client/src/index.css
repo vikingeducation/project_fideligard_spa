@@ -11,3 +11,9 @@ body {
 .col-form-label {
     font-weight: bold;
 }
+
+aside {
+    overflow-y: scroll;
+    position: fixed;
+    height: 100%;
+}

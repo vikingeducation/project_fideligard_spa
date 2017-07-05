@@ -2,9 +2,9 @@ import React from 'react'
 import {
   Link
 } from 'react-router-dom'
-import { numDisplay } from '../../helpers/general'
+import { numDisplay } from '../../helpers/helpers'
 
-const StockPriceList = ({ symbols, prices, dates, currentDate }) => {
+const StockPriceList = ({ symbols, prices, dates }) => {
 
 
 

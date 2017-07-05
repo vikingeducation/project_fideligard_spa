@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Portfolio from '../components/Portfolio'
 import { setOrder } from '../actions/portfolio'
-import { getDaysAgo } from '../helpers/dates'
 import { groupByStock } from '../helpers/transactions'
 
 

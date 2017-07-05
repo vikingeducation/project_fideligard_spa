@@ -2,7 +2,7 @@ import React from 'react'
 import Table from './Table'
 import {
   numDisplay
-} from '../helpers/general'
+} from '../helpers/helpers'
 
 const Aggregated = ({ data }) => {
   const headers = ['Cost Basis', 'Current Value', 'Profit/Loss', '1d', '7d', '30d'].map((header) => (<th key={`header-${header}`}>{header}</th>))

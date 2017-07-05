@@ -1,6 +1,6 @@
 import React from 'react'
 import Table from './Table'
-import { displayPriceHistory, numDisplay } from '../helpers/general'
+import { displayPriceHistory, numDisplay } from '../helpers/helpers'
 import { Link } from 'react-router-dom'
 import SortIcon from './elements/SortIcon'
 import Aggregated from './Aggregated'

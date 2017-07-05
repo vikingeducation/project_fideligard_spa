@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { createTransaction } from '../actions/transactions'
 import { updateBalance } from '../actions/account'
 import { setCurrentDate } from '../actions/dates'
-import { updatePortfolio } from '../actions/portfolio'
 import { setStock, setQuantity, updateFormStatus, setType } from '../actions/trade'
 import serialize from 'form-serialize'
 import { groupByStock } from '../helpers/transactions'
@@ -21,18 +20,19 @@ function getStockPrice(prices, stock, date) {
 
 
 const mapStateToProps = (state, props) => {
+  const stock = props.location.search.split('=')[1]
   return {
     symbols: state.stocks.symbols || [],
-    stock: props.location.search.split('=')[1],
+    stock: stock,
     minDate: state.dates.min,
     maxDate: state.dates.max,
-    price: getStockPrice(state.stocks.prices, props.location.search.split('=')[1], 'd0'),
+    price: getStockPrice(state.stocks.prices, stock, 'd0'),
     currentDate: state.dates.current,
     quantity: state.trade.quantity,
     balance: state.account.balance,
     halfFilled: !!state.trade.halfFilled,
     type: state.trade.type || 'BUY',
-    portfolio: groupByStock(state.transactions.history)
+    portfolio: groupByStock(state.transactions.history, state.dates.current)
   }
 }
 
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     updateSymbol: (e) => {
       props.history.push('/trade/?symbol=' + e.target.value)
-      dispatch(setStock(e.target.value))
+        // dispatch(setStock(e.target.value))
     },
     updateQuantity: (e) => {
       dispatch(setQuantity(e.target.value))

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import SortIcon from './elements/SortIcon'
 import Table from './Table'
 import Header from './Header'
-import { numDisplay } from '../helpers/general'
+import { numDisplay } from '../helpers/helpers'
 
 const Transactions = ({
   history,

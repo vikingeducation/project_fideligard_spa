@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Stocks from '../components/Stocks'
-import { getDaysAgo } from '../helpers/dates'
 import { getStockPrices, setFilter, sortSymbols } from '../actions/stocks'
 
 
@@ -26,7 +25,7 @@ function filterAndSort(symbols, filter, order) {
 const mapStateToProps = (state) => {
   return {
     order: state.stocks.order,
-    currentDate: getDaysAgo(state.dates.current),
+    currentDate: state.dates.current,
     prices: state.stocks.prices,
     symbols: filterAndSort(state.stocks.symbols, state.stocks.filter, state.stocks.order),
     dates: state.stocks.dateKeys,
@@ -52,7 +51,7 @@ const mapDispatchToProps = (dispatch) => {
 class StocksContainer extends Component {
 
   componentDidMount() {
-    this.props.getStockPrices(this.props.currentDate)
+    // this.props.getStockPrices(this.props.currentDate)
   }
 
   componentDidUpdate(prev) {

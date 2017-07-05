@@ -5,7 +5,7 @@ const Navbar = ({ title }) => {
 
   return (
     <nav className="navbar navbar-light bg-faded mb-2">
-  <h1 className="navbar-brand h1"><Link to="/">{title}</Link></h1>
+  <h1 className="h1"><Link to="/">{title}</Link></h1>
   </nav>
   )
 }

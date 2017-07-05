@@ -1,4 +1,3 @@
-import { parseStockPrices } from '../helpers/stocks'
 export const stock = {
   A: {
     d0: 54.34,

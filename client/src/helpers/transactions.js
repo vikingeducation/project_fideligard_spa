@@ -69,5 +69,4 @@ export function groupByStock(transactions, date) {
     }
   })
   return grouped
-
 }
