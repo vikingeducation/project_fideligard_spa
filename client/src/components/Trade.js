@@ -12,8 +12,6 @@ const Trade = ({ history, onSubmit, minDate, maxDate, symbols, stock, updateSymb
 
   const cost = numDisplay(price * quantity)
 
-  console.log('price * quantity', price * quantity)
-
   let enoughFunds = balance >= (price * quantity)
   let stocksAvailable = portfolio[stock] ? portfolio[stock].quantity : 0
   let enoughStocks = stocksAvailable >= quantity

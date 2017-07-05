@@ -5,9 +5,9 @@ export function msToDateString(time) {
   return date.getFullYear() + '-' + month + '-' + day
 }
 
-export function getQueryDates(start) {
-  return [getDaysAgo(start), getDaysAgo(start, 1), getDaysAgo(start, 7), getDaysAgo(start, 30)]
-}
+// export function getQueryDates(start) {
+//   return [getDaysAgo(start), getDaysAgo(start, 1), getDaysAgo(start, 7), getDaysAgo(start, 30)]
+// }
 
 export function datesToQueryString(dates) {
   return dates.join(',').replace(/-/g, '')

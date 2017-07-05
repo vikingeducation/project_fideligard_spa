@@ -21,9 +21,11 @@ const preloadedState = {
     min: '1999-01-01'
   },
   stocks: {
-    prices: stock,
+    // prices: stock,
     order: 1,
-    symbols: Object.keys(stock),
+    // symbols: Object.keys(stock),
+
+    dateKeys: ['d1', 'd7', 'd30']
   },
   trade: {
     quantity: 0

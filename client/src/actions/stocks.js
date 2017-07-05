@@ -1,7 +1,7 @@
-import {
-  getQueryDates,
-  datesToQueryString
-} from '../helpers/dates'
+// import {
+//   getQueryDates,
+//   datesToQueryString
+// } from '../helpers/dates'
 import { parseStockPrices } from '../helpers/stocks'
 
 
@@ -54,11 +54,11 @@ export function sortSymbols(data) {
 
 export function getStockPrices(start) {
   return (dispatch) => {
-    const dates = getQueryDates(start)
+    // const dates = getQueryDates(start)
     dispatch(getPricesRequest())
-    dispatch(storeLookupDates(dates))
+    // dispatch(storeLookupDates(dates))
 
-    fetch(`/api/quandl/?dates=${datesToQueryString(dates)}`)
+    fetch(`/api/quandl/?dates=${start}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`${response.status} ${response.text}`)
@@ -66,12 +66,11 @@ export function getStockPrices(start) {
         return response.json()
       })
       .then(json => {
-        const prices = parseStockPrices(json.datatable.data, dates)
+        console.log('prices', json)
         dispatch(getPricesSuccess({
-            prices: prices,
-            symbols: Object.keys(prices)
-          }))
-          // store response
+          prices: json,
+          symbols: Object.keys(json)
+        }))
       })
       .catch(error => {
         dispatch(getPricesFailure())

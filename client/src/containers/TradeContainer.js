@@ -26,7 +26,7 @@ const mapStateToProps = (state, props) => {
     stock: props.location.search.split('=')[1],
     minDate: state.dates.min,
     maxDate: state.dates.max,
-    price: getStockPrice(state.stocks.prices, props.location.search.split('=')[1], state.dates.current),
+    price: getStockPrice(state.stocks.prices, props.location.search.split('=')[1], 'd0'),
     currentDate: state.dates.current,
     quantity: state.trade.quantity,
     balance: state.account.balance,

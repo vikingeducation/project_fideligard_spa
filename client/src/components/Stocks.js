@@ -4,7 +4,7 @@ import StockPriceList from './elements/StockPriceList'
 import SortIcon from './elements/SortIcon'
 import Table from './Table'
 
-const Stocks = ({ order, currentDate, dates, prices, symbols, onChange, sortSymbols }) => {
+const Stocks = ({ onChange, order, sortSymbols, isFetching, ...rest }) => {
 
 
   let thead = ['Symbol', 'Price', '1d', '7d', '30d', 'Trade'].map((header) => {
@@ -16,18 +16,24 @@ const Stocks = ({ order, currentDate, dates, prices, symbols, onChange, sortSymb
   })
 
 
+
   return (
     <aside>
       <h2 className="inline-block h4">Stocks</h2>
       <StocksFilter onChange={onChange} />
-      <Table classes="table-responsive">
+      { isFetching ? 
+        <p>Loading...</p>
+        :
+        ( <Table classes="table-responsive">
         <thead>
           <tr>
             {thead}
           </tr>
         </thead>
-       <StockPriceList symbols={symbols} dates={dates} prices={prices} currentDate={currentDate} />
-      </Table>
+       <StockPriceList {...rest} />
+      </Table>)
+      }
+     
     </aside>)
 }
 

@@ -1,3 +1,4 @@
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Portfolio from '../components/Portfolio'
 import { setOrder } from '../actions/portfolio'
@@ -8,13 +9,12 @@ import { groupByStock } from '../helpers/transactions'
 const mapStateToProps = (state) => {
   const grouped = groupByStock(state.transactions.history, state.dates.current)
   return {
-    currentDate: getDaysAgo(state.dates.current),
-    allPrices: state.stocks.prices,
-    dateKeys: state.stocks.dates || [],
+    allPrices: state.stocks.prices || null,
+    dates: state.stocks.dateKeys,
     transactions: grouped,
-    symbols: Object.keys(grouped),
+    symbols: Object.keys(grouped) || [],
     order: state.portfolio.order,
-    balance: state.account.balance
+    balance: state.account.balance,
   }
 }
 
@@ -26,6 +26,7 @@ const mapDispatchToProps = (dispatch) => {
     }
   }
 }
+
 
 export default connect(
   mapStateToProps,
