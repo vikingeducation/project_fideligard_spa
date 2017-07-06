@@ -1,6 +1,5 @@
 import React from 'react'
-import Select from './elements/Select'
-import Form from './Form'
+import { Form, Input } from 'reactstrap'
 
 const Navigation = ({ history }) => {
 
@@ -11,12 +10,12 @@ const Navigation = ({ history }) => {
   let path = history.location.pathname
 
   return (
-    <Form onChange={updateRoute} className="float-right form-inline">
-  <Select defaultValue={path}>
+    <Form onChange={updateRoute} className="float-md-right ">
+  <Input type="select" defaultValue={path}>
   <option value="/trade">Trade</option>
   <option value="/portfolio">Portfolio</option>
   <option value="/transactions">Transactions</option>
-  </Select>
+  </Input>
   </Form>
 
   )

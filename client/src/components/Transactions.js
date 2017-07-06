@@ -1,10 +1,7 @@
 import React from 'react'
-import Form from './Form'
-import InputGroup from './elements/InputGroup'
-import Input from './elements/Input'
+import { Form, FormGroup, Label, Input, Col, Table } from 'reactstrap'
 import { Link } from 'react-router-dom'
 import SortIcon from './elements/SortIcon'
-import Table from './Table'
 import Header from './Header'
 import { numDisplay } from '../helpers/helpers'
 
@@ -43,13 +40,16 @@ const Transactions = ({
   return (
     <main id="transactions">
        <Header title="Transactions" history={history} >
-    <Form inline={true} classes="float-right mr-2">
-      <InputGroup name="filter" text="Filter:" classes="col-md-2 col-form-label">
+    <Form className="float-md-right mr-2">
+    <FormGroup row>
+    <Label for="filter" md={2}>Filter:</Label>
+    <Col md={10}>
       <Input type="text" name="filter" onChange={setFilter}/>
-      </InputGroup>
+      </Col>
+      </FormGroup>
     </Form>
     </Header>
-    <Table>
+    <Table responsive>
     <thead>
       <tr>{headers}</tr>
     </thead>

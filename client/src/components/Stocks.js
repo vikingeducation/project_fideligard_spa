@@ -1,8 +1,8 @@
 import React from 'react'
-import StocksFilter from './elements/StocksFilter'
+import StocksFilter from './StocksFilter'
 import StockPriceList from './elements/StockPriceList'
 import SortIcon from './elements/SortIcon'
-import Table from './Table'
+import { Table } from 'reactstrap'
 
 const Stocks = ({ onChange, order, sortSymbols, isFetching, ...rest }) => {
 
@@ -15,16 +15,14 @@ const Stocks = ({ onChange, order, sortSymbols, isFetching, ...rest }) => {
     }
   })
 
-
-
   return (
     <aside>
-      <h2 className="inline-block h4">Stocks</h2>
+      <h2 className="inline-block">Stocks</h2>
       <StocksFilter onChange={onChange} />
       { isFetching ? 
         <p>Loading...</p>
         :
-        ( <Table classes="table-responsive">
+        ( <Table responsive>
         <thead>
           <tr>
             {thead}

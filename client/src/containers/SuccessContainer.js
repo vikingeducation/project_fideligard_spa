@@ -26,7 +26,7 @@ const Success = ({ trade, balance, history }) => {
     <dt className="col-md-3">Transaction Type:</dt>
     <dd className="col-md-9">{trade.type}</dd>
     <dt className="col-md-3">Price:</dt>
-    <dd className="col-md-9">{trade.price.toFixed(2)}</dd>
+    <dd className="col-md-9">${trade.price.toFixed(2)}</dd>
     <dt className="col-md-3">Quantity:</dt>
     <dd className="col-md-9">{trade.quantity}</dd>
     <dt className="col-md-3">Remaining Balance:</dt>

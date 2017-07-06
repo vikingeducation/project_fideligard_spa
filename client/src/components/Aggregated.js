@@ -1,5 +1,6 @@
 import React from 'react'
-import Table from './Table'
+import { Table } from 'reactstrap'
+
 import {
   numDisplay
 } from '../helpers/helpers'
@@ -8,7 +9,7 @@ const Aggregated = ({ data }) => {
   const headers = ['Cost Basis', 'Current Value', 'Profit/Loss', '1d', '7d', '30d'].map((header) => (<th key={`header-${header}`}>{header}</th>))
 
   return (
-    <Table classes="mb-5">
+    <Table className="mb-5" responsive>
   <thead>
   <tr>{headers}</tr>
   </thead>

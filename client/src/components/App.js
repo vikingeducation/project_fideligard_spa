@@ -23,7 +23,7 @@ class App extends Component {
       <div className="container-fluid">
       <Navbar title="Fideligard" />
       <div className="row">
-      <div className="col-md-4">
+      <div className="col-md-4 hidden-sm-down">
       <StocksContainer />
       </div>
       <div className="col-md-8">

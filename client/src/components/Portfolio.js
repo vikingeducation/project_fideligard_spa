@@ -1,5 +1,5 @@
 import React from 'react'
-import Table from './Table'
+import { Table } from 'reactstrap'
 import { numDisplay } from '../helpers/helpers'
 import { Link } from 'react-router-dom'
 import SortIcon from './elements/SortIcon'
@@ -72,7 +72,7 @@ const Portfolio = ({ history, currentDate, isFetching, order, allPrices, dates, 
       :
       (<div>
         <Aggregated data={aggregated} />
-        <Table>
+        <Table responsive>
     <thead>
       <tr>{headers}</tr>
     </thead>

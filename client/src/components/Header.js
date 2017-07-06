@@ -5,7 +5,7 @@ const Header = ({ history, title, children }) => {
 
   return (
     <header className="mb-3">
-  <h2 className="inline-block h4">{title}</h2>
+  <h2 className="inline-block">{title}</h2>
   <Navigation history={history} />
   {children}
   </header>

@@ -6,8 +6,6 @@ import { numDisplay } from '../../helpers/helpers'
 
 const StockPriceList = ({ symbols, prices, dates }) => {
 
-
-
   let rows = []
   if (symbols && prices) {
     symbols.forEach((symbol) => {

@@ -24,10 +24,8 @@ const mapStateToProps = (state, props) => {
   return {
     symbols: state.stocks.symbols || [],
     stock: stock,
-    minDate: state.dates.min,
-    maxDate: state.dates.max,
+    dates: state.dates,
     price: getStockPrice(state.stocks.prices, stock, 'd0'),
-    currentDate: state.dates.current,
     quantity: state.trade.quantity,
     balance: state.account.balance,
     halfFilled: !!state.trade.halfFilled,

@@ -1,14 +1,15 @@
 import React from 'react'
-import Input from './elements/Input'
-import Form from './Form'
-import InputGroup from './elements/InputGroup'
+import { Form, FormGroup, Input, Label, Col } from 'reactstrap'
 
 const DatePicker = ({ min, max, current, onChange }) => {
   return (
-    <Form inline={true}>
- <InputGroup name="currentDate" text="Select a Date:">
+    <Form>
+    <FormGroup row>
+    <Label for="currentdate" sm={2} md={3}>Select a Date:</Label>
+    <Col sm={10} md={9}>
   <Input type="date" min={min} max={max}name="currentDate" value={current} onChange={onChange}/>
-  </InputGroup>
+    </Col>
+  </FormGroup>
 </Form>
   )
 }
