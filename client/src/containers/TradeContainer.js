@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch, props) => {
     onSubmit: (e) => {
       e.preventDefault()
       let data = serialize(e.target, { hash: true, disabled: true })
-      data.quantity = parseInt(data.quantity)
+      data.quantity = parseInt(data.quantity, 10)
       data.price = parseFloat(data.price)
 
       let cost = data.price * data.quantity

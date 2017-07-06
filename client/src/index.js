@@ -9,7 +9,6 @@ import { createStore, applyMiddleware } from 'redux'
 import registerServiceWorker from './registerServiceWorker';
 import { dateToString } from './helpers/helpers'
 import fideligard from './reducers/fideligard'
-import { stock } from './data/stocks'
 import { transactions } from './data/transactions'
 
 const today = dateToString(new Date())

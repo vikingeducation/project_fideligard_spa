@@ -54,7 +54,7 @@ class StocksContainer extends Component {
     this.props.getStockPrices(this.props.currentDate)
   }
 
-  componentDidUpdate(prev) {
+  componentWillReceiveProps(prev) {
     if (prev.currentDate !== this.props.currentDate) {
       this.props.getStockPrices(this.props.currentDate)
     }

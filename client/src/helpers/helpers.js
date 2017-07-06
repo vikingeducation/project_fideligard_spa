@@ -1,5 +1,3 @@
-import React from 'react'
-
 export function numDisplay(num) {
   if (isNaN(num)) {
     return '-'
