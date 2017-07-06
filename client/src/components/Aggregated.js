@@ -1,6 +1,5 @@
 import React from 'react'
 import { Table } from 'reactstrap'
-
 import {
   numDisplay
 } from '../helpers/helpers'
