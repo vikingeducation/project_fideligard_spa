@@ -2,17 +2,17 @@ import React, {Component} from 'react';
 import {Grid, Row, Col} from 'react-bootstrap';
 import DatePickerInput from './DatePickerInput';
 import serialize from "form-serialize";
-const MIN_DATE_UNIX_TS = 345427200000; // December 12, 1980
-const MAX_DATE_UNIX_TS = 1499385600000; // July 7, 2017
+const MIN_DATE_UNIX_TS = 942883200000;
+const MAX_DATE_UNIX_TS = 1499385600000;
 const MAX_DATE = "2017-07-07"
-const MIN_DATE = "1980-12-12"
+const MIN_DATE = "1999-11-18"
 const ONE_DAY_SECS = 86400;
 
 class DatePicker extends Component {
   constructor() {
     super()
     this.state = {
-      date: "1980-12-12",
+      date: MIN_DATE,
       dateInSeconds: MIN_DATE_UNIX_TS,
       isEditOpen: false
     }

@@ -5,7 +5,7 @@ const app = require("express")();
 const fs = require("fs");
 
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
-// const baseUrl = "https://www.goodreads.com/";
+const baseUrl = `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?api_key=${QUANDL_API_KEY}&qopts.columns=ticker,date,close`;
 
 app.set("port", process.env.PORT || 3001);
 
@@ -23,9 +23,15 @@ const checkStatus = response => {
   return response;
 };
 
+const {parseSymbols} = require('./helpers');
 
-app.get("/api/search", (req, res, next) => {
-  console.log("Requesting search data from GoodReads...");
+app.get("/api/stocks", (req, res, next) => {
+  console.log("Requesting search data from Quandl...");
+  if (!req.query.symbols || !req.query.date) {
+    res.status(400).json({"Error": "You must include a symbols and date query with every request."});
+  } else {
+    next();
+  }
   // const q = req.query.q || "B";
   // fetch(`${baseUrl}/search/index.xml?key=${QUANDL_API_KEY}&q=${q}`)
   //   .then(checkStatus)
@@ -37,6 +43,10 @@ app.get("/api/search", (req, res, next) => {
   //   .catch(error => {
   //     next(error);
   //   });
+}, (req, res, next) => {
+  let symbols = parseSymbols(req.query.symbols);
+  fetch(`${baseUrl}&ticker=${symbols.toString()}`)
+  res.json(symbols);
 });
 
 app.get("/api/book", (req, res, next) => {

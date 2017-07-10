@@ -1,30 +1,60 @@
 # project_fideligard_spa
 Buy low, sell high.
 
-Date Picker:
-->
-HTML input range with UTC
-  1. Figure out min/max (static) utc dates
-    -play around with api and see what format it accepts
-    -then spend some time on jsbin getting js Date, UTC, and html datetime
-     to play nicely with each other
+Our external endpoint:
+https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?api_key=YOUR_KEY&qopts.columns=ticker,date,close&date.gte=DATE&date.lte=DATE&ticker=SYMBOLS
 
-     FOR API:
-      can do these formats:
-        2000-01-01 for jan-01-yyyy
-        best to use former
-      date fns:
-        getTime()
-        toISOString().slice(0,10)
-  2. create actions/reducers for setting date
-  3. on input range change, set new date
-  4. do some match to calculate new utc to date
-  5. figure out formatting for the api
-  6. pass new date as prop to the widget for display purposes
-    OR HAVE TWO THINGS
-      onChange = local state change showing full date string (Thur, Jan 01, 19xx)
-      onInput = api call + redux state change
-      This way user gets instant feedback of moving slider, plus api calls are throttled and not sent off every single movement of the mouse 
-  7. make this display editable, creating an html input
-  8. reverse it back to UTC, then set state
-  9. the display toggle will be simple native react state
+Stocks data panel?
+What do we need?
+An API that returns a JSON object like this, separated by symbols requested:
+{
+  results: {
+    A: {
+      one_day_ago: [
+                "A",
+                "2017-06-07",
+                60.26,
+                60.765,
+                59.98,
+                60.63,
+                1617504,
+                0,
+                1,
+                60.125025453065,
+                60.628894318876,
+                59.845652616575,
+                60.494196701283,
+                1617504
+            ],
+      seven_days_ago: [
+                "A",
+                "2017-06-07",
+                60.26,
+                60.765,
+                59.98,
+                60.63,
+                1617504,
+                0,
+                1,
+                60.125025453065,
+                60.628894318876,
+                59.845652616575,
+                60.494196701283,
+                1617504
+            ],
+        etc.
+    }
+  }
+}
+
+So we build an endpoint that does this:
+1. Takes an end date, calculates a start-date 35ish(?) days away using jsjoda, and takes symbols (required)?
+2. queries external API
+3. parses the information by iterating through datatables.data
+  - for each symbol in query:
+    - Get today price
+    - get 1 day price, if 1 day ago is sat -or- sun, get previous friday price
+    - get 7 day price, if 7 days ago is sat -or- sun, get previous friday price
+    etc.
+    - if no price available for that day, go back a day and make sure it's not a weekend
+4. return results to user.
