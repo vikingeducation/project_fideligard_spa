@@ -5,9 +5,6 @@ import { LinkContainer } from "react-router-bootstrap";
 const NavLinks = () => {
   return (
     <Nav pullRight>
-      <LinkContainer activeClassName="active" exact to="/">
-        <NavItem eventKey={1}>Home</NavItem>
-      </LinkContainer>{" "}
       <LinkContainer activeClassName="active" to="/trades">
         <NavItem eventKey={2}>Trades</NavItem>
       </LinkContainer>{" "}

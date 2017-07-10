@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {Grid, Row, Col} from 'react-bootstrap';
 import ScrollToTop from "./ScrollToTop";
 import Navigation from './Navigation';
 import StockDataContainer from '../containers/StockDataContainer';
@@ -14,14 +15,22 @@ class App extends Component {
       <Router>
         <ScrollToTop>
           <Navigation title={"Fideligard"}/>
-          <StockDataContainer />
-          <Switch>
-            <Route path="/trades" component={Trades} />
-            <Route path="/transactions" component={Transactions} />
-            <Route path="/portfolio" component={Portfolio} />
-            <Route exact path="/" component={Portfolio} />
-          </Switch>
-          <DatePicker />
+          <Grid>
+            <Row>
+              <Col md={6}>
+                <StockDataContainer />
+              </Col>
+              <Col md={6}>
+                <Switch>
+                  <Route path="/trades" component={Trades} />
+                  <Route path="/transactions" component={Transactions} />
+                  <Route path="/portfolio" component={Portfolio} />
+                  <Route exact path="/" component={Portfolio} />
+                </Switch>
+              </Col>
+            </Row>
+            <DatePicker />
+          </Grid>
         </ScrollToTop>
       </Router>
     );
