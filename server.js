@@ -45,20 +45,20 @@ app.get("/api/stocks", (req, res, next) => {
   let symbols = parseSymbols(req.query.symbols);
   let endDate = req.query.date;
   let startDate = determineStartDate(endDate);
-  let results = parseAPIResults(mockData.datatable.data, symbols, endDate);
-  console.log(results);
-      res.json('yep');
-  // fetch(`${baseUrl}&ticker=${symbols.toString()}&date.lte=${endDate}&date.gte=${startDate}`)
-  //   .then(checkStatus)
-  //   .then(response => response.json())
-  //   .then(json => {
-  //     let results = parseAPIResults(json.datatable.data, symbols, endDate);
-  //     res.json('yep');
-  //     // res.json(json);
-  //   })
-  //   .catch(error => {
-  //     next(error);
-  //   });
+  // let results = parseAPIResults(mockData.datatable.data, symbols, endDate);
+  // console.log(results);
+  // res.json('yep');
+  fetch(`${baseUrl}&ticker=${symbols.toString()}&date.lte=${endDate}&date.gte=${startDate}`)
+    .then(checkStatus)
+    .then(response => response.json())
+    .then(json => {
+      let results = parseAPIResults(json.datatable.data, symbols, endDate);
+      // res.json('yep');
+      res.json(results);
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
 const errorHandler = (err, req, res, next) => {
