@@ -31,17 +31,31 @@ const determineWeekdayDate = (date, distance) => {
   return removeWeekendDates(results.toString());
 };
 
-const parseAPIResults = (data, symbols, endDate) => {
+const getAllSymbols = data => {
+  let results = new Set();
+
+  data.forEach(stock => {
+    results.add(stock[0]);
+  });
+
+  return Array.from(results);
+};
+
+const parseAPIResults = (data, endDate, symbols) => {
   let results = {
     data: {}
   }
-  
+
   // Stock data is not updated on weekends, so we go back in time
   // as far as necessary if user provided a weekend
   let parsedEndDate = removeWeekendDates(endDate);
   let oneDayAgo = determineWeekdayDate(endDate, 1);
   let sevenDaysAgo = determineWeekdayDate(endDate, 7);
   let thirtyDaysAgo = determineWeekdayDate(endDate, 30);
+
+  if (!symbols) {
+    symbols = getAllSymbols(data);
+  }
 
   symbols.forEach(symbol => {
     results.data[symbol] = {

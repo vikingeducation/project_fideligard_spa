@@ -34,25 +34,27 @@ const mockData = require('./mock-data');
 
 app.get("/api/stocks", (req, res, next) => {
   console.log("Requesting search data from Quandl...");
-  if (!req.query.symbols || !req.query.date) {
-    res.status(400).json({"Error": "You must include a date and symbols query with every request."});
+  if (!req.query.date) {
+    res.status(400).json({"Error": "You must include a date query with every request."});
   } else if (!isDateCorrect(req.query.date)) {
     res.status(400).json({"Error": "Date must be formatted in the following manner: YYYY-MM-DD"});
   } else {
     next();
   }
 }, (req, res, next) => {
-  let symbols = parseSymbols(req.query.symbols);
+  let symbols;
+  let symbolsString = "";
+  if (req.query.symbols) {
+    symbols = parseSymbols(req.query.symbols);
+    symbolsString = `&ticker=${symbols.toString()}`
+  }
   let endDate = req.query.date;
   let startDate = determineStartDate(endDate);
-  // let results = parseAPIResults(mockData.datatable.data, symbols, endDate);
-  // console.log(results);
-  // res.json('yep');
-  fetch(`${baseUrl}&ticker=${symbols.toString()}&date.lte=${endDate}&date.gte=${startDate}`)
+  fetch(`${baseUrl}${symbolsString}&date.lte=${endDate}&date.gte=${startDate}`)
     .then(checkStatus)
     .then(response => response.json())
     .then(json => {
-      let results = parseAPIResults(json.datatable.data, symbols, endDate);
+      let results = parseAPIResults(json.datatable.data, endDate, symbols);
       // res.json('yep');
       res.json(results);
     })
