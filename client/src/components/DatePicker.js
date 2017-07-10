@@ -77,6 +77,7 @@ class DatePicker extends Component {
             <DatePickerInput
               isOpen={isEditOpen}
               onSubmit={this.onEditSubmit}
+              onClose={this.toggleEdit}
             />
             <input
               // add onMouseUp for api updating with the date-picker!
