@@ -8,7 +8,7 @@ const DatePickerInput = ({isOpen, onSubmit}) => {
 
   return (
     <form onSubmit={onSubmit}>
-      <FormControl type="date" />
+      <FormControl type="date" name="date"/>
       <Button bsStyle="primary" type="submit">Submit</Button>
     </form>
   );

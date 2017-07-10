@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import {Grid} from 'react-bootstrap';
 import DatePickerInput from './DatePickerInput';
+import serialize from "form-serialize";
 const MIN_DATE_UNIX_TS = 345427200000;
 const MAX_DATE_UNIX_TS = 1499385600000; // July 7, 2017
+const MAX_DATE = "2017-07-07"
 const ONE_DAY_SECS = 86400;
 
 class DatePicker extends Component {
@@ -39,7 +41,18 @@ class DatePicker extends Component {
 
   onEditSubmit = e => {
     e.preventDefault();
-    console.log(e.target.value);
+    const form = e.target;
+    let date = serialize(form, {hash: true}).date;
+    let dateInSeconds = new Date(date).getTime();
+    if (dateInSeconds > MAX_DATE_UNIX_TS) {
+      date = MAX_DATE;
+      dateInSeconds = MAX_DATE_UNIX_TS;
+    }
+    this.setState({
+      date,
+      dateInSeconds,
+      isEditOpen: false
+    })
   };
 
   render() {
