@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 const initialState = {
   date: "1999-11-18",
   stockFilter: "",
-  stockWatchlist: ["KO", "PG", "UNH", "V", "AAPL", "DIS", "GS", "MRK", "TRV", "UTX", "VZ", "WM"],
+  stockWatchlist: ["KO", "PG", "UNH", "AAPL", "DIS", "GS", "MRK", "TRV", "UTX", "VZ", "WM"],
   stockData: {
     stocks: {},
     isFetching: false,

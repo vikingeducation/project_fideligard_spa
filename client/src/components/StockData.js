@@ -1,5 +1,5 @@
 import React from 'react';
-import {Table} from 'react-bootstrap';
+import {Table, Panel} from 'react-bootstrap';
 
 const buildTable = data => {
   let results = [];
@@ -22,20 +22,22 @@ const StockData = props => {
   const {stockData} = props;
   let stockTableCells = buildTable(stockData.stocks);
   return (
-    <Table striped>
-      <thead>
-        <tr>
-          <th>Symbol</th>
-          <th>Today</th>
-          <th>1d</th>
-          <th>7d</th>
-          <th>30d</th>
-        </tr>
-      </thead>
-      <tbody>
-        {stockTableCells}
-      </tbody>
-    </Table>
+    <Panel header="Stock Data">
+      <Table striped>
+        <thead>
+          <tr>
+            <th>Symbol</th>
+            <th>Today</th>
+            <th>1d</th>
+            <th>7d</th>
+            <th>30d</th>
+          </tr>
+        </thead>
+        <tbody>
+          {stockTableCells}
+        </tbody>
+      </Table>
+    </Panel>
   );
 };
 

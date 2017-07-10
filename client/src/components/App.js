@@ -17,17 +17,16 @@ class App extends Component {
           <Navigation title={"Fideligard"}/>
           <Grid>
             <Row>
+              <h1>Fideligard</h1>
               <Col md={6}>
                 <StockDataContainer />
               </Col>
-              <Col md={6}>
-                <Switch>
-                  <Route path="/trades" component={Trades} />
-                  <Route path="/transactions" component={Transactions} />
-                  <Route path="/portfolio" component={Portfolio} />
-                  <Route exact path="/" component={Portfolio} />
-                </Switch>
-              </Col>
+              <Switch>
+                <Route path="/trades" component={Trades} />
+                <Route path="/transactions" component={Transactions} />
+                <Route path="/portfolio" component={Portfolio} />
+                <Route exact path="/" component={Portfolio} />
+              </Switch>
             </Row>
             <DatePicker />
           </Grid>
