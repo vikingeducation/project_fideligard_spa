@@ -18,34 +18,13 @@ class DatePicker extends Component {
     }
   }
 
-  onChange = e => {
-    let date = new Date(+e.target.value);
-    let formattedDate = date.toISOString().slice(0,10);
-    this.setState({
-      date: formattedDate,
-      dateInSeconds: +e.target.value,
-      isEditOpen: false
-    });
-  };
-
-  toggleEdit = e => {
-    e.preventDefault();
-    if (this.state.isEditOpen) {
+  _handleNewDate(date, dateInSeconds) {
+    if (!date) {
       this.setState({
         isEditOpen: false
-      });
-    } else {
-      this.setState({
-        isEditOpen: true
-      });
+      })
+      return;
     }
-  };
-
-  onEditSubmit = e => {
-    e.preventDefault();
-    const form = e.target;
-    let date = serialize(form, {hash: true}).date;
-    let dateInSeconds = new Date(date).getTime();
 
     if (dateInSeconds > MAX_DATE_UNIX_TS) {
       date = MAX_DATE;
@@ -61,6 +40,48 @@ class DatePicker extends Component {
       dateInSeconds,
       isEditOpen: false
     })
+  }
+
+  toggleEdit = e => {
+    e.preventDefault();
+    if (this.state.isEditOpen) {
+      this.setState({
+        isEditOpen: false
+      });
+    } else {
+      this.setState({
+        isEditOpen: true
+      });
+    }
+  };
+
+  onChange = e => {
+    let date = new Date(+e.target.value);
+    let formattedDate = date.toISOString().slice(0,10);
+    this.setState({
+      date: formattedDate,
+      dateInSeconds: +e.target.value,
+      isEditOpen: false
+    });
+  };
+
+  onEditBlur = e => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    let date = serialize(form, {hash: true}).date;
+    let dateInSeconds = new Date(date).getTime();
+
+    this._handleNewDate(date, dateInSeconds);
+  };
+
+  onEditSubmit = e => {
+    e.preventDefault();
+    console.log(e);
+    const form = e.target;
+    let date = serialize(form, {hash: true}).date;
+    let dateInSeconds = new Date(date).getTime();
+
+    this._handleNewDate(date, dateInSeconds);
   };
 
   render() {
@@ -77,7 +98,7 @@ class DatePicker extends Component {
             <DatePickerInput
               isOpen={isEditOpen}
               onSubmit={this.onEditSubmit}
-              onClose={this.toggleEdit}
+              onBlur={this.onEditBlur}
             />
             <input
               // add onMouseUp for api updating with the date-picker!
