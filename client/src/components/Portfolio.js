@@ -1,13 +1,16 @@
 import React from 'react';
-import DatePicker from './DatePicker';
+import {Grid, Row} from 'react-bootstrap';
 
 const Portfolio = () => {
   return (
-    <h1>
-      Portfolio
-      <hr />
-      <DatePicker />
-    </h1>
+    <Grid>
+      <h1>
+        Portfolio
+      </h1>
+      <Row>
+
+      </Row>
+    </Grid>
   )
 };
 

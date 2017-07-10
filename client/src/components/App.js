@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import Trades from './Trades';
 import Transactions from './Transactions';
 import Portfolio from './Portfolio';
+import DatePicker from './DatePicker';
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route path="/portfolio" component={Portfolio} />
             <Route exact path="/" component={Portfolio} />
           </Switch>
+          <DatePicker />
         </ScrollToTop>
       </Router>
     );
