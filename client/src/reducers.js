@@ -14,7 +14,7 @@ const initialState = {
 
 const date = (state = initialState.date, action) => {
   switch(action.type) {
-    case Actions.SET_date: 
+    case Actions.SET_DATE: 
       return action.data
     default:
       return state;
