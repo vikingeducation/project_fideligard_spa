@@ -39,7 +39,10 @@ class DatePicker extends Component {
       date,
       dateInSeconds,
       isEditOpen: false
-    })
+    });
+
+    this.props.setDate(date);
+    this.props.getStocks(this.props.stockWatchlist, date);
   }
 
   toggleEdit = e => {
@@ -84,6 +87,13 @@ class DatePicker extends Component {
     this._handleNewDate(date, dateInSeconds);
   };
 
+  onEditMouseUp = e => {
+    let date = new Date(+e.target.value);
+    let formattedDate = date.toISOString().slice(0,10);
+    this.props.setDate(formattedDate);
+    this.props.getStocks(this.props.stockWatchlist, formattedDate);
+  };
+
   render() {
     const {date, isEditOpen, dateInSeconds} = this.state;
     return (
@@ -106,6 +116,7 @@ class DatePicker extends Component {
                 className="date-picker-slider"
                 min={MIN_DATE_UNIX_TS}
                 max={MAX_DATE_UNIX_TS}
+                onMouseUp={this.onEditMouseUp}
                 onChange={this.onChange}
                 value={dateInSeconds}
                 step={ONE_DAY_SECS}

@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import StockData from '../components/StockData';
-import {getInitialStocks} from '../actions';
+import {getStocks} from '../actions';
 
 class StockDataContainer extends Component {
   componentDidMount() {
-    this.props.getInitialStocks(this.props.stockWatchlist, this.props.date);
+    this.props.getStocks(this.props.stockWatchlist, this.props.date);
   }
 
   render() {
@@ -23,8 +23,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getInitialStocks: (stocks, date) => {
-      dispatch(getInitialStocks(stocks, date));
+    getStocks: (stocks, date) => {
+      dispatch(getStocks(stocks, date));
     }
   }
 };

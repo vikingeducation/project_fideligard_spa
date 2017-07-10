@@ -26,8 +26,15 @@ export function getStocksFailure(error) {
   };
 }
 
+export function setDate(data) {
+  return {
+    type: SET_DATE,
+    data
+  }
+}
+
 // @param {array} stocks
-export function getInitialStocks(stocks, date) {
+export function getStocks(stocks, date) {
   return dispatch => {
     dispatch(getStocksRequest());
 

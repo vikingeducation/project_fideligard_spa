@@ -7,7 +7,7 @@ import StockDataContainer from '../containers/StockDataContainer';
 import Trades from './Trades';
 import Transactions from './Transactions';
 import Portfolio from './Portfolio';
-import DatePicker from './DatePicker';
+import DatePickerContainer from '../containers/DatePickerContainer';
 
 class App extends Component {
   render() {
@@ -28,7 +28,7 @@ class App extends Component {
                 <Route exact path="/" component={Portfolio} />
               </Switch>
             </Row>
-            <DatePicker />
+            <DatePickerContainer />
           </Grid>
         </ScrollToTop>
       </Router>

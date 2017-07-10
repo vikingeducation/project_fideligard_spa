@@ -18,11 +18,10 @@ const buildTable = data => {
 };
 
 const StockData = props => {
-  console.log(props);
-  const {stockData} = props;
+  const {stockData, date} = props;
   let stockTableCells = buildTable(stockData.stocks);
   return (
-    <Panel header="Stock Data">
+    <Panel header={`Stock Data for ${date}`}>
       <Table striped>
         <thead>
           <tr>
