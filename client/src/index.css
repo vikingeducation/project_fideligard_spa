@@ -101,3 +101,12 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
   background: #ffffff;
 }
+
+.date-picker-display {
+  color: black;
+}
+
+.date-picker-display:hover {
+  color: black;
+  text-decoration: none;
+}
