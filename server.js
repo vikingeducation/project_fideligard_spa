@@ -25,12 +25,13 @@ const checkStatus = response => {
 
 const {
   parseSymbols,
-  parseStartDate,
+  determineStartDate,
   isDateCorrect,
   parseAPIResults
 } = require('./helpers');
-
 const mockData = require('./mock-data');
+
+
 app.get("/api/stocks", (req, res, next) => {
   console.log("Requesting search data from Quandl...");
   if (!req.query.symbols || !req.query.date) {
@@ -43,15 +44,17 @@ app.get("/api/stocks", (req, res, next) => {
 }, (req, res, next) => {
   let symbols = parseSymbols(req.query.symbols);
   let endDate = req.query.date;
-  let startDate = parseStartDate(endDate);
+  let startDate = determineStartDate(endDate);
   let results = parseAPIResults(mockData.datatable.data, symbols, endDate);
-  res.json('yep');
+  console.log(results);
+      res.json('yep');
   // fetch(`${baseUrl}&ticker=${symbols.toString()}&date.lte=${endDate}&date.gte=${startDate}`)
   //   .then(checkStatus)
   //   .then(response => response.json())
   //   .then(json => {
-  //     let results = parseAPIResults(json.datatable, symbols);
-  //     res.json(json);
+  //     let results = parseAPIResults(json.datatable.data, symbols, endDate);
+  //     res.json('yep');
+  //     // res.json(json);
   //   })
   //   .catch(error => {
   //     next(error);
