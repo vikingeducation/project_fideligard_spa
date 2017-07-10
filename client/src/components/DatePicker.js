@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Grid, FormControl} from 'react-bootstrap';
+import {Grid} from 'react-bootstrap';
+import DatePickerInput from './DatePickerInput';
 const MIN_DATE_UNIX_TS = 345427200000;
 const MAX_DATE_UNIX_TS = 1499385600000; // July 7, 2017
 const ONE_DAY_SECS = 86400;
@@ -35,8 +36,14 @@ class DatePicker extends Component {
       });
     }
   };
+
+  onEditSubmit = e => {
+    e.preventDefault();
+    console.log(e.target.value);
+  };
+
   render() {
-    console.log(this.state.isEditOpen);
+    const {date, isEditOpen, dateInSeconds} = this.state;
     return (
       <Grid>
         <h4>
@@ -44,18 +51,18 @@ class DatePicker extends Component {
             onClick={this.toggleEdit}
             className="date-picker-display"
           >
-            {this.state.date}
+            {date}
           </a>
         </h4>
-        {this.state.isEditOpen ?
-          <FormControl type="date" /> :
-          null
-        }
+        <DatePickerInput
+          isOpen={isEditOpen}
+          onSubmit={this.onEditSubmit}
+        />
         <input 
           min={MIN_DATE_UNIX_TS}
           max={MAX_DATE_UNIX_TS}
           onChange={this.onChange}
-          value={this.state.dateInSeconds}
+          value={dateInSeconds}
           step={ONE_DAY_SECS}
           type="range"
         />
