@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./ScrollToTop";
 import Navigation from './Navigation';
+import StockDataContainer from '../containers/StockDataContainer';
 import Trades from './Trades';
 import Transactions from './Transactions';
 import Portfolio from './Portfolio';
@@ -13,6 +14,7 @@ class App extends Component {
       <Router>
         <ScrollToTop>
           <Navigation title={"Fideligard"}/>
+          <StockDataContainer />
           <Switch>
             <Route path="/trades" component={Trades} />
             <Route path="/transactions" component={Transactions} />

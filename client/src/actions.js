@@ -26,11 +26,12 @@ export function getStocksFailure(error) {
   };
 }
 
-export function getInitialStocks(stocks) {
+// @param {array} stocks
+export function getInitialStocks(stocks, date) {
   return dispatch => {
     dispatch(getStocksRequest());
 
-    fetch(`api/stocks?symbols=${stocks}`)
+    fetch(`api/stocks?symbols=${stocks.toString()}&date=${date}`)
       .then(response => {
         if (!response.ok) {
           throw new Error(`${response.status}: ${response.statusText}`);
