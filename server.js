@@ -23,45 +23,34 @@ const checkStatus = response => {
   return response;
 };
 
-const {parseSymbols} = require('./helpers');
+const {
+  parseSymbols,
+  parseStartDate,
+  isDateCorrect
+} = require('./helpers');
 
 app.get("/api/stocks", (req, res, next) => {
   console.log("Requesting search data from Quandl...");
   if (!req.query.symbols || !req.query.date) {
-    res.status(400).json({"Error": "You must include a symbols and date query with every request."});
+    res.status(400).json({"Error": "You must include a date and symbols query with every request."});
+  } else if (!isDateCorrect(req.query.date)) {
+    res.status(400).json({"Error": "Date must be formatted in the following manner: YYYY-MM-DD"});
   } else {
     next();
   }
-  // const q = req.query.q || "B";
-  // fetch(`${baseUrl}/search/index.xml?key=${QUANDL_API_KEY}&q=${q}`)
-  //   .then(checkStatus)
-  //   .then(response => response.text())
-  //   .then(parseXML)
-  //   .then(json => {
-  //     res.json(json.GoodreadsResponse.search.results.work || []);
-  //   })
-  //   .catch(error => {
-  //     next(error);
-  //   });
 }, (req, res, next) => {
   let symbols = parseSymbols(req.query.symbols);
-  fetch(`${baseUrl}&ticker=${symbols.toString()}`)
-  res.json(symbols);
-});
-
-app.get("/api/book", (req, res, next) => {
-  console.log("Requesting selected book data from GoodReads...");
-  // const { id } = req.query;
-  // fetch(`${baseUrl}/book/show/${id}.xml?key=${QUANDL_API_KEY}`)
-  //   .then(checkStatus)
-  //   .then(response => response.text())
-  //   .then(parseXML)
-  //   .then(json => {
-  //     res.json(json.GoodreadsResponse.book || {});
-  //   })
-  //   .catch(error => {
-  //     next(error);
-  //   });
+  let endDate = req.query.date;
+  let startDate = parseStartDate(endDate);
+  fetch(`${baseUrl}&ticker=${symbols.toString()}&date.lte=${endDate}&date.gte=${startDate}`)
+    .then(checkStatus)
+    .then(response => response.json())
+    .then(json => {
+      res.json(json.datatable);
+    })
+    .catch(error => {
+      next(error);
+    });
 });
 
 const errorHandler = (err, req, res, next) => {
