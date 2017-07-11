@@ -16,10 +16,9 @@ class StockDataContainer extends Component {
 const mapStateToProps = state => {
   return {
     stockWatchlist: state.stockWatchlist,
-    stockData: state.stockData,
     date: state.date,
     isFetching: state.stockData.isFetching,
-    filter: state.stockFilter
+    sortDirection: state.sortDirection
   };
 };
 

@@ -5,6 +5,8 @@ export const ADD_STOCK_TO_LIST = "ADD_STOCK_TO_LIST";
 export const GET_STOCKS_SUCCESS = "GET_STOCKS_SUCCESS";
 export const GET_STOCKS_REQUEST = "GET_STOCKS_REQUEST";
 export const GET_STOCKS_FAILURE = "GET_STOCKS_FAILURE";
+export const SET_SORT_ASCENDING = "SET_SORT_ASCENDING";
+export const SET_SORT_DESCENDING = "SET_SORT_DESCENDING";
 
 export function getStocksRequest() {
   return {
@@ -50,6 +52,18 @@ export function addStockToList(data) {
   return {
     type: ADD_STOCK_TO_LIST,
     data
+  }
+}
+
+export function setSortAscending() {
+  return {
+    type: SET_SORT_ASCENDING
+  }
+}
+
+export function setSortDescending() {
+  return {
+    type: SET_SORT_DESCENDING
   }
 }
 

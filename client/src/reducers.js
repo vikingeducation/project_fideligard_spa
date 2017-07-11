@@ -9,7 +9,8 @@ const initialState = {
     stocks: {},
     isFetching: false,
     error: null
-  }
+  },
+  sortDirection: "ascending"
 }
 
 const date = (state = initialState.date, action) => {
@@ -45,7 +46,7 @@ const stockWatchlist = (state = initialState.stockWatchlist, action) => {
 }
 
 const stockData = (state = initialState.stockData, action) => {
-  switch (action.type) {
+  switch(action.type) {
     case Actions.GET_STOCKS_SUCCESS:
       return {
         ...state,
@@ -69,9 +70,20 @@ const stockData = (state = initialState.stockData, action) => {
   }
 }
 
+const sortDirection = (state = initialState.sortDirection, action) => {
+  switch(action.type) {
+    case Actions.SET_SORT_DESCENDING:
+      return "descending";
+    case Actions.SET_SORT_ASCENDING:
+      return "ascending";
+    default:
+      return state;
+  }
+}
 export const stockApp = combineReducers({
   date,
   stockFilter,
   stockWatchlist,
-  stockData
+  stockData,
+  sortDirection
 });

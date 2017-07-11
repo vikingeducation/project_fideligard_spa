@@ -43,6 +43,15 @@ span.img-loader {
   width: 1em;
 }
 
+a.sortable {
+  color: black;
+}
+
+a.sortable:hover {
+  color: black;
+  text-decoration: none;
+}
+
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
