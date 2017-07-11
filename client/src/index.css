@@ -57,6 +57,10 @@ a.sortable:hover {
   text-decoration: none;
 }
 
+.stock-trade-input {
+  margin-bottom: 70px;
+}
+
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;

@@ -1,27 +1,24 @@
 import { connect } from "react-redux";
 import Trades from '../components/Trades';
-// import {setSortAscending, setSortDescending, getSpecificStock} from '../actions';
+import serialize from "form-serialize";
+import {getSpecificStock} from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
     stock: state.specificStockData.stock,
-    isFetching: state.specificStockData.isFetching
+    isFetching: state.specificStockData.isFetching,
+    date: state.date
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    // setSortDirection: e => {
-    //   e.preventDefault();
-    //   if (ownProps.sortDirection === "ascending") {
-    //     dispatch(setSortDescending());
-    //   } else {
-    //     dispatch(setSortAscending());
-    //   }
-    // },
-    // onClickTrade: stock => {
-    //   dispatch(getSpecificStock(stock, ownProps.date));
-    // }
+    onChangeStock: (e, date) => {
+      e.preventDefault();
+      const form = e.target;
+      const stock = serialize(form, {hash: true}).symbol;
+      dispatch(getSpecificStock(stock, date));
+    }
   }
 };
 

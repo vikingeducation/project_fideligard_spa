@@ -89,7 +89,6 @@ const parseAPIResults = (data, endDate, symbols) => {
       }
     });
   });
-
   return results;
 };
 
