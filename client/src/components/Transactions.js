@@ -1,10 +1,22 @@
-import React from "react";
+import React, { Component } from "react";
+import { Form, Col, Panel, FormControl, Button } from "react-bootstrap";
 
-const Transactions = () => {
+const Transactions = ({transactions}) => {
+  if (transactions.length === 0) {
+    return (
+      <Col md={6}>
+        <Panel header="Transactions">
+          No transactions found.
+        </Panel>
+      </Col>
+    )
+  }
   return (
-    <h1>
-      Transactions
-    </h1>
+    <Col md={6}>
+      <Panel header="Transactions">
+        {transactions.length}
+      </Panel>
+    </Col>
   );
 };
 
