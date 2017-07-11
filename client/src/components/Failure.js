@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Col, Panel } from "react-bootstrap";
 
 const Failure = () => {
@@ -8,7 +8,7 @@ const Failure = () => {
         Something went wrong. Please try again.
       </Panel>
     </Col>
-  )
+  );
 };
 
 export default Failure;

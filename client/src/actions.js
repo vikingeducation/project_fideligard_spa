@@ -96,14 +96,14 @@ export function addTransaction(data) {
   return {
     type: ADD_TRANSACTION,
     data
-  }
+  };
 }
 
 export function updateBalance(data) {
   return {
     type: UPDATE_BALANCE,
     data
-  }
+  };
 }
 
 // @param {array} stocks

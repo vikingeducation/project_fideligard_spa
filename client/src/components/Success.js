@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Col, Panel } from "react-bootstrap";
 
 const Success = () => {
@@ -8,7 +8,7 @@ const Success = () => {
         Your transaction was successful.
       </Panel>
     </Col>
-  )
+  );
 };
 
 export default Success;

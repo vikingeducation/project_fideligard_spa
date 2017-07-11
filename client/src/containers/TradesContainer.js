@@ -1,7 +1,11 @@
 import { connect } from "react-redux";
 import Trades from "../components/Trades";
 import serialize from "form-serialize";
-import { getSpecificStock, addTransaction, updateBalance, setDate } from "../actions";
+import {
+  getSpecificStock,
+  addTransaction,
+  updateBalance
+} from "../actions";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = (state, ownProps) => {
@@ -22,7 +26,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(getSpecificStock(stock, date));
     },
     onSubmit: (e, balance) => {
-      e.preventDefault();
       const form = e.target;
       const data = serialize(form, { hash: true });
       if (data.total > balance) {

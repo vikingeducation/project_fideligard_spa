@@ -127,10 +127,7 @@ const sortDirection = (state = initialState.sortDirection, action) => {
 const transactions = (state = initialState.transactions, action) => {
   switch (action.type) {
     case Actions.ADD_TRANSACTION:
-      return [
-        ...state,
-        action.data
-      ];
+      return [...state, action.data];
     default:
       return state;
   }

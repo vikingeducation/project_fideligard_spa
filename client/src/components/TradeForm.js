@@ -1,32 +1,40 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import { Form, FormControl, Button } from "react-bootstrap";
-import {Prompt} from 'react-router-dom';
+import { Prompt } from "react-router-dom";
 
 class TradeForm extends Component {
   constructor() {
-    super()
-    this.state = {hasFormData: false}
+    super();
+    this.state = { hasFormData: false };
   }
 
   onQuantityChange = e => {
     this.setState({
       hasFormData: true
-    })
+    });
     this.props.onChange(e);
-  }
+  };
 
   onSubmit = (e, balance) => {
-    this.setState({
-      hasFormData: false
-    },
-      () => {this.props.onSubmit(e,balance)}
-    )
-  }
+    e.preventDefault();
+    let form = {...e}
+    this.setState(
+      {
+        hasFormData: false
+      },
+      () => {
+        this.props.onSubmit(form, balance);
+      }
+    );
+  };
 
   render() {
-    const { onSubmit, stock, total, date, balance } = this.props;
+    const { stock, total, date, balance } = this.props;
     return (
-      <Form onSubmit={e => this.onSubmit(e, balance)} className="primary-trade-input">
+      <Form
+        onSubmit={e => this.onSubmit(e, balance)}
+        className="primary-trade-input"
+      >
         <FormControl
           type="number"
           name="quantity"
