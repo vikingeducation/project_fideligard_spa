@@ -26,7 +26,8 @@ class Trades extends Component {
       onChangeStock,
       onSubmit,
       balance,
-      portfolio
+      portfolio,
+      stockWatchlist
     } = this.props;
     let { total } = this.state;
 
@@ -44,7 +45,7 @@ class Trades extends Component {
       <Col md={6}>
         <Panel header="Trades">
           <Form
-            onSubmit={e => onChangeStock(e, date)}
+            onSubmit={e => onChangeStock(e, date, stockWatchlist)}
             className="stock-trade-input"
             horizontal
           >

@@ -68,7 +68,8 @@ const buildTransactionsData = (transactions, query) => {
 
 const Transactions = ({ transactions, location, transactionsSort }) => {
   let query = getParams(location.search);
-  if (transactions.length === 0) {
+  let transactionData = buildTransactionsData(transactions, query);
+  if (transactionData.length === 0) {
     return (
       <Col md={6}>
         <Panel header="Transactions">
@@ -77,8 +78,6 @@ const Transactions = ({ transactions, location, transactionsSort }) => {
       </Col>
     );
   }
-
-  let transactionData = buildTransactionsData(transactions, query);
   return (
     <Col md={6}>
       <Panel header="Transactions">

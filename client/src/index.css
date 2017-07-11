@@ -6,6 +6,8 @@ body {
 
 h1 {
   text-align: center;
+  margin-top: 0;
+  margin-bottom: .3em;
 }
 .navbar {
   border-radius: 0px;

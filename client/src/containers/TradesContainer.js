@@ -2,7 +2,9 @@ import { connect } from "react-redux";
 import Trades from "../components/Trades";
 import serialize from "form-serialize";
 import {
+  getStocks,
   getSpecificStock,
+  addStockToList,
   addTransaction,
   updateBalance,
   updatePortfolio
@@ -16,17 +18,22 @@ const mapStateToProps = (state, ownProps) => {
     isFetching: state.specificStockData.isFetching,
     date: state.date,
     balance: state.balance,
-    portfolio: state.portfolio
+    portfolio: state.portfolio,
+    stockWatchlist: state.stockWatchlist
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onChangeStock: (e, date) => {
+    onChangeStock: (e, date, stockWatchlist) => {
       e.preventDefault();
       const form = e.target;
       const stock = serialize(form, { hash: true }).symbol;
       dispatch(getSpecificStock(stock, date));
+      if (!stockWatchlist.includes(stock)) {
+        dispatch(addStockToList(stock));
+        dispatch(getStocks([...stockWatchlist, stock], date));
+      }
     },
     onSubmit: (e, balance, portfolio) => {
       const form = e.target;

@@ -48,6 +48,7 @@ class TradeForm extends Component {
         </FormControl>
         <br />
         <h5>Stock: {stock.symbol}</h5>
+        <h5>Date: {date}</h5>
         <h5>Price: ${stock.today}</h5>
         <h5>Total: ${total}</h5>
         <h5>Your Current Balance: ${balance}</h5>
