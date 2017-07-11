@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onSubmit: (e, balance) => {
       const form = e.target;
       const data = serialize(form, { hash: true });
-      if (data.total > balance) {
+      if (+data.total > +balance) {
         ownProps.history.push("/failure");
       } else {
         dispatch(addTransaction(data));

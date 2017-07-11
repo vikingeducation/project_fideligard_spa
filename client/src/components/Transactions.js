@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Form, Col, Panel, FormControl, Button } from "react-bootstrap";
+import React from "react";
+import { Table, Col, Panel } from "react-bootstrap";
 
 const Transactions = ({transactions}) => {
   if (transactions.length === 0) {
@@ -11,10 +11,32 @@ const Transactions = ({transactions}) => {
       </Col>
     )
   }
+  let transactionData = transactions.map((transaction, index) => (
+    <tr key={index}>
+      <td>{transaction.date}</td>
+      <td>{transaction.symbol}</td>
+      <td>${transaction.price}</td>
+      <td>{transaction.quantity}</td>
+      <td>${transaction.total}</td>
+    </tr>
+  ))
   return (
     <Col md={6}>
       <Panel header="Transactions">
-        {transactions.length}
+        <Table striped>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {transactionData}
+          </tbody>
+        </Table>
       </Panel>
     </Col>
   );
