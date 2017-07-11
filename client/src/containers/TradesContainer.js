@@ -32,7 +32,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(updateBalance(-data.total));
         ownProps.history.push("/success");
       }
-      // here provide validations, and add to transactions
     }
   };
 };

@@ -23,7 +23,11 @@ class Trades extends Component {
     let { total } = this.state;
 
     if (isFetching) {
-      return <span className="img-loader" />;
+      return (
+        <Panel header="Trades">
+          <span className="img-loader" />
+        </Panel>
+      );
     }
 
     return (
