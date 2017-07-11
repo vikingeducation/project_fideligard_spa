@@ -1,7 +1,13 @@
 import React from "react";
 import { Table, Col, Panel } from "react-bootstrap";
+import {getParams} from '../helpers';
 
-const Transactions = ({transactions}) => {
+const buildTransactionsData = (transactions, query) => {
+
+}
+
+const Transactions = ({transactions, location}) => {
+  console.log(getParams(location.search));
   if (transactions.length === 0) {
     return (
       <Col md={6}>

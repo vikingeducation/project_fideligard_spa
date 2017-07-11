@@ -1,14 +1,14 @@
 # project_fideligard_spa
 Buy low, sell high.
 
-Trade:
-  todo:
-    -add date picker that updates from trades menu
-    -redirect user after purchase
-    -actions/reducers for the following:
-      -transactions
-      -userBalance
-
 Transactions:
-https://stackoverflow.com/questions/35305661/where-to-write-to-localstorage-in-a-redux-app
-^ for storing state
+  implement selling for transactions!!!!
+    need to build portfolio state,
+    check if quantity you're selling is lte current quantity
+    then calculate new cash balance
+    update portfolio
+    
+
+  build links to table headers that take you to transactions page with query string
+  then, sort array appropriately
+  shouldn't be too bad
