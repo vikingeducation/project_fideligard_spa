@@ -1,7 +1,7 @@
 import React from 'react';
 import {Form, FormGroup, Button, FormControl, Col} from 'react-bootstrap';
 
-const Filter = ({setFilter}) => {
+const Filter = ({setFilter, resetFilter}) => {
   return (
     <div>
       <Form horizontal className="filter" onSubmit={setFilter}>
@@ -11,7 +11,7 @@ const Filter = ({setFilter}) => {
           </Col>
           <Col md={4}>
           <Button bsStyle="info" type="submit">Filter</Button>
-          <Button bsStyle="warning">Reset</Button>
+          <Button bsStyle="warning" onClick={resetFilter}>Reset</Button>
           </Col>
         </FormGroup>
       </Form>

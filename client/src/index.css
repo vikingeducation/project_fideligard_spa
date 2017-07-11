@@ -36,6 +36,13 @@ form.filter button {
   margin-left: .2em;
 }
 
+span.img-loader {
+  display: inline-block;
+  background-image: url("/ajax-loader.gif");
+  height: 1em;
+  width: 1em;
+}
+
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;

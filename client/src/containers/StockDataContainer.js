@@ -17,7 +17,9 @@ const mapStateToProps = state => {
   return {
     stockWatchlist: state.stockWatchlist,
     stockData: state.stockData,
-    date: state.date
+    date: state.date,
+    isFetching: state.stockData.isFetching,
+    filter: state.stockFilter
   };
 };
 

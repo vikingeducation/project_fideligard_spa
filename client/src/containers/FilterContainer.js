@@ -15,10 +15,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       e.preventDefault();
       const form = e.target;
       const stock = serialize(form, {hash: true}).symbol;
-      form.reset();
-      dispatch(addStockToList(stock));
-      dispatch(getStocks([...ownProps.stockWatchlist, stock], ownProps.date));
+      if (!ownProps.stockWatchlist.includes(stock)) {
+        dispatch(addStockToList(stock));
+        dispatch(getStocks([...ownProps.stockWatchlist, stock], ownProps.date));
+      }
       dispatch(setFilter(stock));
+    },
+    resetFilter: e => {
+      e.preventDefault();
+      e.target.parentNode.parentNode.parentNode.reset();
+      dispatch(resetFilter());
     }
   }
 };
