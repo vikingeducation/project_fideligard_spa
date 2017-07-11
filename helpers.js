@@ -59,6 +59,7 @@ const parseAPIResults = (data, endDate, symbols) => {
 
   symbols.forEach(symbol => {
     results.data[symbol] = {
+      symbol,
       today: 0,
       oneDay: 0,
       sevenDays: 0,

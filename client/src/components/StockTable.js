@@ -9,7 +9,7 @@ const calculateChange = (a, b) => {
   return a.minus(b).toString();
 };
 
-const buildTable = (data, filter, sortDirection) => {
+const buildTable = (data, filter, sortDirection, onClickTrade) => {
   let results = [];
   let keys = Object.keys(data).sort();
   if (sortDirection === "ascending") {
@@ -31,7 +31,7 @@ const buildTable = (data, filter, sortDirection) => {
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}</td>
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}</td>
         <td>
-          <Link to="/trades" onClick={()=>console.log('testing')}>
+          <Link to="/trades" onClick={(e)=> onClickTrade(keys[i])}>
             <Button bsStyle="primary">
               Trade
             </Button>
@@ -55,8 +55,8 @@ const determineCaret = direction => {
   return caret;
 };
 const StockTable = props => {
-  const {stockData, filter, sortDirection, setSortDirection} = props;
-  let stockTableCells = buildTable(stockData.stocks, filter, sortDirection);
+  const {stockData, filter, sortDirection, setSortDirection, onClickTrade} = props;
+  let stockTableCells = buildTable(stockData.stocks, filter, sortDirection, onClickTrade);
   let caret = determineCaret(sortDirection);
   return (
     <Table striped>

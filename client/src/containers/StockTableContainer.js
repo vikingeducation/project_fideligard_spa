@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import StockTable from '../components/StockTable';
-import {setSortAscending, setSortDescending} from '../actions';
+import {setSortAscending, setSortDescending, getSpecificStock} from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       } else {
         dispatch(setSortAscending());
       }
+    },
+    onClickTrade: stock => {
+      dispatch(getSpecificStock(stock, ownProps.date));
     }
   }
 };
