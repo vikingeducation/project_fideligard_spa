@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Transactions from "../components/Transactions";
-import {withRouter} from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -9,10 +9,11 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-  };
+  return {};
 };
 
-const TransactionsContainer = connect(mapStateToProps, mapDispatchToProps)(Transactions);
+const TransactionsContainer = connect(mapStateToProps, mapDispatchToProps)(
+  Transactions
+);
 
 export default withRouter(TransactionsContainer);

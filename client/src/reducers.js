@@ -34,7 +34,7 @@ const initialState = {
   balance: 10000,
   sortDirection: "ascending",
   portfolio: {},
-  transactionsSort: "name_asc",
+  transactionsSort: "name_asc"
 };
 
 const date = (state = initialState.date, action) => {
@@ -154,7 +154,7 @@ const portfolio = (state = initialState.portfolio, action) => {
     default:
       return state;
   }
-}
+};
 
 export const stockApp = combineReducers({
   date,

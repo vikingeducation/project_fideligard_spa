@@ -8,7 +8,7 @@ import {
   updatePortfolio
 } from "../actions";
 import { withRouter } from "react-router-dom";
-import { processPortfolioBuy, processPortfolioSell } from '../helpers';
+import { processPortfolioBuy, processPortfolioSell } from "../helpers";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -32,8 +32,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const form = e.target;
       const transaction = serialize(form, { hash: true });
       const doesUserHaveEnoughCash = +transaction.total > +balance;
-      const doesUserHaveEnoughStock = +transaction.quantity <= +portfolio[transaction.symbol];
-      const isStockInPortfolio = portfolio.hasOwnProperty(transaction.symbol)
+      const doesUserHaveEnoughStock =
+        +transaction.quantity <= +portfolio[transaction.symbol];
+      const isStockInPortfolio = portfolio.hasOwnProperty(transaction.symbol);
 
       if (transaction.type === "buy") {
         if (doesUserHaveEnoughCash) {

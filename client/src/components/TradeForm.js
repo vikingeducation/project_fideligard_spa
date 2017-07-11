@@ -17,7 +17,7 @@ class TradeForm extends Component {
 
   onSubmit = (e, balance) => {
     e.preventDefault();
-    let form = {...e}
+    let form = { ...e };
     this.setState(
       {
         hasFormData: false
@@ -42,10 +42,7 @@ class TradeForm extends Component {
           onChange={this.onQuantityChange}
         />
         <br />
-        <FormControl
-          componentClass="select"
-          name="type"
-        >
+        <FormControl componentClass="select" name="type">
           <option value="buy">Buy</option>
           <option value="sell">Sell</option>
         </FormControl>
@@ -55,8 +52,10 @@ class TradeForm extends Component {
         <h5>Total: ${total}</h5>
         <h5>Your Current Balance: ${balance}</h5>
         {stock.today === 0 || total === 0
-          ? <Button bsStyle="success" disabled block>Buy</Button>
-          : <Button bsStyle="success" type="submit" block>Buy</Button>}
+          ? <Button bsStyle="success" disabled block>Make Transaction</Button>
+          : <Button bsStyle="success" type="submit" block>
+              Make Transaction
+            </Button>}
         <input type="hidden" name="price" value={stock.today} />
         <input type="hidden" name="total" value={total} />
         <input type="hidden" name="symbol" value={stock.symbol} />

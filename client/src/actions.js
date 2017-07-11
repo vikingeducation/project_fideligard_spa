@@ -111,7 +111,7 @@ export function updatePortfolio(data) {
   return {
     type: UPDATE_PORTFOLIO,
     data
-  }
+  };
 }
 
 // @param {array} stocks
