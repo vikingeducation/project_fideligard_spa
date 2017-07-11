@@ -23,7 +23,7 @@ export const processPortfolioBuy = (transaction, portfolio) => {
     results[transaction.symbol] = transaction.quantity;
   } else {
     let newQuantity = +portfolio[transaction.symbol] + +transaction.quantity;
-    results[transaction.symbol] = newQuantity;
+    results[transaction.symbol] = +newQuantity;
   }
   
   return results;
@@ -34,7 +34,7 @@ export const processPortfolioSell = (transaction, portfolio) => {
 
   let newQuantity = +portfolio[transaction.symbol] - +transaction.quantity;
 
-  results[transaction.symbol] = newQuantity;
+  results[transaction.symbol] = +newQuantity;
 
   return results;
 };

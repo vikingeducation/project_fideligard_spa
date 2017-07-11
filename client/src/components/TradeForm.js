@@ -50,9 +50,10 @@ class TradeForm extends Component {
           <option value="sell">Sell</option>
         </FormControl>
         <br />
-        <h4>Price: ${stock.today}</h4>
-        <h4>Total: ${total}</h4>
-        <h4>Your Current Balance: ${balance}</h4>
+        <h5>Stock: {stock.symbol}</h5>
+        <h5>Price: ${stock.today}</h5>
+        <h5>Total: ${total}</h5>
+        <h5>Your Current Balance: ${balance}</h5>
         {stock.today === 0 || total === 0
           ? <Button bsStyle="success" disabled block>Buy</Button>
           : <Button bsStyle="success" type="submit" block>Buy</Button>}

@@ -11,7 +11,7 @@ class Trades extends Component {
     };
   }
   onQuantityChange = e => {
-    let quantity = new Decimal(e.target.value);
+    let quantity = new Decimal(e.target.value || 0);
     let price = new Decimal(this.props.stock.today);
     this.setState({
       total: price.times(quantity).toString()
