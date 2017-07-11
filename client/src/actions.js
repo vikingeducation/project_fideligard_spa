@@ -12,6 +12,7 @@ export const SET_SORT_ASCENDING = "SET_SORT_ASCENDING";
 export const SET_SORT_DESCENDING = "SET_SORT_DESCENDING";
 export const ADD_TRANSACTION = "ADD_TRANSACTION";
 export const UPDATE_BALANCE = "UPDATE_BALANCE";
+export const UPDATE_PORTFOLIO = "UPDATE_PORTFOLIO";
 
 export function getStocksRequest() {
   return {
@@ -104,6 +105,13 @@ export function updateBalance(data) {
     type: UPDATE_BALANCE,
     data
   };
+}
+
+export function updatePortfolio(data) {
+  return {
+    type: UPDATE_PORTFOLIO,
+    data
+  }
 }
 
 // @param {array} stocks

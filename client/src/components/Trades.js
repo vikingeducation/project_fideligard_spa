@@ -25,7 +25,8 @@ class Trades extends Component {
       date,
       onChangeStock,
       onSubmit,
-      balance
+      balance,
+      portfolio
     } = this.props;
     let { total } = this.state;
 
@@ -62,6 +63,7 @@ class Trades extends Component {
             stock={stock}
             total={total}
             date={date}
+            portfolio={portfolio}
           />
         </Panel>
       </Col>

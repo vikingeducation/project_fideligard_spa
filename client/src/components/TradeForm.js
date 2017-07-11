@@ -23,7 +23,7 @@ class TradeForm extends Component {
         hasFormData: false
       },
       () => {
-        this.props.onSubmit(form, balance);
+        this.props.onSubmit(form, balance, this.props.portfolio);
       }
     );
   };
@@ -41,6 +41,15 @@ class TradeForm extends Component {
           placeholder="Quantity"
           onChange={this.onQuantityChange}
         />
+        <br />
+        <FormControl
+          componentClass="select"
+          name="type"
+        >
+          <option value="buy">Buy</option>
+          <option value="sell">Sell</option>
+        </FormControl>
+        <br />
         <h4>Price: ${stock.today}</h4>
         <h4>Total: ${total}</h4>
         <h4>Your Current Balance: ${balance}</h4>

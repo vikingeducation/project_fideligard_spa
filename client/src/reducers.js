@@ -31,7 +31,8 @@ const initialState = {
   },
   transactions: [],
   balance: 10000,
-  sortDirection: "ascending"
+  sortDirection: "ascending",
+  portfolio: {}
 };
 
 const date = (state = initialState.date, action) => {
@@ -142,6 +143,17 @@ const balance = (state = initialState.balance, action) => {
   }
 };
 
+const portfolio = (state = initialState.portfolio, action) => {
+  switch (action.type) {
+    case Actions.UPDATE_PORTFOLIO:
+      let newState = {...state};
+      let key = Object.keys[action.data][0];
+      state[key] = action.data
+      return newState;
+    default:
+      return state;
+  }
+}
 export const stockApp = combineReducers({
   date,
   stockFilter,
@@ -150,5 +162,6 @@ export const stockApp = combineReducers({
   specificStockData,
   sortDirection,
   transactions,
-  balance
+  balance,
+  portfolio
 });

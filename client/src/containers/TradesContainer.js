@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
     stock: state.specificStockData.stock,
     isFetching: state.specificStockData.isFetching,
     date: state.date,
-    balance: state.balance
+    balance: state.balance,
+    portfolio: state.portfolio
   };
 };
 
@@ -25,15 +26,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const stock = serialize(form, { hash: true }).symbol;
       dispatch(getSpecificStock(stock, date));
     },
-    onSubmit: (e, balance) => {
+    onSubmit: (e, balance, portfolio) => {
       const form = e.target;
       const data = serialize(form, { hash: true });
+      console.log(data);
       if (+data.total > +balance) {
         ownProps.history.push("/failure");
       } else {
-        dispatch(addTransaction(data));
-        dispatch(updateBalance(-data.total));
-        ownProps.history.push("/success");
+        if (data.type === "buy") {
+          dispatch(addTransaction(data));
+          dispatch(updateBalance(-data.total));
+          ownProps.history.push("/success");
+        }
       }
     }
   };
