@@ -11,7 +11,9 @@ const initialState = {
     error: null
   },
   specificStockData: {
-    stock: {},
+    stock: {
+      symbol: "AAPL"
+    },
     isFetching: false,
     error: null
   },

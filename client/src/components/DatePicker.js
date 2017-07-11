@@ -91,7 +91,7 @@ class DatePicker extends Component {
     let date = new Date(+e.target.value);
     let formattedDate = date.toISOString().slice(0,10);
     this.props.setDate(formattedDate);
-    this.props.getStocks(this.props.stockWatchlist, formattedDate);
+    this.props.updateStocks(this.props.stockWatchlist, this.props.specificStock.symbol, formattedDate);
   };
 
   render() {
