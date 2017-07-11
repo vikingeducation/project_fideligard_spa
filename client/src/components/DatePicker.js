@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Grid, Row, Col, Panel} from 'react-bootstrap';
+import {Panel} from 'react-bootstrap';
 import DatePickerInput from './DatePickerInput';
 import serialize from "form-serialize";
 const MIN_DATE_UNIX_TS = 942883200000;
@@ -97,35 +97,29 @@ class DatePicker extends Component {
   render() {
     const {date, isEditOpen, dateInSeconds} = this.state;
     return (
-      <Grid>
-        <Row>
-          <Col md={4} mdOffset={4}>
-          <Panel>
-              <h4>
-                <a onClick={this.toggleEdit} className="date-picker-display">
-                  {date}
-                </a>
-              </h4>
-              <DatePickerInput
-                isOpen={isEditOpen}
-                onSubmit={this.onEditSubmit}
-                onBlur={this.onEditBlur}
-              />
-              <input
-                // add onMouseUp for api updating with the date-picker!
-                className="date-picker-slider"
-                min={MIN_DATE_UNIX_TS}
-                max={MAX_DATE_UNIX_TS}
-                onMouseUp={this.onEditMouseUp}
-                onChange={this.onChange}
-                value={dateInSeconds}
-                step={ONE_DAY_SECS}
-                type="range"
-              />
-          </Panel>
-          </Col>
-        </Row>
-      </Grid>
+      <Panel header="Select a date">
+          <h4>
+            <a onClick={this.toggleEdit} className="date-picker-display">
+              {date}
+            </a>
+          </h4>
+          <DatePickerInput
+            isOpen={isEditOpen}
+            onSubmit={this.onEditSubmit}
+            onBlur={this.onEditBlur}
+          />
+          <input
+            // add onMouseUp for api updating with the date-picker!
+            className="date-picker-slider"
+            min={MIN_DATE_UNIX_TS}
+            max={MAX_DATE_UNIX_TS}
+            onMouseUp={this.onEditMouseUp}
+            onChange={this.onChange}
+            value={dateInSeconds}
+            step={ONE_DAY_SECS}
+            type="range"
+          />
+      </Panel>
     );
   }
 }

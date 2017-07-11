@@ -38,7 +38,7 @@ export function setDate(data) {
 export function setFilter(data = "") {
   return {
     type: SET_FILTER,
-    data
+    data: data.toUpperCase()
   }
 }
 

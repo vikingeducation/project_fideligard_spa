@@ -1,7 +1,7 @@
 const LocalDate = require('js-joda').LocalDate;
 const MAX_DAYS_AGO = 35;
 
-const isDateCorrect = date => {
+const isValidDate = date => {
   let dateFormatRegex = /^[\d]{4}-(\d){2}-(\d){2}$/;
   return dateFormatRegex.test(date);
 };
@@ -95,6 +95,6 @@ const parseAPIResults = (data, endDate, symbols) => {
 module.exports = {
   parseSymbols,
   determineStartDate,
-  isDateCorrect,
+  isValidDate,
   parseAPIResults
 }

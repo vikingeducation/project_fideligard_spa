@@ -26,7 +26,7 @@ const checkStatus = response => {
 const {
   parseSymbols,
   determineStartDate,
-  isDateCorrect,
+  isValidDate,
   parseAPIResults
 } = require('./helpers');
 
@@ -34,7 +34,7 @@ app.get("/api/stocks", (req, res, next) => {
   console.log("Requesting search data from Quandl...");
   if (!req.query.date) {
     res.status(400).json({"Error": "You must include a date query with every request."});
-  } else if (!isDateCorrect(req.query.date)) {
+  } else if (!isValidDate(req.query.date)) {
     res.status(400).json({"Error": "Date must be formatted in the following manner: YYYY-MM-DD"});
   } else {
     next();

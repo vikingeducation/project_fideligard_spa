@@ -1,6 +1,6 @@
 import React from 'react';
 import Decimal from 'decimal.js';
-import {Table} from 'react-bootstrap';
+import {Table, Button} from 'react-bootstrap';
 
 const calculateChange = (a, b) => {
   a = new Decimal(a);
@@ -29,6 +29,7 @@ const buildTable = (data, filter, sortDirection) => {
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].oneDay)}</td>
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}</td>
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}</td>
+        <td><Button bsStyle="primary">Trade</Button></td>
       </tr>
     )
   }
@@ -63,6 +64,7 @@ const StockTable = props => {
           <th>1d</th>
           <th>7d</th>
           <th>30d</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

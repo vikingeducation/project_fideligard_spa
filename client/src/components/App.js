@@ -19,6 +19,7 @@ class App extends Component {
             <Row>
               <h1>Fideligard</h1>
               <Col md={6}>
+                <DatePickerContainer />
                 <StockDataContainer />
               </Col>
               <Switch>
@@ -28,7 +29,6 @@ class App extends Component {
                 <Route exact path="/" component={Portfolio} />
               </Switch>
             </Row>
-            <DatePickerContainer />
           </Grid>
         </ScrollToTop>
       </Router>

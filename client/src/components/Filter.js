@@ -7,7 +7,7 @@ const Filter = ({setFilter, resetFilter}) => {
       <Form horizontal className="filter" onSubmit={setFilter}>
         <FormGroup controlId="filter">
           <Col md={8}>
-          <FormControl type="text" name="symbol" placeholder="Set by a specific stock"/>
+          <FormControl type="text" name="symbol" placeholder="Filter by a specific stock"/>
           </Col>
           <Col md={4}>
           <Button bsStyle="success" type="submit">Filter</Button>
