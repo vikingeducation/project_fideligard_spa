@@ -61,6 +61,10 @@ a.sortable:hover {
   margin-bottom: 70px;
 }
 
+.transaction-type {
+  text-transform: capitalize;
+}
+
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;
