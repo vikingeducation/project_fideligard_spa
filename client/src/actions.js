@@ -33,6 +33,26 @@ export function setDate(data) {
   }
 }
 
+export function setFilter(data) {
+  return {
+    type: SET_FILTER,
+    data
+  }
+}
+
+export function resetFilter(data) {
+  return {
+    type: RESET_FILTER
+  }
+}
+
+export function addStockToList(data) {
+  return {
+    type: ADD_STOCK_TO_LIST,
+    data
+  }
+}
+
 // @param {array} stocks
 export function getStocks(stocks, date) {
   return dispatch => {

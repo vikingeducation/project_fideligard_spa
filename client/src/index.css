@@ -32,6 +32,10 @@ h1 {
   margin-bottom: 2em;
 }
 
+form.filter button {
+  margin-left: .2em;
+}
+
 input[type=range] {
   -webkit-appearance: none;
   width: 100%;

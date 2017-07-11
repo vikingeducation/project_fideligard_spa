@@ -1,6 +1,7 @@
 import React from 'react';
 import {Table, Panel} from 'react-bootstrap';
 import Decimal from 'decimal.js';
+import FilterContainer from '../containers/FilterContainer';
 
 const calculateChange = (a, b) => {
   a = new Decimal(a);
@@ -25,10 +26,14 @@ const buildTable = data => {
 };
 
 const StockData = props => {
-  const {stockData, date} = props;
+  const {stockData, stockWatchlist, date} = props;
   let stockTableCells = buildTable(stockData.stocks);
   return (
     <Panel header={`Stock Data for ${date}`}>
+      <FilterContainer 
+        stockWatchlist={stockWatchlist}
+        date={date}
+      />
       <Table striped>
         <thead>
           <tr>
