@@ -24,9 +24,11 @@ class Trades extends Component {
 
     if (isFetching) {
       return (
-        <Panel header="Trades">
-          <span className="img-loader" />
-        </Panel>
+        <Col md={6}>
+          <Panel header="Trades">
+            <span className="img-loader" />
+          </Panel>
+        </Col>
       );
     }
 
@@ -45,6 +47,7 @@ class Trades extends Component {
               <Button type="submit" bsStyle="info">Change Stock</Button>
             </Col>
           </Form>
+          <br />
           <TradeForm
             balance={balance}
             onSubmit={onSubmit}

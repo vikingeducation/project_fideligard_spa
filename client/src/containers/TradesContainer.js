@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import Trades from "../components/Trades";
 import serialize from "form-serialize";
-import { getSpecificStock, addTransaction, updateBalance } from "../actions";
+import { getSpecificStock, addTransaction, updateBalance, setDate } from "../actions";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = (state, ownProps) => {
