@@ -28,37 +28,49 @@ const {
   determineStartDate,
   isValidDate,
   parseAPIResults
-} = require('./helpers');
+} = require("./helpers");
 
-app.get("/api/stocks", (req, res, next) => {
-  console.log("Requesting search data from Quandl...");
-  if (!req.query.date) {
-    res.status(400).json({"Error": "You must include a date query with every request."});
-  } else if (!isValidDate(req.query.date)) {
-    res.status(400).json({"Error": "Date must be formatted in the following manner: YYYY-MM-DD"});
-  } else {
-    next();
+app.get(
+  "/api/stocks",
+  (req, res, next) => {
+    console.log("Requesting search data from Quandl...");
+    if (!req.query.date) {
+      res
+        .status(400)
+        .json({ Error: "You must include a date query with every request." });
+    } else if (!isValidDate(req.query.date)) {
+      res
+        .status(400)
+        .json({
+          Error: "Date must be formatted in the following manner: YYYY-MM-DD"
+        });
+    } else {
+      next();
+    }
+  },
+  (req, res, next) => {
+    let symbols;
+    let symbolsString = "";
+    if (req.query.symbols) {
+      symbols = parseSymbols(req.query.symbols);
+      symbolsString = `&ticker=${symbols.toString()}`;
+    }
+    let endDate = req.query.date;
+    let startDate = determineStartDate(endDate);
+    fetch(
+      `${baseUrl}${symbolsString}&date.lte=${endDate}&date.gte=${startDate}`
+    )
+      .then(checkStatus)
+      .then(response => response.json())
+      .then(json => {
+        let results = parseAPIResults(json.datatable.data, endDate, symbols);
+        res.json(results);
+      })
+      .catch(error => {
+        next(error);
+      });
   }
-}, (req, res, next) => {
-  let symbols;
-  let symbolsString = "";
-  if (req.query.symbols) {
-    symbols = parseSymbols(req.query.symbols);
-    symbolsString = `&ticker=${symbols.toString()}`
-  }
-  let endDate = req.query.date;
-  let startDate = determineStartDate(endDate);
-  fetch(`${baseUrl}${symbolsString}&date.lte=${endDate}&date.gte=${startDate}`)
-    .then(checkStatus)
-    .then(response => response.json())
-    .then(json => {
-      let results = parseAPIResults(json.datatable.data, endDate, symbols);
-      res.json(results);
-    })
-    .catch(error => {
-      next(error);
-    });
-});
+);
 
 const errorHandler = (err, req, res, next) => {
   console.error(`Error: ${err.stack}`);

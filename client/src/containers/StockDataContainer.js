@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import StockData from '../components/StockData';
-import {getStocks, getSpecificStock} from '../actions';
+import StockData from "../components/StockData";
+import { getStocks, getSpecificStock } from "../actions";
 
 class StockDataContainer extends Component {
   componentDidMount() {
-    this.props.getAllStocks(this.props.stockWatchlist, this.props.specificStock.symbol, this.props.date);
+    this.props.getAllStocks(
+      this.props.stockWatchlist,
+      this.props.specificStock.symbol,
+      this.props.date
+    );
   }
 
   render() {
@@ -29,9 +33,7 @@ const mapDispatchToProps = dispatch => {
       dispatch(getStocks(stocks, date));
       dispatch(getSpecificStock(specificStock, date));
     }
-  }
+  };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  StockDataContainer
-);
+export default connect(mapStateToProps, mapDispatchToProps)(StockDataContainer);

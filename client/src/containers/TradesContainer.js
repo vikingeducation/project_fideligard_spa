@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
-import Trades from '../components/Trades';
+import Trades from "../components/Trades";
 import serialize from "form-serialize";
-import {getSpecificStock} from '../actions';
+import { getSpecificStock } from "../actions";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -16,10 +16,16 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onChangeStock: (e, date) => {
       e.preventDefault();
       const form = e.target;
-      const stock = serialize(form, {hash: true}).symbol;
+      const stock = serialize(form, { hash: true }).symbol;
       dispatch(getSpecificStock(stock, date));
+    },
+    onSubmit: e => {
+      e.preventDefault();
+      const form = e.target;
+      const data = serialize(form, { hash: true });
+      console.log(data);
     }
-  }
+  };
 };
 
 const TradesContainer = connect(mapStateToProps, mapDispatchToProps)(Trades);

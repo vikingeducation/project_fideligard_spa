@@ -55,39 +55,39 @@ export function setDate(data) {
   return {
     type: SET_DATE,
     data
-  }
+  };
 }
 
 export function setFilter(data = "") {
   return {
     type: SET_FILTER,
     data: data.toUpperCase()
-  }
+  };
 }
 
 export function resetFilter(data) {
   return {
     type: RESET_FILTER
-  }
+  };
 }
 
 export function addStockToList(data) {
   return {
     type: ADD_STOCK_TO_LIST,
     data
-  }
+  };
 }
 
 export function setSortAscending() {
   return {
     type: SET_SORT_ASCENDING
-  }
+  };
 }
 
 export function setSortDescending() {
   return {
     type: SET_SORT_DESCENDING
-  }
+  };
 }
 
 // @param {array} stocks

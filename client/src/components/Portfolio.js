@@ -1,5 +1,5 @@
-import React from 'react';
-import {Grid, Row} from 'react-bootstrap';
+import React from "react";
+import { Grid, Row } from "react-bootstrap";
 
 const Portfolio = () => {
   return (
@@ -7,11 +7,9 @@ const Portfolio = () => {
       <h1>
         Portfolio
       </h1>
-      <Row>
-
-      </Row>
+      <Row />
     </Grid>
-  )
+  );
 };
 
 export default Portfolio;

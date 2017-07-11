@@ -1,6 +1,10 @@
 import { connect } from "react-redux";
-import StockTable from '../components/StockTable';
-import {setSortAscending, setSortDescending, getSpecificStock} from '../actions';
+import StockTable from "../components/StockTable";
+import {
+  setSortAscending,
+  setSortDescending,
+  getSpecificStock
+} from "../actions";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -23,9 +27,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onClickTrade: stock => {
       dispatch(getSpecificStock(stock, ownProps.date));
     }
-  }
+  };
 };
 
-const StockTableContainer = connect(mapStateToProps, mapDispatchToProps)(StockTable);
+const StockTableContainer = connect(mapStateToProps, mapDispatchToProps)(
+  StockTable
+);
 
 export default StockTableContainer;

@@ -1,13 +1,13 @@
-import React, {Component} from 'react';
-import {Form, Col, Panel, FormControl, Button} from 'react-bootstrap';
-import Decimal from 'decimal.js';
+import React, { Component } from "react";
+import { Form, Col, Panel, FormControl, Button } from "react-bootstrap";
+import Decimal from "decimal.js";
 
 class Trades extends Component {
   constructor() {
     super();
     this.state = {
       total: 0
-    }
+    };
   }
   onQuantityChange = e => {
     let quantity = new Decimal(e.target.value);
@@ -15,11 +15,11 @@ class Trades extends Component {
     this.setState({
       total: price.times(quantity).toString()
     });
-  }
+  };
 
   render() {
-    const {stock, isFetching, date, onChangeStock} = this.props;
-    let {total} = this.state;
+    const { stock, isFetching, date, onChangeStock, onSubmit } = this.props;
+    let { total } = this.state;
 
     if (isFetching) {
       return <span className="img-loader" />;
@@ -28,31 +28,38 @@ class Trades extends Component {
     return (
       <Col md={6}>
         <Panel header="Trades">
-          <Form horizontal onSubmit={(e)=> onChangeStock(e, date)} className="stock-trade-input">
+          <Form
+            horizontal
+            onSubmit={e => onChangeStock(e, date)}
+            className="stock-trade-input"
+          >
             <Col md={8}>
-              <FormControl 
-                defaultValue={stock.symbol}
-                name="symbol"
-              />
+              <FormControl defaultValue={stock.symbol} name="symbol" />
             </Col>
             <Col md={4}>
               <Button type="submit" bsStyle="success">Change Stock</Button>
             </Col>
           </Form>
-          <Form>
-            <FormControl type="number" name="quantity" placeholder="Quantity" onChange={this.onQuantityChange}/>
+          <Form onSubmit={onSubmit}>
+            <FormControl
+              type="number"
+              name="quantity"
+              placeholder="Quantity"
+              onChange={this.onQuantityChange}
+            />
             <h4>Price: ${stock.today}</h4>
-            <input type="hidden" name="price" value={stock.today}/>
-            {stock.today === 0 ?
-            <Button bsStyle="success" disabled>Buy</Button> :
-            <Button bsStyle="success" type="submit">Buy</Button>
-            }
+            {stock.today === 0 || total === 0
+              ? <Button bsStyle="success" disabled>Buy</Button>
+              : <Button bsStyle="success" type="submit">Buy</Button>}
+            <h4>Total: ${total}</h4>
+            <input type="hidden" name="price" value={stock.today} />
+            <input type="hidden" name="total" value={total} />
+            <input type="hidden" name="symbol" value={stock.symbol} />
           </Form>
-          <h4>Total: ${total}</h4>
         </Panel>
       </Col>
-    )
-  };
+    );
+  }
 }
 
 // const Trades = ({stock, isFetching, date, onChangeStock}) => {
@@ -65,7 +72,7 @@ class Trades extends Component {
 //       <Panel header="Trades">
 //         <Form horizontal onSubmit={(e)=> onChangeStock(e, date)} className="stock-trade-input">
 //           <Col md={8}>
-//             <FormControl 
+//             <FormControl
 //               defaultValue={stock.symbol}
 //               name="symbol"
 //             />

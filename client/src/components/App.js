@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import {Grid, Row, Col} from 'react-bootstrap';
+import { Grid, Row, Col } from "react-bootstrap";
 import ScrollToTop from "./ScrollToTop";
-import Navigation from './Navigation';
-import StockDataContainer from '../containers/StockDataContainer';
-import DatePickerContainer from '../containers/DatePickerContainer';
-import TradesContainer from '../containers/TradesContainer';
-import Transactions from './Transactions';
-import Portfolio from './Portfolio';
+import Navigation from "./Navigation";
+import StockDataContainer from "../containers/StockDataContainer";
+import DatePickerContainer from "../containers/DatePickerContainer";
+import TradesContainer from "../containers/TradesContainer";
+import Transactions from "./Transactions";
+import Portfolio from "./Portfolio";
 
 class App extends Component {
   render() {
     return (
       <Router>
         <ScrollToTop>
-          <Navigation title={"Fideligard"}/>
+          <Navigation title={"Fideligard"} />
           <Grid>
             <Row>
               <h1>Fideligard</h1>

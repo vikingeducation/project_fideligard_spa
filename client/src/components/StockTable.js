@@ -1,7 +1,7 @@
-import React from 'react';
-import Decimal from 'decimal.js';
-import {Table, Button} from 'react-bootstrap';
-import {Link} from 'react-router-dom';
+import React from "react";
+import Decimal from "decimal.js";
+import { Table, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 const calculateChange = (a, b) => {
   a = new Decimal(a);
@@ -28,17 +28,21 @@ const buildTable = (data, filter, sortDirection, onClickTrade) => {
         <td>{keys[i]}</td>
         <td>${data[keys[i]].today}</td>
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].oneDay)}</td>
-        <td>${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}</td>
-        <td>${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}</td>
         <td>
-          <Link to="/trades" onClick={(e)=> onClickTrade(keys[i])}>
+          ${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}
+        </td>
+        <td>
+          ${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}
+        </td>
+        <td>
+          <Link to="/trades" onClick={e => onClickTrade(keys[i])}>
             <Button bsStyle="primary">
               Trade
             </Button>
           </Link>
         </td>
       </tr>
-    )
+    );
   }
 
   return results;
@@ -55,8 +59,19 @@ const determineCaret = direction => {
   return caret;
 };
 const StockTable = props => {
-  const {stockData, filter, sortDirection, setSortDirection, onClickTrade} = props;
-  let stockTableCells = buildTable(stockData.stocks, filter, sortDirection, onClickTrade);
+  const {
+    stockData,
+    filter,
+    sortDirection,
+    setSortDirection,
+    onClickTrade
+  } = props;
+  let stockTableCells = buildTable(
+    stockData.stocks,
+    filter,
+    sortDirection,
+    onClickTrade
+  );
   let caret = determineCaret(sortDirection);
   return (
     <Table striped>
@@ -71,7 +86,7 @@ const StockTable = props => {
           <th>1d</th>
           <th>7d</th>
           <th>30d</th>
-          <th></th>
+          <th />
         </tr>
       </thead>
       <tbody>

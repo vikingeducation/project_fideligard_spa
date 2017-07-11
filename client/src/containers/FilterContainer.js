@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
-import Filter from '../components/Filter';
+import Filter from "../components/Filter";
 import serialize from "form-serialize";
-import {setFilter, resetFilter, addStockToList, getStocks} from '../actions';
+import { setFilter, resetFilter, addStockToList, getStocks } from "../actions";
 
 const mapStateToProps = state => {
   return {
-    stockWatchlist: state.stockWatchlist,
+    stockWatchlist: state.stockWatchlist
   };
 };
 
@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     setFilter: e => {
       e.preventDefault();
       const form = e.target;
-      const stock = serialize(form, {hash: true}).symbol;
+      const stock = serialize(form, { hash: true }).symbol;
       if (!ownProps.stockWatchlist.includes(stock)) {
         dispatch(addStockToList(stock));
         dispatch(getStocks([...ownProps.stockWatchlist, stock], ownProps.date));
@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       e.target.parentNode.parentNode.parentNode.reset();
       dispatch(resetFilter());
     }
-  }
+  };
 };
 
 const FilterContainer = connect(mapStateToProps, mapDispatchToProps)(Filter);

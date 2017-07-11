@@ -1,4 +1,4 @@
-const LocalDate = require('js-joda').LocalDate;
+const LocalDate = require("js-joda").LocalDate;
 const MAX_DAYS_AGO = 35;
 
 const isValidDate = date => {
@@ -6,7 +6,7 @@ const isValidDate = date => {
   return dateFormatRegex.test(date);
 };
 const parseSymbols = symbols => {
-  let results = symbols.toUpperCase().split(',');
+  let results = symbols.toUpperCase().split(",");
   return results.filter(symbol => symbol.length > 0);
 };
 
@@ -18,8 +18,10 @@ const determineStartDate = endDate => {
 
 const removeWeekendDates = date => {
   let results = LocalDate.parse(date);
-  while (results.dayOfWeek().toString() === "SATURDAY" ||
-         results.dayOfWeek().toString() === "SUNDAY") {
+  while (
+    results.dayOfWeek().toString() === "SATURDAY" ||
+    results.dayOfWeek().toString() === "SUNDAY"
+  ) {
     results = results.minusDays(1);
   }
   return results;
@@ -44,7 +46,7 @@ const getAllSymbols = data => {
 const parseAPIResults = (data, endDate, symbols) => {
   let results = {
     data: {}
-  }
+  };
 
   // Stock data is not updated on weekends, so we go back in time
   // as far as necessary if user provided a weekend
@@ -64,7 +66,7 @@ const parseAPIResults = (data, endDate, symbols) => {
       oneDay: 0,
       sevenDays: 0,
       thirtyDays: 0
-    }
+    };
 
     data.forEach(price => {
       let isSymbolInData = price[0] === symbol;
@@ -79,7 +81,7 @@ const parseAPIResults = (data, endDate, symbols) => {
         }
         if (isDataOneDayOld) {
           results.data[symbol].oneDay = price[2] || 0;
-        } 
+        }
         if (isDataSevenDaysOld) {
           results.data[symbol].sevenDays = price[2] || 0;
         }
@@ -97,4 +99,4 @@ module.exports = {
   determineStartDate,
   isValidDate,
   parseAPIResults
-}
+};
