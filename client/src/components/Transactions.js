@@ -1,6 +1,7 @@
 import React from "react";
 import { Table, Col, Panel } from "react-bootstrap";
 import {getParams} from '../helpers';
+import {Link} from 'react-router-dom';
 import _ from 'lodash';
 
 const buildTransactionsData = (transactions, query) => {
@@ -63,7 +64,7 @@ const buildTransactionsData = (transactions, query) => {
   ))
 }
 
-const Transactions = ({transactions, location}) => {
+const Transactions = ({transactions, location, transactionsSort}) => {
   let query = getParams(location.search);
   if (transactions.length === 0) {
     return (
@@ -82,12 +83,60 @@ const Transactions = ({transactions, location}) => {
         <Table striped>
           <thead>
             <tr>
-              <th>Date</th>
-              <th>Symbol</th>
-              <th>Price</th>
-              <th>Quantity</th>
-              <th>Type</th>
-              <th>Total</th>
+              <th>
+                Date
+                <Link to={{pathname: "/transactions", search: "sort=date_asc"}}>
+                  &#9650;
+                </Link>
+                <Link to={{pathname: "/transactions", search: "sort=date_desc"}}>
+                  &#9660;
+                </Link>
+              </th>
+              <th>
+                Symbol
+                <Link to={{pathname: "/transactions", search: "sort=symbol_asc"}}>
+                  &#9650;
+                </Link>
+                <Link to={{pathname: "/transactions", search: "sort=symbol_desc"}}>
+                  &#9660;
+                </Link>
+              </th>
+              <th>
+                Price
+                <Link to={{pathname: "/transactions", search: "sort=price_asc"}}>
+                  &#9650;
+                </Link>
+                <Link to={{pathname: "/transactions", search: "sort=price_desc"}}>
+                  &#9660;
+                </Link>
+              </th>
+              <th>
+                Quantity
+                <Link to={{pathname: "/transactions", search: "sort=quantity_asc"}}>
+                  &#9650;
+                </Link>
+                <Link to={{pathname: "/transactions", search: "sort=quantity_desc"}}>
+                  &#9660;
+                </Link>
+              </th>
+              <th>
+                Type
+                <Link to={{pathname: "/transactions", search: "sort=type_asc"}}>
+                  &#9650;
+                </Link>
+                <Link to={{pathname: "/transactions", search: "sort=type_desc"}}>
+                  &#9660;
+                </Link>
+              </th>
+              <th>
+                Total
+                <Link to={{pathname: "/transactions", search: "sort=total_asc"}}>
+                  &#9650;
+                </Link>
+                <Link to={{pathname: "/transactions", search: "sort=total_desc"}}>
+                  &#9660;
+                </Link>
+              </th>
             </tr>
           </thead>
           <tbody>
