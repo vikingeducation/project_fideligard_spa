@@ -59,10 +59,10 @@ const parseAPIResults = (data, endDate, symbols) => {
 
   symbols.forEach(symbol => {
     results.data[symbol] = {
-      today: "",
-      oneDay: "",
-      sevenDays: "",
-      thirtyDays: ""
+      today: 0,
+      oneDay: 0,
+      sevenDays: 0,
+      thirtyDays: 0
     }
 
     data.forEach(price => {
@@ -74,16 +74,16 @@ const parseAPIResults = (data, endDate, symbols) => {
 
       if (isSymbolInData) {
         if (isDataFromEndDate) {
-          results.data[symbol].today = price[2] || "";
+          results.data[symbol].today = price[2] || 0;
         }
         if (isDataOneDayOld) {
-          results.data[symbol].oneDay = price[2] || "";
+          results.data[symbol].oneDay = price[2] || 0;
         } 
         if (isDataSevenDaysOld) {
-          results.data[symbol].sevenDays = price[2] || "";
+          results.data[symbol].sevenDays = price[2] || 0;
         }
         if (isDataThirtyDaysOld) {
-          results.data[symbol].thirtyDays = price[2] || "";
+          results.data[symbol].thirtyDays = price[2] || 0;
         }
       }
     });

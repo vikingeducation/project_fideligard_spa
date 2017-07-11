@@ -29,8 +29,6 @@ const {
   isDateCorrect,
   parseAPIResults
 } = require('./helpers');
-const mockData = require('./mock-data');
-
 
 app.get("/api/stocks", (req, res, next) => {
   console.log("Requesting search data from Quandl...");
@@ -55,7 +53,7 @@ app.get("/api/stocks", (req, res, next) => {
     .then(response => response.json())
     .then(json => {
       let results = parseAPIResults(json.datatable.data, endDate, symbols);
-      // res.json('yep');
+      console.log(results);
       res.json(results);
     })
     .catch(error => {

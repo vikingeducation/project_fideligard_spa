@@ -21,12 +21,14 @@
   },
   "homepage": "https://github.com/christianflorez/project_fideligard_spa#readme",
   "dependencies": {
+    "decimal.js": "^7.2.3",
     "dotenv": "^4.0.0",
     "es6-promise": "^4.1.1",
     "express": "^4.15.3",
     "form-serialize": "^0.7.2",
     "isomorphic-fetch": "^2.2.1",
-    "js-joda": "^1.5.2"
+    "js-joda": "^1.5.2",
+    "money-math": "^2.5.0"
   },
   "devDependencies": {
     "concurrently": "^3.5.0",

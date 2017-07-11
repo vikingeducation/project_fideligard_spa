@@ -284,6 +284,10 @@ debug@^2.2.0:
   dependencies:
     ms "2.0.0"
 
+decimal.js@^7.2.3:
+  version "7.2.3"
+  resolved "https://registry.yarnpkg.com/decimal.js/-/decimal.js-7.2.3.tgz#6434c3b8a8c375780062fc633d0d2bbdb264cc78"
+
 deep-extend@~0.4.0:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.4.2.tgz#48b699c27e334bf89f10892be432f6e4c7d34a7f"
@@ -795,6 +799,10 @@ js-joda@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/js-joda/-/js-joda-1.5.2.tgz#c19a61e6ab10968d7fe99aeb9a5a31281212a3bd"
 
+jsbn@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-1.1.0.tgz#b01307cb29b618a1ed26ec79e911f803c4da0040"
+
 jsbn@~0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/jsbn/-/jsbn-0.1.1.tgz#a5e654c2e5a2deb5f201d96cefbca80c0ef2f513"
@@ -985,6 +993,12 @@ minimist@^1.2.0:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+money-math@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/money-math/-/money-math-2.5.0.tgz#bbf15fe08e9d0ad450b2cc663a7a100bb9a8066c"
+  dependencies:
+    jsbn "^1.1.0"
 
 ms@2.0.0:
   version "2.0.0"

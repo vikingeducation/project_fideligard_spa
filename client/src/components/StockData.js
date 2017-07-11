@@ -1,5 +1,12 @@
 import React from 'react';
 import {Table, Panel} from 'react-bootstrap';
+import Decimal from 'decimal.js';
+
+const calculateChange = (a, b) => {
+  a = new Decimal(a);
+  b = new Decimal(b);
+  return a.minus(b).toString();
+};
 
 const buildTable = data => {
   let results = [];
@@ -8,9 +15,9 @@ const buildTable = data => {
       <tr key={stock}>
         <td>{stock}</td>
         <td>${data[stock].today}</td>
-        <td>${data[stock].oneDay}</td>
-        <td>${data[stock].sevenDays}</td>
-        <td>${data[stock].thirtyDays}</td>
+        <td>${calculateChange(data[stock].today, data[stock].oneDay)}</td>
+        <td>${calculateChange(data[stock].today, data[stock].sevenDays)}</td>
+        <td>${calculateChange(data[stock].today, data[stock].thirtyDays)}</td>
       </tr>
     )
   }
