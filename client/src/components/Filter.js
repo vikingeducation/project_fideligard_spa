@@ -10,7 +10,7 @@ const Filter = ({setFilter, resetFilter}) => {
           <FormControl type="text" name="symbol" placeholder="Set by a specific stock"/>
           </Col>
           <Col md={4}>
-          <Button bsStyle="info" type="submit">Filter</Button>
+          <Button bsStyle="success" type="submit">Filter</Button>
           <Button bsStyle="warning" onClick={resetFilter}>Reset</Button>
           </Col>
         </FormGroup>
