@@ -5,6 +5,9 @@ export const ADD_STOCK_TO_LIST = "ADD_STOCK_TO_LIST";
 export const GET_STOCKS_SUCCESS = "GET_STOCKS_SUCCESS";
 export const GET_STOCKS_REQUEST = "GET_STOCKS_REQUEST";
 export const GET_STOCKS_FAILURE = "GET_STOCKS_FAILURE";
+export const GET_SPECIFIC_STOCK_SUCCESS = "GET_SPECIFIC_STOCK_SUCCESS";
+export const GET_SPECIFIC_STOCK_REQUEST = "GET_SPECIFIC_STOCK_REQUEST";
+export const GET_SPECIFIC_STOCK_FAILURE = "GET_SPECIFIC_STOCK_FAILURE";
 export const SET_SORT_ASCENDING = "SET_SORT_ASCENDING";
 export const SET_SORT_DESCENDING = "SET_SORT_DESCENDING";
 
@@ -24,6 +27,26 @@ export function getStocksSuccess(data) {
 export function getStocksFailure(error) {
   return {
     type: GET_STOCKS_FAILURE,
+    error
+  };
+}
+
+export function getSpecificStockRequest() {
+  return {
+    type: GET_SPECIFIC_STOCK_REQUEST
+  };
+}
+
+export function getSpecificStockSuccess(data) {
+  return {
+    type: GET_SPECIFIC_STOCK_SUCCESS,
+    data
+  };
+}
+
+export function getSpecificStockFailure(error) {
+  return {
+    type: GET_SPECIFIC_STOCK_FAILURE,
     error
   };
 }
@@ -85,6 +108,27 @@ export function getStocks(stocks, date) {
       })
       .catch(error => {
         dispatch(getStocksFailure(error));
+      });
+  };
+}
+
+export function getSpecificStock(stock, date) {
+  return dispatch => {
+    dispatch(getSpecificStockRequest());
+
+    fetch(`api/stocks?symbols=${stock.toString()}&date=${date}`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`${response.status}: ${response.statusText}`);
+        }
+
+        return response.json();
+      })
+      .then(json => {
+        dispatch(getSpecificStockSuccess(json.data[stock]));
+      })
+      .catch(error => {
+        dispatch(getSpecificStockFailure(error));
       });
   };
 }

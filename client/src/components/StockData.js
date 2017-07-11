@@ -11,7 +11,10 @@ const StockData = props => {
         stockWatchlist={stockWatchlist}
         date={date}
       />
-      {isFetching ? <span className="img-loader" /> : <StockTableContainer sortDirection={sortDirection} />}
+      {isFetching ? 
+      <span className="img-loader" /> : 
+      <StockTableContainer sortDirection={sortDirection} date={date}
+      />}
     </Panel>
   );
 };

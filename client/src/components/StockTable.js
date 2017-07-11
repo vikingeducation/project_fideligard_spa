@@ -1,6 +1,7 @@
 import React from 'react';
 import Decimal from 'decimal.js';
 import {Table, Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 const calculateChange = (a, b) => {
   a = new Decimal(a);
@@ -29,7 +30,13 @@ const buildTable = (data, filter, sortDirection) => {
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].oneDay)}</td>
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}</td>
         <td>${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}</td>
-        <td><Button bsStyle="primary">Trade</Button></td>
+        <td>
+          <Link to="/trades" onClick={()=>console.log('testing')}>
+            <Button bsStyle="primary">
+              Trade
+            </Button>
+          </Link>
+        </td>
       </tr>
     )
   }

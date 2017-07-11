@@ -10,6 +10,11 @@ const initialState = {
     isFetching: false,
     error: null
   },
+  specificStockData: {
+    stock: {},
+    isFetching: false,
+    error: null
+  },
   sortDirection: "ascending"
 }
 
@@ -70,6 +75,31 @@ const stockData = (state = initialState.stockData, action) => {
   }
 }
 
+const specificStockData = (state = initialState.specificStockData, action) => {
+  switch(action.type) {
+    case Actions.GET_SPECIFIC_STOCK_SUCCESS:
+      return {
+        ...state,
+        stock: action.data,
+        isFetching: false
+      };
+    case Actions.GET_SPECIFIC_STOCK_REQUEST:
+      return {
+        ...state,
+        isFetching: true,
+        error: null
+      };
+    case Actions.GET_SPECIFIC_STOCK_FAILURE:
+      return {
+        ...state,
+        isFetching: false,
+        error: action.error
+      };
+    default:
+      return state;
+  }
+}
+
 const sortDirection = (state = initialState.sortDirection, action) => {
   switch(action.type) {
     case Actions.SET_SORT_DESCENDING:
@@ -80,10 +110,12 @@ const sortDirection = (state = initialState.sortDirection, action) => {
       return state;
   }
 }
+
 export const stockApp = combineReducers({
   date,
   stockFilter,
   stockWatchlist,
   stockData,
+  specificStockData,
   sortDirection
 });
