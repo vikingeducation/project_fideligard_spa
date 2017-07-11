@@ -1,14 +1,15 @@
 import { connect } from "react-redux";
 import Trades from "../components/Trades";
 import serialize from "form-serialize";
-import { getSpecificStock } from "../actions";
+import { getSpecificStock, addTransaction, updateBalance } from "../actions";
 import { withRouter } from "react-router-dom";
 
 const mapStateToProps = (state, ownProps) => {
   return {
     stock: state.specificStockData.stock,
     isFetching: state.specificStockData.isFetching,
-    date: state.date
+    date: state.date,
+    balance: state.balance
   };
 };
 
@@ -20,13 +21,18 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const stock = serialize(form, { hash: true }).symbol;
       dispatch(getSpecificStock(stock, date));
     },
-    onSubmit: e => {
+    onSubmit: (e, balance) => {
       e.preventDefault();
       const form = e.target;
       const data = serialize(form, { hash: true });
-      console.log(data);
+      if (data.total > balance) {
+        ownProps.history.push("/failure");
+      } else {
+        dispatch(addTransaction(data));
+        dispatch(updateBalance(-data.total));
+        ownProps.history.push("/success");
+      }
       // here provide validations, and add to transactions
-      ownProps.history.push("/transactions");
     }
   };
 };

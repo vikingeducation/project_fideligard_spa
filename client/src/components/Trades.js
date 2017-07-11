@@ -19,7 +19,7 @@ class Trades extends Component {
   };
 
   render() {
-    const { stock, isFetching, date, onChangeStock, onSubmit } = this.props;
+    const { stock, isFetching, date, onChangeStock, onSubmit, balance } = this.props;
     let { total } = this.state;
 
     if (isFetching) {
@@ -42,6 +42,7 @@ class Trades extends Component {
             </Col>
           </Form>
           <TradeForm
+            balance={balance}
             onSubmit={onSubmit}
             onChange={this.onQuantityChange}
             stock={stock}

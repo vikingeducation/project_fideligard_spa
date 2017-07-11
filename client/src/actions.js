@@ -10,6 +10,8 @@ export const GET_SPECIFIC_STOCK_REQUEST = "GET_SPECIFIC_STOCK_REQUEST";
 export const GET_SPECIFIC_STOCK_FAILURE = "GET_SPECIFIC_STOCK_FAILURE";
 export const SET_SORT_ASCENDING = "SET_SORT_ASCENDING";
 export const SET_SORT_DESCENDING = "SET_SORT_DESCENDING";
+export const ADD_TRANSACTION = "ADD_TRANSACTION";
+export const UPDATE_BALANCE = "UPDATE_BALANCE";
 
 export function getStocksRequest() {
   return {
@@ -88,6 +90,20 @@ export function setSortDescending() {
   return {
     type: SET_SORT_DESCENDING
   };
+}
+
+export function addTransaction(data) {
+  return {
+    type: ADD_TRANSACTION,
+    data
+  }
+}
+
+export function updateBalance(data) {
+  return {
+    type: UPDATE_BALANCE,
+    data
+  }
 }
 
 // @param {array} stocks

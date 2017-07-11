@@ -8,6 +8,8 @@ import DatePickerContainer from "../containers/DatePickerContainer";
 import TradesContainer from "../containers/TradesContainer";
 import Transactions from "./Transactions";
 import Portfolio from "./Portfolio";
+import Failure from "./Failure";
+import Success from "./Success";
 
 class App extends Component {
   render() {
@@ -26,6 +28,8 @@ class App extends Component {
                 <Route path="/trades" component={TradesContainer} />
                 <Route path="/transactions" component={Transactions} />
                 <Route path="/portfolio" component={Portfolio} />
+                <Route path="/failure" component={Failure} />
+                <Route path="/success" component={Success} />
                 <Route exact path="/" component={Portfolio} />
               </Switch>
             </Row>

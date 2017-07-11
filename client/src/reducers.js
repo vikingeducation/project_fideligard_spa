@@ -1,6 +1,6 @@
 import * as Actions from "./actions";
 import { combineReducers } from "redux";
-
+import Decimal from "decimal.js";
 const initialState = {
   date: "1999-11-18",
   stockFilter: "",
@@ -29,6 +29,8 @@ const initialState = {
     isFetching: false,
     error: null
   },
+  transactions: [],
+  balance: 10000,
   sortDirection: "ascending"
 };
 
@@ -122,11 +124,34 @@ const sortDirection = (state = initialState.sortDirection, action) => {
   }
 };
 
+const transactions = (state = initialState.transactions, action) => {
+  switch (action.type) {
+    case Actions.ADD_TRANSACTION:
+      return [
+        ...state,
+        action.data
+      ];
+    default:
+      return state;
+  }
+};
+
+const balance = (state = initialState.balance, action) => {
+  switch (action.type) {
+    case Actions.UPDATE_BALANCE:
+      return new Decimal(state).plus(action.data).toString();
+    default:
+      return state;
+  }
+};
+
 export const stockApp = combineReducers({
   date,
   stockFilter,
   stockWatchlist,
   stockData,
   specificStockData,
-  sortDirection
+  sortDirection,
+  transactions,
+  balance
 });
