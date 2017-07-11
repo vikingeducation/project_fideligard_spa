@@ -4,10 +4,10 @@ import {Grid, Row, Col} from 'react-bootstrap';
 import ScrollToTop from "./ScrollToTop";
 import Navigation from './Navigation';
 import StockDataContainer from '../containers/StockDataContainer';
-import Trades from './Trades';
+import DatePickerContainer from '../containers/DatePickerContainer';
+import TradesContainer from '../containers/TradesContainer';
 import Transactions from './Transactions';
 import Portfolio from './Portfolio';
-import DatePickerContainer from '../containers/DatePickerContainer';
 
 class App extends Component {
   render() {
@@ -23,7 +23,7 @@ class App extends Component {
                 <StockDataContainer />
               </Col>
               <Switch>
-                <Route path="/trades" component={Trades} />
+                <Route path="/trades" component={TradesContainer} />
                 <Route path="/transactions" component={Transactions} />
                 <Route path="/portfolio" component={Portfolio} />
                 <Route exact path="/" component={Portfolio} />
