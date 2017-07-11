@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form, Col, Panel, FormControl, Button } from "react-bootstrap";
 import Decimal from "decimal.js";
-import TradeForm from './TradeForm';
+import TradeForm from "./TradeForm";
 
 class Trades extends Component {
   constructor() {
@@ -30,18 +30,18 @@ class Trades extends Component {
       <Col md={6}>
         <Panel header="Trades">
           <Form
-            horizontal
             onSubmit={e => onChangeStock(e, date)}
             className="stock-trade-input"
+            horizontal
           >
             <Col md={8}>
               <FormControl defaultValue={stock.symbol} name="symbol" />
             </Col>
             <Col md={4}>
-              <Button type="submit" bsStyle="success">Change Stock</Button>
+              <Button type="submit" bsStyle="info">Change Stock</Button>
             </Col>
           </Form>
-          <TradeForm 
+          <TradeForm
             onSubmit={onSubmit}
             onChange={this.onQuantityChange}
             stock={stock}

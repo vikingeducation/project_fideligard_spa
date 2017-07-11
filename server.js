@@ -39,11 +39,9 @@ app.get(
         .status(400)
         .json({ Error: "You must include a date query with every request." });
     } else if (!isValidDate(req.query.date)) {
-      res
-        .status(400)
-        .json({
-          Error: "Date must be formatted in the following manner: YYYY-MM-DD"
-        });
+      res.status(400).json({
+        Error: "Date must be formatted in the following manner: YYYY-MM-DD"
+      });
     } else {
       next();
     }
