@@ -45,8 +45,13 @@ span.img-loader {
 
 a.sortable {
   color: black;
+  cursor: pointer;
 }
 
+.panel-body {
+  max-height: 55vh;
+  overflow: auto;
+}
 a.sortable:hover {
   color: black;
   text-decoration: none;
