@@ -4,9 +4,11 @@ import serialize from "form-serialize";
 import {
   getSpecificStock,
   addTransaction,
-  updateBalance
+  updateBalance,
+  updatePortfolio
 } from "../actions";
 import { withRouter } from "react-router-dom";
+import { processPortfolioBuy, processPortfolioSell } from '../helpers';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -28,14 +30,23 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onSubmit: (e, balance, portfolio) => {
       const form = e.target;
-      const data = serialize(form, { hash: true });
-      console.log(data);
-      if (+data.total > +balance) {
+      const transaction = serialize(form, { hash: true });
+      if (+transaction.total > +balance) {
         ownProps.history.push("/failure");
-      } else {
-        if (data.type === "buy") {
-          dispatch(addTransaction(data));
-          dispatch(updateBalance(-data.total));
+      } else if (transaction.type === "buy") {
+        let newPortfolio = processPortfolioBuy(transaction, portfolio);
+        dispatch(addTransaction(transaction));
+        dispatch(updateBalance(-transaction.total));
+        dispatch(updatePortfolio(newPortfolio));
+        ownProps.history.push("/success");
+      } else if (transaction.type === "sell") {
+        if (+transaction.quantity > +portfolio[transaction.symbol] || !portfolio.hasOwnProperty(transaction.symbol)) {
+          ownProps.history.push("/failure");
+        } else {
+          let newPortfolio = processPortfolioSell(transaction, portfolio);
+          dispatch(addTransaction(transaction));
+          dispatch(updateBalance(+transaction.total));
+          dispatch(updatePortfolio(newPortfolio));
           ownProps.history.push("/success");
         }
       }

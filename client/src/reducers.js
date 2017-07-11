@@ -146,10 +146,9 @@ const balance = (state = initialState.balance, action) => {
 const portfolio = (state = initialState.portfolio, action) => {
   switch (action.type) {
     case Actions.UPDATE_PORTFOLIO:
-      let newState = {...state};
-      let key = Object.keys[action.data][0];
-      state[key] = action.data
-      return newState;
+      return {
+        ...action.data
+      };
     default:
       return state;
   }
