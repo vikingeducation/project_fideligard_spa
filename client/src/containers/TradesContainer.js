@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import Trades from "../components/Trades";
 import serialize from "form-serialize";
 import { getSpecificStock } from "../actions";
+import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -24,10 +25,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const form = e.target;
       const data = serialize(form, { hash: true });
       console.log(data);
+      // here provide validations, and add to transactions
+      ownProps.history.push('/transactions');
     }
   };
 };
 
 const TradesContainer = connect(mapStateToProps, mapDispatchToProps)(Trades);
 
-export default TradesContainer;
+export default withRouter(TradesContainer);
