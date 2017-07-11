@@ -17,33 +17,22 @@ const buildTable = (data, filter, sortDirection) => {
     keys = keys.sort().reverse();
   }
 
-  if (!filter) {
-    for (let i = 0; i < keys.length; i++) {
-      results.push(
-        <tr key={keys[i]}>
-          <td>{keys[i]}</td>
-          <td>${data[keys[i]].today}</td>
-          <td>${calculateChange(data[keys[i]].today, data[keys[i]].oneDay)}</td>
-          <td>${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}</td>
-          <td>${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}</td>
-        </tr>
-      )
-    }
-  } else {
-    for (let i = 0; i < keys.length; i++) {
-      if (keys[i] === filter) {
-        results.push(
-          <tr key={keys[i]}>
-            <td>{keys[i]}</td>
-            <td>${data[keys[i]].today}</td>
-            <td>${calculateChange(data[keys[i]].today, data[keys[i]].oneDay)}</td>
-            <td>${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}</td>
-            <td>${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}</td>
-          </tr>
-        )
-      }
-    }
+  if (filter) {
+    keys = keys.filter(key => key.indexOf(filter) !== -1);
   }
+
+  for (let i = 0; i < keys.length; i++) {
+    results.push(
+      <tr key={keys[i]}>
+        <td>{keys[i]}</td>
+        <td>${data[keys[i]].today}</td>
+        <td>${calculateChange(data[keys[i]].today, data[keys[i]].oneDay)}</td>
+        <td>${calculateChange(data[keys[i]].today, data[keys[i]].sevenDays)}</td>
+        <td>${calculateChange(data[keys[i]].today, data[keys[i]].thirtyDays)}</td>
+      </tr>
+    )
+  }
+
   return results;
 };
 
