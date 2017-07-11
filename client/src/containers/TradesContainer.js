@@ -31,7 +31,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onSubmit: (e, balance, portfolio) => {
       const form = e.target;
       const transaction = serialize(form, { hash: true });
-      if (+transaction.total > +balance) {
+      const doesUserHaveEnoughCash = +transaction.total > +balance;
+      const doesUserHaveEnoughStock = +transaction.quantity > +portfolio[transaction.symbol]
+      const isStockInPortfolio = portfolio.hasOwnProperty(transaction.symbol)
+
+      if (doesUserHaveEnoughCash) {
         ownProps.history.push("/failure");
       } else if (transaction.type === "buy") {
         let newPortfolio = processPortfolioBuy(transaction, portfolio);
@@ -40,7 +44,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         dispatch(updatePortfolio(newPortfolio));
         ownProps.history.push("/success");
       } else if (transaction.type === "sell") {
-        if (+transaction.quantity > +portfolio[transaction.symbol] || !portfolio.hasOwnProperty(transaction.symbol)) {
+        if (doesUserHaveEnoughStock || !isStockInPortfolio) {
           ownProps.history.push("/failure");
         } else {
           let newPortfolio = processPortfolioSell(transaction, portfolio);
