@@ -1,14 +1,13 @@
 import React from "react";
-import { Grid, Row } from "react-bootstrap";
+import { Col, Panel } from "react-bootstrap";
 
-const Portfolio = () => {
+const Portfolio = ({stockData, portfolio, transactions, balance}) => {
   return (
-    <Grid>
-      <h1>
-        Portfolio
-      </h1>
-      <Row />
-    </Grid>
+    <Col md={6}>
+      <Panel header="Portfolio">
+        
+      </Panel>
+    </Col>
   );
 };
 

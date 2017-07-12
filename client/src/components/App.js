@@ -7,7 +7,7 @@ import StockDataContainer from "../containers/StockDataContainer";
 import DatePickerContainer from "../containers/DatePickerContainer";
 import TradesContainer from "../containers/TradesContainer";
 import TransactionsContainer from "../containers/TransactionsContainer";
-import Portfolio from "./Portfolio";
+import PortfolioContainer from "../containers/PortfolioContainer";
 import Failure from "./Failure";
 import Success from "./Success";
 
@@ -27,10 +27,10 @@ class App extends Component {
               <Switch>
                 <Route path="/trades" component={TradesContainer} />
                 <Route path="/transactions" component={TransactionsContainer} />
-                <Route path="/portfolio" component={Portfolio} />
+                <Route path="/portfolio" component={PortfolioContainer} />
                 <Route path="/failure" component={Failure} />
                 <Route path="/success" component={Success} />
-                <Route exact path="/" component={Portfolio} />
+                <Route exact path="/" component={PortfolioContainer} />
               </Switch>
             </Row>
           </Grid>
