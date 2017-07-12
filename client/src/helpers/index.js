@@ -1,4 +1,5 @@
 import _ from "lodash";
+import Decimal from "decimal.js";
 
 export const getParams = query => {
   if (!query) {
@@ -107,6 +108,70 @@ export const parseFilterString = query => {
   
   if (query.filter && query.filter.length > 0) {
     results = `&filter=${query.filter}`;
+  }
+
+  return results;
+};
+
+const addCurrency = (a, b) => {
+  a = new Decimal(a);
+  b = new Decimal(b);
+  return a.plus(b).toString();
+};
+
+const subtractCurrency = (a, b) => {
+  a = new Decimal(a);
+  b = new Decimal(b);
+  return a.minus(b).toString();
+};
+
+const multiplyCurrency = (a, b) => {
+  a = new Decimal(a);
+  b = new Decimal(b);
+  return a.times(b).toString();
+}
+
+export const calculateIndividualStockTotals = (stockData, portfolio, transactions) => {
+  let results = {};
+
+  // Cost Basis
+  for (let symbol in portfolio) {
+    results[symbol] = {};
+    results[symbol].symbol = symbol;
+    let costBasis = 0;
+    transactions.forEach(transaction => {
+      if (transaction.symbol === symbol) {
+        if (transaction.type === "buy") {
+          costBasis = addCurrency(costBasis, transaction.total);
+        } else if (transaction.type === "sell") {
+          costBasis = subtractCurrency(costBasis, transaction.total);
+        }
+      }
+    });
+    results[symbol].costBasis = costBasis;
+  }
+
+  // Current Value
+  for (let symbol in portfolio) {
+    let quantity = portfolio[symbol];
+    let price = stockData[symbol].today;
+    results[symbol].currentValue = multiplyCurrency(quantity, price);
+    results[symbol].quantity = quantity;
+  }
+
+  // Profit/Loss
+  for (let symbol in portfolio) {
+    let costBasis = results[symbol].costBasis;
+    let currentValue = results[symbol].currentValue;
+    results[symbol].profit = subtractCurrency(currentValue, costBasis);
+  }
+
+  // Stock Data
+  for (let symbol in portfolio) {
+    results[symbol].currentPrice = stockData[symbol].today
+    results[symbol].oneDay = stockData[symbol].oneDay
+    results[symbol].sevenDays = stockData[symbol].sevenDays
+    results[symbol].thirtyDays = stockData[symbol].thirtyDays
   }
 
   return results;

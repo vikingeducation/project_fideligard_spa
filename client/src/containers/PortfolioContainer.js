@@ -1,19 +1,23 @@
 import { connect } from "react-redux";
 import Portfolio from "../components/Portfolio";
 // import serialize from "form-serialize";
-// import { setPortfolio, resetPortfolio, addStockToList, getStocks } from "../actions";
+import { getSpecificStock } from "../actions";
 
 const mapStateToProps = state => {
   return {
     stockData: state.stockData.stocks,
     portfolio: state.portfolio,
     transactions: state.transactions,
-    balance: state.balance
+    balance: state.balance,
+    date: state.date
   };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onClickTrade: (stock, date) => {
+      dispatch(getSpecificStock(stock, date));
+    }
   };
 };
 

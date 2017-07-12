@@ -1,75 +1,41 @@
 import React from "react";
-import { Col, Panel, Table } from "react-bootstrap";
-import Decimal from "decimal.js";
+import { Col, Panel, Table, Button } from "react-bootstrap";
+import {calculateIndividualStockTotals} from "../helpers";
+import { Link } from "react-router-dom";
 
-const addCurrency = (a, b) => {
-  a = new Decimal(a);
-  b = new Decimal(b);
-  return a.plus(b).toString();
+const buildIndividualStockTable = (stocks, onClickTrade, date) => {
+  let results = [];
+  for (let symbol in stocks) {
+    results.push(
+      <tr key={symbol}>
+        <td>{stocks[symbol].symbol}</td>
+        <td>{stocks[symbol].quantity}</td>
+        <td>${stocks[symbol].costBasis}</td>
+        <td>${stocks[symbol].currentValue}</td>
+        <td>${stocks[symbol].profit}</td>
+        <td>${stocks[symbol].currentPrice}</td>
+        <td>${stocks[symbol].oneDay}</td>
+        <td>${stocks[symbol].sevenDays}</td>
+        <td>${stocks[symbol].thirtyDays}</td>
+        <td>
+          <Link to="/trades" onClick={() => onClickTrade(symbol, date)}>
+            <Button bsStyle="primary">
+              Trade
+            </Button>
+          </Link>
+        </td>
+      </tr>
+    );
+  }
+  return results;
 };
 
-const subtractCurrency = (a, b) => {
-  a = new Decimal(a);
-  b = new Decimal(b);
-  return a.minus(b).toString();
-};
-
-const multiplyCurrency = (a, b) => {
-  a = new Decimal(a);
-  b = new Decimal(b);
-  return a.times(b).toString();
-}
-// individual stock totals need to calculate:
-// currrent price/1d/7d/30d <- same as stockData
-// trade link FUCK
-
-const calculateIndividualStockTotals = (stockData, portfolio, transactions) => {
-  let results = {};
-
-  // Cost Basis
-  for (let symbol in portfolio) {
-    results[symbol] = {};
-    let costBasis = 0;
-    transactions.forEach(transaction => {
-      if (transaction.symbol === symbol) {
-        if (transaction.type === "buy") {
-          costBasis = addCurrency(costBasis, transaction.total);
-        } else if (transaction.type === "sell") {
-          costBasis = subtractCurrency(costBasis, transaction.total);
-        }
-      }
-    });
-    results[symbol].costBasis = costBasis;
-  }
-
-  // Current Value
-  for (let symbol in portfolio) {
-    let quantity = portfolio[symbol];
-    let price = stockData[symbol].today;
-    results[symbol].currentValue = multiplyCurrency(quantity, price);
-  }
-
-  // Profit/Loss
-  for (let symbol in portfolio) {
-    let costBasis = results[symbol].costBasis;
-    let currentValue = results[symbol].currentValue;
-    results[symbol].profit = subtractCurrency(currentValue, costBasis);
-  }
-
-  // Stock Data
-  for (let symbol in portfolio) {
-    results[symbol].currentPrice = stockData[symbol].today
-    results[symbol].oneDay = stockData[symbol].oneDay
-    results[symbol].sevenDays = stockData[symbol].sevenDays
-    results[symbol].thirtyDays = stockData[symbol].thirtyDays
-  }
-  console.log(results);
-};
-
-const Portfolio = ({stockData, portfolio, transactions, balance}) => {
+const Portfolio = ({stockData, portfolio, transactions, balance, onClickTrade, date}) => {
   let individualStockTotals = calculateIndividualStockTotals(stockData, portfolio, transactions);
+  let individualStockTable = buildIndividualStockTable(individualStockTotals, onClickTrade, date);
+  console.log(individualStockTotals);
   return (
-    <Col md={6}>
+    <Col md={5}>
       <Panel header="Portfolio">
         <Table striped>
           <thead>
@@ -86,6 +52,9 @@ const Portfolio = ({stockData, portfolio, transactions, balance}) => {
               <th>Trade</th>
             </tr>
           </thead>
+          <tbody>
+            {individualStockTable}
+          </tbody>
         </Table>
       </Panel>
     </Col>

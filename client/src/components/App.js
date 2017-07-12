@@ -17,10 +17,10 @@ class App extends Component {
       <Router>
         <ScrollToTop>
           <Navigation title={"Fideligard"} />
-          <Grid>
+          <Grid fluid>
             <Row>
               <h1>Fideligard</h1>
-              <Col md={6}>
+              <Col md={5} mdOffset={1}>
                 <DatePickerContainer />
                 <StockDataContainer />
               </Col>
