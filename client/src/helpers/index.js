@@ -16,11 +16,8 @@ export const getParams = query => {
 };
 
 export const processPortfolioBuy = (transaction, portfolio) => {
-  let results = {};
+  let results = {...portfolio};
   if (!portfolio.hasOwnProperty(transaction.symbol)) {
-    results = {
-      ...portfolio
-    };
     results[transaction.symbol] = transaction.quantity;
   } else {
     let newQuantity = +portfolio[transaction.symbol] + +transaction.quantity;
