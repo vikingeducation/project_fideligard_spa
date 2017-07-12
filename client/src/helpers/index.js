@@ -176,3 +176,45 @@ export const calculateIndividualStockTotals = (stockData, portfolio, transaction
 
   return results;
 };
+
+export const calculateGrandTotals = portfolio => {
+  let results = {};
+
+  let costBasis = 0;
+  for (let symbol in portfolio) {
+    costBasis = addCurrency(costBasis, portfolio[symbol].costBasis);  
+  }
+  results.costBasis = costBasis;
+
+  let currentValue = 0;
+  for (let symbol in portfolio) {
+    currentValue = addCurrency(currentValue, portfolio[symbol].currentValue);  
+  }
+  results.currentValue = currentValue;
+
+  let profit = 0;
+  for (let symbol in portfolio) {
+    profit = addCurrency(profit, portfolio[symbol].profit);  
+  }
+  results.profit = profit;
+
+  let oneDay = 0;
+  for (let symbol in portfolio) {
+    oneDay = addCurrency(oneDay, portfolio[symbol].oneDay);  
+  }
+  results.oneDay = oneDay;
+
+  let sevenDays = 0;
+  for (let symbol in portfolio) {
+    sevenDays = addCurrency(sevenDays, portfolio[symbol].sevenDays);  
+  }
+  results.sevenDays = sevenDays;
+
+  let thirtyDays = 0;
+  for (let symbol in portfolio) {
+    thirtyDays = addCurrency(thirtyDays, portfolio[symbol].thirtyDays);  
+  }
+  results.thirtyDays = thirtyDays;
+
+  return results;
+};

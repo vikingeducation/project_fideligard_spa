@@ -1,7 +1,8 @@
 import React from "react";
 import { Col, Panel, Table, Button } from "react-bootstrap";
-import {calculateIndividualStockTotals} from "../helpers";
+import {calculateIndividualStockTotals, calculateGrandTotals} from "../helpers";
 import { Link } from "react-router-dom";
+
 
 const buildIndividualStockTable = (stocks, onClickTrade, date) => {
   let results = [];
@@ -33,7 +34,7 @@ const buildIndividualStockTable = (stocks, onClickTrade, date) => {
 const Portfolio = ({stockData, portfolio, transactions, balance, onClickTrade, date}) => {
   let individualStockTotals = calculateIndividualStockTotals(stockData, portfolio, transactions);
   let individualStockTable = buildIndividualStockTable(individualStockTotals, onClickTrade, date);
-  console.log(individualStockTotals);
+  let grandTotals = calculateGrandTotals(individualStockTotals);
   return (
     <Col md={5}>
       <Panel header="Portfolio">
