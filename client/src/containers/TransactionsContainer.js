@@ -16,7 +16,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       const form = e.target;
       let filter = serialize(form, { hash: true }).filter || "";
       filter = filter.toUpperCase();
-      ownProps.history.push(`/transactions?filter=${filter}`);
+      let formattedFilter = filter.length > 0 ? `?filter=${filter}` : "";
+      ownProps.history.push(`/transactions${formattedFilter}`);
     }
   };
 };
