@@ -1,61 +1,12 @@
 import React from "react";
 import { Form, FormGroup, Table, Col, Panel, FormControl, Button } from "react-bootstrap";
-import { getParams } from "../helpers";
+import { getParams, sortTransactions, filterTransactions, parseFilterString } from "../helpers";
 import { Link } from "react-router-dom";
-import _ from "lodash";
 
 const buildTransactionsData = (transactions, query) => {
-  let results = [...transactions];
-  if (Object.keys(query).length > 0) {
-    if (query.sort) {
-      switch (query.sort) {
-        case "symbol_asc":
-          results = _.sortBy(results, "symbol");
-          break;
-        case "symbol_desc":
-          results = _.sortBy(results, "symbol").reverse();
-          break;
-        case "date_asc":
-          results = _.sortBy(results, "date");
-          break;
-        case "date_desc":
-          results = _.sortBy(results, "date").reverse();
-          break;
-        case "type_asc":
-          results = _.sortBy(results, "type");
-          break;
-        case "type_desc":
-          results = _.sortBy(results, "type").reverse();
-          break;
-        case "price_asc":
-          results = results.sort((a, b) => +a.price - +b.price);
-          break;
-        case "price_desc":
-          results = results.sort((a, b) => +a.price - +b.price).reverse();
-          break;
-        case "quantity_asc":
-          results = results.sort((a, b) => +a.quantity - +b.quantity);
-          break;
-        case "quantity_desc":
-          results = results
-            .sort((a, b) => +a.quantity - +b.quantity)
-            .reverse();
-          break;
-        case "total_asc":
-          results = results.sort((a, b) => +a.total - +b.total);
-          break;
-        case "total_desc":
-          results = results.sort((a, b) => +a.total - +b.total).reverse();
-          break;
-        default:
-          results = results;
-      }
-    }
-    if (query.filter && query.filter.length > 0) {
-      results = results.filter(transaction => transaction.symbol.indexOf(query.filter) !== -1);
-    }
-  }
-  
+  let results = sortTransactions(transactions,query);
+  results = filterTransactions(results, query);
+
   return results.map((transaction, index) =>
     <tr key={index}>
       <td>{transaction.date}</td>
@@ -70,10 +21,7 @@ const buildTransactionsData = (transactions, query) => {
 
 const Transactions = ({ transactions, location, transactionsSort, onSubmit}) => {
   let query = getParams(location.search);
-  let filterString = "";
-  if (query.filter && query.filter.length > 0) {
-    filterString = `&filter=${query.filter}`;
-  }
+  let filterString = parseFilterString(query);
   let transactionData = buildTransactionsData(transactions, query);
   if (transactionData.length === 0) {
     return (
