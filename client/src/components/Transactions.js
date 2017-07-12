@@ -1,5 +1,5 @@
 import React from "react";
-import { Table, Col, Panel } from "react-bootstrap";
+import { Form, FormGroup, Table, Col, Panel, FormControl, Button } from "react-bootstrap";
 import { getParams } from "../helpers";
 import { Link } from "react-router-dom";
 import _ from "lodash";
@@ -50,10 +50,13 @@ const buildTransactionsData = (transactions, query) => {
         default:
           results = [...transactions];
       }
+    } else if (query.filter && query.filter.length > 0) {
+      results = transactions.filter(transaction => transaction.symbol.indexOf(query.filter) !== -1);
     }
   } else {
     results = [...transactions];
   }
+  console.log(results);
   return results.map((transaction, index) =>
     <tr key={index}>
       <td>{transaction.date}</td>
@@ -66,7 +69,7 @@ const buildTransactionsData = (transactions, query) => {
   );
 };
 
-const Transactions = ({ transactions, location, transactionsSort }) => {
+const Transactions = ({ transactions, location, transactionsSort, onSubmit}) => {
   let query = getParams(location.search);
   let transactionData = buildTransactionsData(transactions, query);
   if (transactionData.length === 0) {
@@ -81,6 +84,20 @@ const Transactions = ({ transactions, location, transactionsSort }) => {
   return (
     <Col md={6}>
       <Panel header="Transactions">
+        <Form horizontal onSubmit={onSubmit}>
+          <FormGroup controlId="transactionFilter">
+            <Col md={8}>
+              <FormControl
+                type="text"
+                name="filter"
+                placeholder="Filter by a specific stock"
+              />
+            </Col>
+            <Col md={4}>
+              <Button bsStyle="success" type="submit">Filter</Button>
+            </Col>
+          </FormGroup>
+        </Form>
         <Table striped>
           <thead>
             <tr>
