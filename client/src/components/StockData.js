@@ -6,7 +6,7 @@ import StockTableContainer from "../containers/StockTableContainer";
 const StockData = props => {
   const { stockWatchlist, date, isFetching, sortDirection } = props;
   return (
-    <Panel header={`Stock Data for ${date}`}>
+    <Panel header={`Stock Data for ${date}`} className="stock-data-panel">
       <FilterContainer stockWatchlist={stockWatchlist} date={date} />
       {isFetching
         ? <span className="img-loader" />

@@ -50,10 +50,16 @@ a.sortable {
   cursor: pointer;
 }
 
-.panel-body {
-  max-height: 55vh;
+.stock-data-panel {
+  max-height: 60vh;
   overflow: auto;
 }
+
+.transactions-panel {
+  max-height: 76vh;
+  overflow: auto;
+}
+
 a.sortable:hover {
   color: black;
   text-decoration: none;

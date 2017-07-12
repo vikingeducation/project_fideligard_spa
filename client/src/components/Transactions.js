@@ -34,7 +34,7 @@ const Transactions = ({ transactions, location, transactionsSort, onSubmit}) => 
   }
   return (
     <Col md={6}>
-      <Panel header="Transactions">
+      <Panel header="Transactions" className="transactions-panel">
         <Form horizontal onSubmit={onSubmit}>
           <FormGroup controlId="transactionFilter">
             <Col md={8}>
