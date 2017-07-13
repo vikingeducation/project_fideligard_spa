@@ -60,6 +60,10 @@ a.sortable {
   overflow: auto;
 }
 
+.portfolio-individual-stocks-table {
+  overflow: auto;
+}
+
 a.sortable:hover {
   color: black;
   text-decoration: none;

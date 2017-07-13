@@ -62,25 +62,27 @@ const Portfolio = ({stockData, portfolio, transactions, balance, onClickTrade, d
             </tr>
           </tbody>
         </Table>
-        <Table striped>
-          <thead>
-            <tr>
-              <th>Symbol</th>
-              <th>Quantity</th>
-              <th>Cost Basis</th>
-              <th>Current Value</th>
-              <th>Profit/Loss</th>
-              <th>Current Price</th>
-              <th>1d</th>
-              <th>7d</th>
-              <th>30d</th>
-              <th>Trade</th>
-            </tr>
-          </thead>
-          <tbody>
-            {individualStockTable}
-          </tbody>
-        </Table>
+        <div className="portfolio-individual-stocks-table">
+          <Table striped>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Quantity</th>
+                <th>Cost Basis</th>
+                <th>Current Value</th>
+                <th>Profit/Loss</th>
+                <th>Current Price</th>
+                <th>1d</th>
+                <th>7d</th>
+                <th>30d</th>
+                <th>Trade</th>
+              </tr>
+            </thead>
+            <tbody>
+              {individualStockTable}
+            </tbody>
+          </Table>
+        </div>
       </Panel>
     </Col>
   );

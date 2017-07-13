@@ -9,9 +9,11 @@ import thunk from "redux-thunk";
 import { stockApp } from "./reducers";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
 const persistedState = localStorage.getItem("reduxState")
   ? JSON.parse(localStorage.getItem("reduxState"))
   : {};
+
 const store = createStore(
   stockApp,
   persistedState,
