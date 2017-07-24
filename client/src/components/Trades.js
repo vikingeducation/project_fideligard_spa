@@ -33,7 +33,7 @@ class Trades extends Component {
 
     if (isFetching) {
       return (
-        <Col md={5}>
+        <Col md={5} xs={12}>
           <Panel header="Trades">
             <span className="img-loader" />
           </Panel>
@@ -42,7 +42,7 @@ class Trades extends Component {
     }
 
     return (
-      <Col md={5}>
+      <Col md={5} xs={12}>
         <Panel header="Trades">
           <Form
             onSubmit={e => onChangeStock(e, date, stockWatchlist)}

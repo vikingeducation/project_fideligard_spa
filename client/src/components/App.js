@@ -20,7 +20,7 @@ class App extends Component {
           <Grid fluid>
             <Row>
               <h1>Fideligard</h1>
-              <Col md={5} mdOffset={1}>
+              <Col md={5} mdOffset={1} xs={12}>
                 <DatePickerContainer />
                 <StockDataContainer />
               </Col>

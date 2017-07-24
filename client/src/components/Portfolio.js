@@ -36,33 +36,36 @@ const Portfolio = ({stockData, portfolio, transactions, balance, onClickTrade, d
   let individualStockTable = buildIndividualStockTable(individualStockTotals, onClickTrade, date);
   let grandTotals = calculateGrandTotals(individualStockTotals);
   return (
-    <Col md={5}>
+    <Col md={5} xs={12}>
       <Panel header="Portfolio">
-        <Table striped>
-          <thead>
-            <tr>
-              <th>Cash</th>
-              <th>Cost Basis</th>
-              <th>Current Value</th>
-              <th>Profit/Loss</th>
-              <th>1d</th>
-              <th>7d</th>
-              <th>30d</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>${balance}</td>
-              <td>${grandTotals.costBasis}</td>
-              <td>${grandTotals.currentValue}</td>
-              <td>${grandTotals.profit}</td>
-              <td>${grandTotals.oneDay}</td>
-              <td>${grandTotals.sevenDays}</td>
-              <td>${grandTotals.thirtyDays}</td>
-            </tr>
-          </tbody>
-        </Table>
-        <div className="portfolio-individual-stocks-table">
+        <div className="portfolio-table">
+
+          <Table striped>
+            <thead>
+              <tr>
+                <th>Cash</th>
+                <th>Cost Basis</th>
+                <th>Current Value</th>
+                <th>Profit/Loss</th>
+                <th>1d</th>
+                <th>7d</th>
+                <th>30d</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>${balance}</td>
+                <td>${grandTotals.costBasis}</td>
+                <td>${grandTotals.currentValue}</td>
+                <td>${grandTotals.profit}</td>
+                <td>${grandTotals.oneDay}</td>
+                <td>${grandTotals.sevenDays}</td>
+                <td>${grandTotals.thirtyDays}</td>
+              </tr>
+            </tbody>
+          </Table>
+        </div>
+        <div className="portfolio-table">
           <Table striped>
             <thead>
               <tr>

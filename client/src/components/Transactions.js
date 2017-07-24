@@ -25,7 +25,7 @@ const Transactions = ({ transactions, location, transactionsSort, onSubmit}) => 
   let transactionData = buildTransactionsData(transactions, query);
   if (transactionData.length === 0) {
     return (
-      <Col md={5}>
+      <Col md={5} xs={12}>
         <Panel header="Transactions">
           No transactions found.
         </Panel>
@@ -33,7 +33,7 @@ const Transactions = ({ transactions, location, transactionsSort, onSubmit}) => 
     );
   }
   return (
-    <Col md={5}>
+    <Col md={5} xs={12}>
       <Panel header="Transactions" className="transactions-panel">
         <Form horizontal onSubmit={onSubmit}>
           <FormGroup controlId="transactionFilter">
