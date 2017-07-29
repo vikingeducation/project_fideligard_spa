@@ -1,5 +1,7 @@
 # Project Fideligard
 
+[![Project Fideligard](http://i.imgur.com/N1OweUa.png)](https://pure-dawn-86561.herokuapp.com/)
+
 ## Introduction
 Project Fideligard is a historical stock portfolio simulator. It leverages Quandl's stock API to provide End-of-Day stock prices.
 
