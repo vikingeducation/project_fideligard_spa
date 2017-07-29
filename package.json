@@ -1,0 +1,38 @@
+{
+  "name": "36_project_fideligard_spa",
+  "version": "1.0.0",
+  "description": "Buy low, sell high.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js",
+    "client": "node start-client.js",
+    "start": "concurrently \"yarn run server\" \"yarn run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/christianflorez/project_fideligard_spa.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/christianflorez/project_fideligard_spa/issues"
+  },
+  "homepage": "https://github.com/christianflorez/project_fideligard_spa#readme",
+  "dependencies": {
+    "decimal.js": "^7.2.3",
+    "dotenv": "^4.0.0",
+    "es6-promise": "^4.1.1",
+    "express": "^4.15.3",
+    "form-serialize": "^0.7.2",
+    "isomorphic-fetch": "^2.2.1",
+    "js-joda": "^1.5.2",
+    "lodash": "^4.17.4",
+    "money-math": "^2.5.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.0",
+    "nodemon": "^1.11.0"
+  }
+}
