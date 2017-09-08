@@ -1,0 +1,9 @@
+.alert {
+	margin-top: 1em;
+	margin-bottom: 2em;
+}
+
+aside.sidebar {
+	border-right: 1px solid #eee;
+	box-shadow: 2px 0 4px #ccc;
+}

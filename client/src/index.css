@@ -1,9 +1,8 @@
-/*@import url('vendor/fontawesome/font-awesome-solid.css');*/
-
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans|Nunito');
 body {
-	margin: 0;
-	padding: 0;
-	font-family: sans-serif;
+	margin: 0 !important;
+	padding: 0 !important;
+	font-family: "Josefin Sans", sans-serif;
 }
 
 .icon-extra-small {
@@ -29,4 +28,18 @@ body {
 .icon-extra-large {
 	width: 100px;
 	height: 100px;
+}
+
+.fhps-navbar {
+	border-bottom-left-radius: ;
+}
+
+aside.sidebar {
+	border-right: 1px solid #eee;
+	box-shadow: 2px 0 4px #ddd;
+	padding-right: 0;
+}
+
+.sidebar-header {
+	padding-top: 1em;
 }

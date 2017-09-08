@@ -1,0 +1,8 @@
+.historical-sidebar-header {
+	font-family: Nunito;
+}
+
+.historical-sidebar {
+	height: 100%;
+	background-image: linear-gradient(to right, #fff 5%, #eee 100%);
+}

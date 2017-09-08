@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import './App.css';
+import './Portfolio.css';
 import Actions from './actions';
 
-import './App.css';
-import App from '../../components/App';
+import './Portfolio.css';
+import Portfolio from '../../components/Portfolio';
 
 const mapDispatchToProps = dispatch => ({
 	actions: bindActionCreators({ ...Actions.RangeSliderActions }, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(App);
+export default connect(state => state, mapDispatchToProps)(Portfolio);

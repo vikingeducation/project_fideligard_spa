@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import './App.css';
+import './HistoricalSidebar.css';
 import Actions from './actions';
 
-import './App.css';
-import App from '../../components/App';
+import './HistoricalSidebar.css';
+import HistoricalSidebar from '../../components/HistoricalSidebar';
 
 const mapDispatchToProps = dispatch => ({
 	actions: bindActionCreators({ ...Actions.RangeSliderActions }, dispatch)
 });
 
-export default connect(state => state, mapDispatchToProps)(App);
+export default connect(state => state, mapDispatchToProps)(HistoricalSidebar);
