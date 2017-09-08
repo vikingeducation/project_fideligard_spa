@@ -4,9 +4,9 @@ require('dotenv').config();
 const QANDL_API_KEY = process.env.QANDL_API_KEY;
 
 module.exports = {
-  get: async (term, params) => {
+  get: async params => {
     try {
-      const URL = `https://www.quandl.com/api/v3/datasets/EOD/${term}.json?api_key=${QANDL_API_KEY}`;
+      const URL = `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=AAPL,AMZN,GOOG,NFLX,DIS,TSLA,TWTR,MSFT,VZ,ABBV,WMT,UTHR,BCO&date.gte=20170101&date.lte=20170105&api_key=${QANDL_API_KEY}`;
 
       const response = await superagent
         .get(URL)

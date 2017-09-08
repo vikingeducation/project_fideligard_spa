@@ -11,7 +11,7 @@ router.get('/stocks', async (req, res) => {
 		limit: 10
 	};
 
-	const response = await quandlManager.get('AAPL', { limit: 10 });
+	const response = await quandlManager.get();
 
 	res.json({
 		response: response
