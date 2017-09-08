@@ -1,5 +1,5 @@
 import React from "react";
-import { Segment, Header, Dropdown } from "semantic-ui-react";
+import { Segment, Header, Dropdown, Grid } from "semantic-ui-react";
 import { withRouter } from "react-router-dom";
 import capitalize from "../../lib/capitalize";
 
@@ -24,14 +24,16 @@ const onChange = history => (e, data) => {
   history.push(`/${data.value}`);
 };
 
-const RoutedResourceContainer = ({ type, history, location }) => (
+export const ResourceContainer = withRouter(({ type, history }) => (
   <Segment>
-    <Header as="h2">
-      {capitalize(type)}{" "}
-      <Dropdown value={type} onChange={onChange(history)} options={options} />
-    </Header>
+    <Grid>
+      <Grid.Column width={12}>
+        <Header as="h2">{capitalize(type)}</Header>
+      </Grid.Column>
+      <Grid.Column width={4}>
+        <Dropdown value={type} onChange={onChange(history)} options={options} />
+      </Grid.Column>
+    </Grid>
     {resources[type]()}
   </Segment>
-);
-
-export const ResourceContainer = withRouter(RoutedResourceContainer);
+));
