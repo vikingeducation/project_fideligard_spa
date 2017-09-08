@@ -1,5 +1,12 @@
 import React from "react";
+import { Header, Segment } from "semantic-ui-react";
 
-const App = () => <h2>Welcome to React</h2>;
+const App = () => (
+  <Segment>
+    <Header as="h1" textAlign="center">
+      Fideligard
+    </Header>
+  </Segment>
+);
 
 export default App;

@@ -30,8 +30,7 @@ const ensureFetch = async url => {
   return await response.text();
 };
 
-
-app.get("/api/books", async (req, res, next) => {
+app.get("/api/stocks", async (req, res, next) => {
   try {
     const query = req.query.query || "";
     const field = req.query.field || "all";
