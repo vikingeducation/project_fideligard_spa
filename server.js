@@ -23,19 +23,54 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-app.get("/api/stocks", async (req, res, next) => {
+const day = i => {
+  return moment()
+    .year(2016)
+    .dayOfYear(i)
+    .startOf("day")
+    .unix();
+};
+
+const getFirstPrice = prices => {
+  let i = 1;
+  while (!prices[day(i++)]) {}
+  return prices[day(i)];
+};
+
+const buildPriceHash = company => {
+  return company.dataset.data.reduce((acc, [date, price]) => {
+    acc[moment(date).unix()] = price;
+    return acc;
+  }, {});
+};
+
+const buildPricesData = company => {
+  const prices = buildPriceHash(company);
+  let mostRecentPrice = getFirstPrice(prices);
+  return [...Array(366)].map((_, i) => {
+    const price = prices[day(i)];
+    mostRecentPrice = price ? price : mostRecentPrice;
+    return { [day(i)]: mostRecentPrice };
+  });
+};
+
+const gatherData = async () => {
   try {
     const data = JSON.parse(fs.readFileSync("./stockData.json", "utf8"));
-    const first = data[0].dataset.data;
-    const obj = first.reduce((acc, [date, price]) => {
-      acc[moment(date).unix()] = price;
-      return acc;
-    }, {});
-
-    res.send(JSON.stringify(obj, null, 2));
+    return data.map(company => {
+      return {
+        code: company.dataset.dataset_code,
+        prices: buildPricesData(company)
+      };
+    });
   } catch (error) {
     next(error);
   }
+};
+
+app.get("/api/stocks", async (req, res, next) => {
+  const companies = await gatherData();
+  res.send(JSON.stringify(companies));
 });
 
 // Defines next action for errors
