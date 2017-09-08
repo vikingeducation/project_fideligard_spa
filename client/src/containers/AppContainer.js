@@ -1,24 +1,28 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import App from '../App.js'
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import App from "../App.js";
+import { getStocks } from "../actions";
 
 class AppContainer extends Component {
-  constructor() {
-    super()
+  componentDidMount() {
+    this.props.getStocks();
   }
 
-  componentDidMount()
-
   render() {
-    return (
-      <App />
-    )
+    return <App />;
   }
 }
 
+const mapStateToProps = state => {
+  return state;
+};
 
-mapStateToProps = (state) => {},
+const mapDispatchToProps = dispatch => {
+  return {
+    getStocks: () => {
+      dispatch(getStocks());
+    }
+  };
+};
 
-mapDispatchToProps = dispatch => {}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(AppContainer);

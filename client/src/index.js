@@ -8,15 +8,12 @@ import { Provider } from "react-redux";
 import FideligardApp from "./reducers";
 import thunk from "redux-thunk";
 
-store = createStore(FideligardApp, applyMiddleware(thunk));
+const store = createStore(FideligardApp, applyMiddleware(thunk));
 
-app = () => {
-	return (
-		<Provider store={store}>
-			<AppContainer />
-		</Provider>
-	);
-};
-
-ReactDOM.render(app, document.getElementById("root"));
+ReactDOM.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById("root")
+);
 registerServiceWorker();

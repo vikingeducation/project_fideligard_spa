@@ -1,32 +1,32 @@
-import * from "./actions";
+import * as Actions from "./actions";
 
 const initialState = {
-	transactions: [],
-	portfolio: [],
-	balance: 100000,
-	stockData: {}
+  transactions: [],
+  portfolio: [],
+  balance: 100000,
+  stockData: {}
 };
 
-FideligardApp = (state = initialState, action) => {
-	switch (action.type) {
-		case SET_STOCKS:
-			return {
-				...state,
-				stockData: action.data
-			}
-		case CREATE_TRANSACTION:
-			return {
-				...state,
-				transactions: [...transactions, action.data]
-			}
-		case UPDATE_BALANCE:
-			return {
-				...state,
-				balance: balance + action.data
-			}
-		default:
-			return state
-	}
+const FideligardApp = (state = initialState, action) => {
+  switch (action.type) {
+    case Actions.SET_STOCKS:
+      return {
+        ...state,
+        stockData: action.data
+      };
+    case Actions.CREATE_TRANSACTION:
+      return {
+        ...state,
+        transactions: [...this.state.transactions, action.data]
+      };
+    case Actions.UPDATE_BALANCE:
+      return {
+        ...state,
+        balance: this.state.balance + action.data
+      };
+    default:
+      return state;
+  }
 };
 
 export default FideligardApp;
