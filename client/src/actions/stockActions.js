@@ -1,3 +1,5 @@
+import superagent from 'superagent';
+
 import {
 	GET_STOCKS_REQUEST,
 	GET_STOCKS_SUCCESS,
@@ -29,7 +31,9 @@ export const getStocks = () => async dispatch => {
 	dispatch(getStocksRequest());
 
 	try {
-		// const response = await superagent.get('http://swapi.co/api/films/');
+		const response = await superagent
+			.get('http://localhost:3001/api/stocks')
+			.buffer();
 		// dispatch(getStocksSuccess(response.body.results));
 	} catch (e) {
 		dispatch(getStocksFailure(e));

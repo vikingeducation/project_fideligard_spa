@@ -1,23 +1,22 @@
-const superagent = require('superagent')
-require('dotenv').config()
+const superagent = require('superagent');
+require('dotenv').config();
 
-const QANDL_API_KEY = process.env.QANDL_API_KEY
+const QANDL_API_KEY = process.env.QANDL_API_KEY;
 
 module.exports = {
-  get: async (term)=>{
+  get: async (term, params) => {
     try {
-      const URL = `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=FB&qopts.columns=date,open&api_key=${QANDL_API_KEY}`
+      const URL = `https://www.quandl.com/api/v3/datasets/EOD/${term}.json?api_key=${QANDL_API_KEY}`;
 
       const response = await superagent
         .get(URL)
+        .query(params)
         .set('Accept', 'application/json')
- //       .buffer()
-      console.log(response)
-//      return (await response)
-    }
-
-    catch (e) {
-      console.error(e.stack)
+        .buffer();
+      console.log(await response.body);
+      return await response.body;
+    } catch (e) {
+      console.error(e.stack);
     }
   }
-}
+};
