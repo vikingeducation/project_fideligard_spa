@@ -1,10 +1,13 @@
 // Require es6-promise polyfill and isomorphic-fetch
 require("isomorphic-fetch");
 
+//require fs
+const fs = require("fs");
+
 // Dotenv
 require("dotenv").config();
 const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
-const BASEURL = "https://www.quandl.com/api/v3/";
+const BASE_URL = "https://www.quandl.com/api/v3/datasets/EOD/";
 
 // Express
 const express = require("express");
@@ -27,16 +30,39 @@ const ensureFetch = async url => {
     error.response = response;
     throw error;
   }
-  return await response.text();
+  return await response.json();
 };
 
 app.get("/api/stocks", async (req, res, next) => {
   try {
-    const query = req.query.query || "";
-    const field = req.query.field || "all";
-    console.log("Searching for stock data...");
-    const url = `${BASEURL}/search/index.xml?key=${QUANDL_API_KEY}&q=${query}&search=${field}`;
-    res.json(await ensureFetch(url));
+    const stocks = [
+      "AAPL",
+      "MSFT",
+      "TM",
+      "IBM",
+      "CFCO",
+      "VZ",
+      "KO",
+      "QCOM",
+      "DELL",
+      "MOT",
+      "BA",
+      "MMM",
+      "HMC",
+      "CAT",
+      "BT",
+      "BF"
+    ];
+
+    for (let stock of stocks) {
+      const url = `${BASE_URL}${stock}.json?api_key=${QUANDL_API_KEY}`;
+      fs.appendFileSync(
+        "./stockData.json",
+        JSON.stringify(await ensureFetch(url))
+      );
+    }
+
+    res.send("results.length");
   } catch (error) {
     next(error);
   }
