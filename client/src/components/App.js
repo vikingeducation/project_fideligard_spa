@@ -1,5 +1,5 @@
 import React from "react";
-import { Header, Segment, Grid } from "semantic-ui-react";
+import { Header, Segment } from "semantic-ui-react";
 import {
   BrowserRouter as Router,
   Route,
@@ -7,6 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 import Page from "./Page";
+import NotFound from "./elements/NotFound";
 
 const App = () => (
   <div>
@@ -15,16 +16,13 @@ const App = () => (
         Fideligard
       </Header>
     </Segment>
-    <Grid>
-      <Router>
-        <Switch>
-          <Redirect exact from="/" to="/portfolio" />
-          <Route path="/:type" component={Page} />
-          <Route />
-          <Route />
-        </Switch>
-      </Router>
-    </Grid>
+    <Router>
+      <Switch>
+        <Redirect exact from="/" to="/portfolio" />
+        <Route path="/:type" component={Page} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   </div>
 );
 
