@@ -1,6 +1,7 @@
 export const SET_STOCKS = "SET_STOCKS";
 export const CREATE_TRANSACTION = "CREATE_TRANSACTION";
 export const UPDATE_BALANCE = "UPDATE_BALANCE";
+export const SET_DATE = "SET_DATE";
 
 export const createTransaction = data => {
 	return { type: CREATE_TRANSACTION, data };
@@ -17,6 +18,13 @@ export const setStocks = stocks => {
 	return {
 		type: SET_STOCKS,
 		data: stocks
+	};
+};
+
+export const setDate = date => {
+	return {
+		type: SET_DATE,
+		data: date
 	};
 };
 

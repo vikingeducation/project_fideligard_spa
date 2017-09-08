@@ -1,3 +1,6 @@
 import React from "react";
 
-export const Slider = () => <div>SLIDER</div>;
+export const Slider = () => {
+	// to-do: onChange
+	return <input type="range" min="0" max="364" />;
+};

@@ -1,6 +1,7 @@
 import * as Actions from "./actions";
 
 const initialState = {
+  date: "2015-02-14",
   transactions: [],
   portfolio: [],
   balance: 100000,
@@ -13,6 +14,11 @@ const FideligardApp = (state = initialState, action) => {
       return {
         ...state,
         stockData: action.data
+      };
+    case Actions.SET_DATE:
+      return {
+        ...state,
+        date: action.data
       };
     case Actions.CREATE_TRANSACTION:
       return {
