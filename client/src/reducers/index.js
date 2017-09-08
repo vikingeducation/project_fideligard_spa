@@ -1,5 +1,5 @@
 import stockReducer from './stockReducer';
 
-export default {
+export {
 	stockReducer
 };

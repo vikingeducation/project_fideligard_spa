@@ -1,28 +1,24 @@
 import superagent from 'superagent';
 
-import {
-	GET_STOCKS_REQUEST,
-	GET_STOCKS_SUCCESS,
-	GET_STOCKS_FAILURE
-} from '../../constants/stockConstants';
-import superagent from 'superagent';
+import stockConstants from '../constants/stockConstants';
+
 
 export function getStocksRequest() {
 	return {
-		type: GET_STOCKS_REQUEST
+		type: stockConstants.GET_STOCKS_REQUEST
 	};
 }
 
 export function getStocksSuccess(payload) {
 	return {
-		type: GET_STOCKS_SUCCESS,
+		type: stockConstants.GET_STOCKS_SUCCESS,
 		payload
 	};
 }
 
 export function getStocksFailure(payload) {
 	return {
-		type: GET_STOCKS_FAILURE,
+		type: stockConstants.GET_STOCKS_FAILURE,
 		payload
 	};
 }
@@ -32,9 +28,9 @@ export const getStocks = () => async dispatch => {
 
 	try {
 		const response = await superagent
-			.get('http://localhost:3001/api/stocks')
+			.get('api/stocks')
 			.buffer();
-		// dispatch(getStocksSuccess(response.body.results));
+		dispatch(getStocksSuccess(response.body.response));
 	} catch (e) {
 		dispatch(getStocksFailure(e));
 	}

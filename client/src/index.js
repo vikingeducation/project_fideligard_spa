@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-// import App from './containers/App';
+import App from './containers/App';
 // import Stocks from './containers/Stocks';
 // import Dashboard from './containers/Dashboard';
 
@@ -14,15 +14,16 @@ import { Provider } from 'react-redux';
 import registerServiceWorker from './registerServiceWorker';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+        // <Route path="/stocks" component={Stocks} />
+
+        // <Route path="/dashboard" component={Dashboard} 
 
 const app = (
   <Provider store={configureStore()}>
     <Router>
       <div>
         <Route exact path="/" component={App}/>
-        <Route path="/stocks" component={Stocks} />
-
-        <Route path="/dashboard" component={Dashboard} />
+/>
       </div>
     </Router>
   </Provider>
