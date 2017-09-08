@@ -1,5 +1,23 @@
 import React from 'react';
 
+const StockRow = ({stockArr})=>{
+
+	return (
+
+		<tr>
+			<td>{stockArr[0]}</td>
+			<td>{stockArr[2]}</td>
+			<td>140</td>
+			<td>140</td>
+			<td>140</td>
+			<td>Trade</td>
+		</tr>
+
+		)
+}
+
+
+
 export default props => {
 	return (
 		<div>
@@ -22,30 +40,9 @@ export default props => {
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>John</td>
-						<td>Doe</td>
-						<td>140</td>
-						<td>140</td>
-						<td>140</td>
-						<td>Trade</td>
-					</tr>
-					<tr>
-						<td>John</td>
-						<td>Doe</td>
-						<td>140</td>
-						<td>140</td>
-						<td>140</td>
-						<td>Trade</td>
-					</tr>
-					<tr>
-						<td>John</td>
-						<td>Doe</td>
-						<td>140</td>
-						<td>140</td>
-						<td>140</td>
-						<td>Trade</td>
-					</tr>
+					{props.stocks.map(arr=>{
+						return <StockRow stockArr={arr} key={arr[0]}/>
+					})}
 				</tbody>
 			</table>
 		</div>
