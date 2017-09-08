@@ -10,8 +10,8 @@ module.exports = {
       const dirname = './data';
       let files = fs.readdirSync(dirname);
 
-      if (!files) {
-        const URL = `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?ticker=AAPL,AMZN,GOOG,NFLX,DIS,TSLA,TWTR,MSFT,VZ,ABBV,WMT,UTHR,BCO&date.gte=20160101&date.lte=20161231&api_key=${QUANDL_API_KEY}`;
+      if (files.length === 1) {
+        const URL = `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?qopts.columns=ticker,date,close&ticker=AAPL,AMZN,GOOG,NFLX,DIS,TSLA,TWTR,MSFT,VZ,ABBV,WMT,UTHR,BCO&date.gte=20160101&date.lte=20161231&api_key=${QUANDL_API_KEY}`;
 
         const response = await superagent
           .get(URL)
@@ -19,12 +19,12 @@ module.exports = {
           .set('Accept', 'application/json')
           .buffer();
 
-        let ouput = await response.body;
+        let output = await response.body;
 
-        _saveJSON(ouput);
+        _saveJSON(output);
       }
 
-      const filePath = `./data/${files[0]}`;
+      const filePath = `./data/${files[1]}`;
       let file = fs.readFileSync(filePath, 'utf8');
 
       file = JSON.parse(file);
