@@ -3,6 +3,7 @@ require("isomorphic-fetch");
 
 //require fs
 const fs = require("fs");
+const moment = require("moment");
 
 // Dotenv
 require("dotenv").config();
@@ -22,47 +23,16 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Extract check status function for reuse
-const ensureFetch = async url => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    const error = new Error(response.statusText);
-    error.response = response;
-    throw error;
-  }
-  return await response.json();
-};
-
 app.get("/api/stocks", async (req, res, next) => {
   try {
-    const stocks = [
-      "AAPL",
-      "MSFT",
-      "TM",
-      "IBM",
-      "CFCO",
-      "VZ",
-      "KO",
-      "QCOM",
-      "DELL",
-      "MOT",
-      "BA",
-      "MMM",
-      "HMC",
-      "CAT",
-      "BT",
-      "BF"
-    ];
+    const data = JSON.parse(fs.readFileSync("./stockData.json", "utf8"));
+    const first = data[0].dataset.data;
+    const obj = first.reduce((acc, [date, price]) => {
+      acc[moment(date).unix()] = price;
+      return acc;
+    }, {});
 
-    for (let stock of stocks) {
-      const url = `${BASE_URL}${stock}.json?api_key=${QUANDL_API_KEY}`;
-      fs.appendFileSync(
-        "./stockData.json",
-        JSON.stringify(await ensureFetch(url))
-      );
-    }
-
-    res.send("results.length");
+    res.send(JSON.stringify(obj, null, 2));
   } catch (error) {
     next(error);
   }
