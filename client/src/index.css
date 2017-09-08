@@ -1,0 +1,32 @@
+/*@import url('vendor/fontawesome/font-awesome-solid.css');*/
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: sans-serif;
+}
+
+.icon-extra-small {
+	width: 10px;
+	height: 10px;
+}
+.icon-small {
+	width: 20px;
+	height: 20px;
+}
+.icon-btn {
+	width: 25px;
+	height: 25px;
+}
+.icon-medium {
+	width: 30px;
+	height: 30px;
+}
+.icon-large {
+	width: 50px;
+	height: 50px;
+}
+.icon-extra-large {
+	width: 100px;
+	height: 100px;
+}
