@@ -10,4 +10,6 @@ export const resources = {
   trade: Trade
 };
 
+export const Resource = ({ type }) => resources[type]();
+
 export const resourceNames = Object.keys(resources);
