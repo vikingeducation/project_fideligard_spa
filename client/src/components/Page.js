@@ -3,6 +3,7 @@ import { Grid, Container, Header, Segment } from "semantic-ui-react";
 import { resourceNames, ResourceContainer } from "../containers/resources";
 import Findable from "./elements/Findable";
 import DateSliderContainer from "../containers/DateSliderContainer";
+import StocksContainer from "../containers/StocksContainer";
 
 const Page = ({ match }) => {
   const type = match.params.type;
@@ -18,7 +19,7 @@ const Page = ({ match }) => {
           <Grid>
             <Grid.Row>
               <Grid.Column width={6}>
-                <ResourceContainer type="stocks" />
+                <StocksContainer />
               </Grid.Column>
               <Grid.Column width={10}>
                 <DateSliderContainer />

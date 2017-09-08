@@ -1,12 +1,12 @@
 import React from "react";
-import { Segment, Header } from "semantic-ui-react";
+import { Header, Container } from "semantic-ui-react";
 
 const NotFound = () => (
-  <Segment>
+  <Container>
     <Header as="h2" textAlign="center">
       Page not found
     </Header>
-  </Segment>
+  </Container>
 );
 
 export default NotFound;
