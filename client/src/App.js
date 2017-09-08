@@ -3,6 +3,9 @@ import { BrowserRouter, Route } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Slider } from "./components/Slider";
 import { Sidebar } from "./components/Sidebar";
+import Trades from "./components/Trades";
+import Transactions from "./components/Transactions";
+import Portfolio from "./components/Portfolio";
 import "./App.css";
 
 const sidebarColumns = [
@@ -34,27 +37,33 @@ class App extends Component {
     const dataArray = Object.entries(data);
     const date = new Date(this.props.date);
     return dataArray.map(row => {
-      row.push(this.parseDate(date, 1));
-      row.push(this.parseDate(date, 7));
-      row.push(this.parseDate(date, 30));
-      row.push(`<Link path=/path/${row[0]}>trade</Link>`);
+      row.push(Number(row[1] - this.parseDate(date, 1, row[0])).toFixed(2));
+      row.push(Number(row[1] - this.parseDate(date, 7, row[0])).toFixed(2));
+      row.push(Number(row[1] - this.parseDate(date, 30, row[0])).toFixed(2));
+      return row;
     });
   };
 
-  parseDate = (date, difference) => {
+  parseDate = (date, difference, symbol) => {
     let newdate = new Date(date);
     newdate.setDate(newdate.getDate() - difference);
-    return newdate.toISOString().split("T")[0];
+    const string = newdate.toISOString().split("T")[0];
+    return this.props.stockData[string][symbol];
   };
 
   render() {
-    console.log(this.props);
     return (
       <div className="App">
         <Navbar />
         <Slider />
         <Sidebar columnNames={sidebarColumns} data={this.state.sideBarData} />
-        <BrowserRouter />
+        <BrowserRouter>
+          <div className="routeContainer">
+            <Route exact path="/trades" component={Trades} />
+            <Route exact path="/transactions" component={Transactions} />
+            <Route exact path="/portfolio" component={Portfolio} />
+          </div>
+        </BrowserRouter>
       </div>
     );
   }
