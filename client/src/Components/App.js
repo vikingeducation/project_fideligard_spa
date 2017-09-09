@@ -1,15 +1,18 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
+//ROUTING
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import NavLinks from "./NavLinks";
+
+//NAVBAR
+import Navbar from "./elements/Navbar";
 //Portfolio, trade, transaction
 import Portfolio from "./Portfolio";
 import Trade from "./Trade";
 import Transactions from "./Transactions";
-import { Button } from "reactstrap";
 
 import StockContainer from "../Containers/StocksContainer";
-import NavLinks from "./NavLinks";
-import { NavLink } from "react-router-dom";
 
 class App extends Component {
   render() {
@@ -18,6 +21,7 @@ class App extends Component {
         <Router>
           <div className="container-fluid">
             {/* make a nav bar */}
+            <Navbar />
             <h1>Stock Portfolio App</h1>
             {/* move navlinks later */}
             <div className="row">
