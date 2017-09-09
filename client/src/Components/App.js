@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { createStore, Provider, applyMiddleWare } from "react-redux";
-import { Route, Switch } from "react-router-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+// import { createStore } from "redux";
+// import { Provider, applyMiddleWare } from "react-redux";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 //Portfolio, trade, transaction
 import Portfolio from "./Portfolio";
@@ -9,11 +9,14 @@ import Trade from "./Trade";
 import Transactions from "./Transactions";
 import { Button } from "reactstrap";
 
-import StockContainer from "../Containers/StocksContainer";
+// import StockContainer from "../Containers/StocksContainer";
 import NavLinks from "./NavLinks";
 import { NavLink } from "react-router-dom";
 
-const store = createStore({});
+// const fake = () => {
+//   return {};
+// };
+// const store = createStore(fake);
 
 class App extends Component {
   render() {
@@ -23,7 +26,7 @@ class App extends Component {
           <div className="container">
             <h1>Stock Portfolio App</h1>
             <NavLinks />
-            <StockContainer />
+            {/* <StockContainer /> */}
             <Switch>
               <Route exact path="/Portfolio" component={Portfolio} />
               <Route exact path="/Transactions" component={Transactions} />
