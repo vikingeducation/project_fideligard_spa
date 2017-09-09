@@ -8,6 +8,7 @@ const strippedDate =
 		newDate.getMonth(),
 		newDate.getDate()
 	).getTime() / 1000;
+
 const initialState = {
 	currentValue: strippedDate - ONE_DAY_STEP * 5,
 	startDate: strippedDate - ONE_DAY_STEP * 5,

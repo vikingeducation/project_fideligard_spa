@@ -6,12 +6,25 @@ export const getRequestHistoricalData = () => ({
 	type: GET_REQUEST_HISTORICAL_DATA
 });
 
-export const getSuccessHistoricalData = data => ({
-	type: GET_REQUEST_HISTORICAL_DATA,
-	data
-});
-
+export const getSuccessHistoricalData = data => {
+	return {
+		type: GET_SUCCESS_HISTORICAL_DATA,
+		data
+	};
+};
 export const getFailureHistoricalData = err => ({
-	type: GET_REQUEST_HISTORICAL_DATA,
+	type: GET_FAILURE_HISTORICAL_DATA,
 	err
 });
+
+export const getHistoricalData = options => async dispatch => {
+	dispatch(getRequestHistoricalData());
+	const { socket } = options;
+	delete options.socket;
+
+	try {
+		socket.emit(GET_REQUEST_HISTORICAL_DATA, options);
+	} catch (err) {
+		dispatch(getFailureHistoricalData(err));
+	}
+};

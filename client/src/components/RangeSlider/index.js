@@ -15,7 +15,6 @@ class RangeSlider extends Component {
 	};
 
 	render() {
-		console.log(this.props);
 		return (
 			<div className="range-slider">
 				<div className="text-center">

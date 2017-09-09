@@ -1,5 +1,7 @@
-import RangeSliderReducer from '../../components/RangeSlider/reducer';
+import RangeSliderReducer from '../../components/RangeSlider/reducers';
+import HistoricalSidebarReducer from '../../components/HistoricalSidebar/reducers';
 
 export default {
-	RangeSliderReducer
+	RangeSliderReducer,
+	HistoricalSidebarReducer
 };

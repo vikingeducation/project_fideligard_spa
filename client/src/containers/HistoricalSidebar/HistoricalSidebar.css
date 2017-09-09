@@ -4,5 +4,16 @@
 
 .historical-sidebar {
 	height: 100%;
-	background-image: linear-gradient(to right, #fff 5%, #eee 100%);
+	background-image: linear-gradient(
+		to right,
+		#f6f6f6 5%,
+		#f0f0f0 25%,
+		#f0f0f0 100%
+	);
+}
+
+.historial-sidebar-card {
+	margin-bottom: 1em;
+	max-height: 500px;
+	overflow-y: scroll;
 }

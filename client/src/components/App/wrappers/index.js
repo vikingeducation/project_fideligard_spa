@@ -51,7 +51,7 @@ export const MainContainer = props => {
 				<div className="card-block">
 					<section className="row">
 						<aside className="col-4 sidebar">
-							<HistoricalSidebar />
+							<HistoricalSidebar socket={props.socket} />
 						</aside>
 						<div className="col-8">
 							<div className="row justify-content-center">

@@ -36,7 +36,7 @@ body {
 
 aside.sidebar {
 	border-right: 1px solid #eee;
-	box-shadow: 2px 0 4px #ddd;
+	box-shadow: 2px 0 1px #ddd;
 	padding-right: 0;
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import StockTable from '../StockTable';
+import Loadable from '../Loadable';
 const SidebarHeader = props => {
 	return (
 		<div>
@@ -28,17 +29,28 @@ const SidebarHeader = props => {
 const SidebarBody = props => {
 	return (
 		<div className="row sidebar-body historical-sidebar-body">
-			<div className="col">Sidebar!</div>
+			<div className="col">
+				<StockTable data={props.stockData} />
+			</div>
 		</div>
 	);
 };
 
 export default class HistoricalSidebar extends Component {
+	componentDidMount() {
+		this.props.actions.getHistoricalData({
+			socket: this.props.socket
+		});
+	}
+
 	render() {
+		console.log(this.props.HistoricalSidebarReducer);
 		return (
 			<div className="container-fluid historical-sidebar">
 				<SidebarHeader />
-				<SidebarBody />
+				<Loadable condition={this.props.HistoricalSidebarReducer.data.count}>
+					<SidebarBody stockData={this.props.HistoricalSidebarReducer.data} />
+				</Loadable>
 			</div>
 		);
 	}

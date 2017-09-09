@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import './App.css';
 import Actions from './actions';
-
-import './App.css';
 import App from '../../components/App';
 
 const mapDispatchToProps = dispatch => ({
