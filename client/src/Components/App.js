@@ -13,7 +13,10 @@ import { Button } from "reactstrap";
 import NavLinks from "./NavLinks";
 import { NavLink } from "react-router-dom";
 
-import Tables from "./elements/Table";
+//testing table
+// import Table from "./elements/Table";
+// const columns = ["Symbol", "Price", "1d", "7d", "30d", "Trade?"];
+// const rows = [["AAPL", 100], ["thing", "stuff"]];
 
 // const fake = () => {
 //   return {};
@@ -27,7 +30,7 @@ class App extends Component {
         <Router>
           <div className="container">
             <h1>Stock Portfolio App</h1>
-            <Tables />
+            {/* <Table rows={rows} columns={columns} /> */}
             <NavLinks />
             {/* <StockContainer /> */}
             <Switch>
