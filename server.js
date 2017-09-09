@@ -1,15 +1,6 @@
 // Require es6-promise polyfill and isomorphic-fetch
 require("isomorphic-fetch");
 
-//require fs
-const fs = require("fs");
-const moment = require("moment");
-
-// Dotenv
-require("dotenv").config();
-const QUANDL_API_KEY = process.env.QUANDL_API_KEY;
-const BASE_URL = "https://www.quandl.com/api/v3/datasets/EOD/";
-
 // Express
 const express = require("express");
 const app = express();
@@ -23,54 +14,17 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-const day = i => {
-  return moment()
-    .year(2016)
-    .dayOfYear(i)
-    .startOf("day")
-    .unix();
-};
+// Get the data (from somewhere or other...)
+const loadData = require("./loadData");
 
-const getFirstPrice = prices => {
-  let i = 1;
-  while (!prices[day(i++)]) {}
-  return prices[day(i)];
-};
-
-const buildPriceHash = company => {
-  return company.dataset.data.reduce((acc, [date, price]) => {
-    acc[moment(date).unix()] = price;
-    return acc;
-  }, {});
-};
-
-const buildPricesData = company => {
-  const prices = buildPriceHash(company);
-  let mostRecentPrice = getFirstPrice(prices);
-  return [...Array(366)].map((_, i) => {
-    const price = prices[day(i)];
-    mostRecentPrice = price ? price : mostRecentPrice;
-    return { [day(i)]: mostRecentPrice };
-  });
-};
-
-const gatherData = async () => {
+// Endpoint!
+app.get("/api/stocks", async (req, res, next) => {
   try {
-    const data = JSON.parse(fs.readFileSync("./stockData.json", "utf8"));
-    return data.map(company => {
-      return {
-        code: company.dataset.dataset_code,
-        prices: buildPricesData(company)
-      };
-    });
+    const companies = await loadData();
+    res.json(companies);
   } catch (error) {
     next(error);
   }
-};
-
-app.get("/api/stocks", async (req, res, next) => {
-  const companies = await gatherData();
-  res.send(JSON.stringify(companies));
 });
 
 // Defines next action for errors
