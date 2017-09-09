@@ -13,6 +13,8 @@ import { Button } from "reactstrap";
 import NavLinks from "./NavLinks";
 import { NavLink } from "react-router-dom";
 
+import Tables from "./elements/Table";
+
 // const fake = () => {
 //   return {};
 // };
@@ -25,6 +27,7 @@ class App extends Component {
         <Router>
           <div className="container">
             <h1>Stock Portfolio App</h1>
+            <Tables />
             <NavLinks />
             {/* <StockContainer /> */}
             <Switch>
