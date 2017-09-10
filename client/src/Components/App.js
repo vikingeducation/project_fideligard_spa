@@ -5,11 +5,9 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Portfolio from "./Portfolio";
 import Trade from "./Trade";
 import Transactions from "./Transactions";
-import { Button } from "reactstrap";
 
 import StockContainer from "../Containers/StocksContainer";
 import NavLinks from "./NavLinks";
-import { NavLink } from "react-router-dom";
 
 class App extends Component {
   render() {
