@@ -1,7 +1,10 @@
-import { createStore, applyMiddleware, combineReducers } from "redux";
-import thunk from "redux-thunk";
+//not used anymore
 
-import * as Reducers from "../reducers";
-
-export default () =>
-  createStore(combineReducers({ ...Reducers }), applyMiddleware(thunk));
+// import { createStore, applyMiddleware, combineReducers } from "redux";
+// import thunk from "redux-thunk";
+//
+// import * as Reducers from "../reducers";
+// console.log("reducers = ", Reducers);
+//
+// export default () =>
+//   createStore(combineReducers({ ...Reducers }), applyMiddleware(thunk));
