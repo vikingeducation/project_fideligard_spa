@@ -2,7 +2,7 @@ import React from "react";
 
 const Table = ({ columnNames, data }) => {
   return (
-    <table className="table table-striped">
+    <table className="table table-striped table-bordered">
       <thead>
         <tr>
           {columnNames.map(column =>
@@ -15,6 +15,7 @@ const Table = ({ columnNames, data }) => {
       <tbody>
         {data.length > 0
           ? data.map(row => {
+              console.log(row);
               return (
                 <tr key={row[0]}>
                   {row.map((cell, i) =>
