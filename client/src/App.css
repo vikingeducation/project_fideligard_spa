@@ -5,9 +5,12 @@
 
 .nav h1 {
 	display: inline-block;
-	margin: 10px 50px;
+	margin: 10px;
 }
-
+.nav img {
+	width: 60px;
+	margin: -15px 20px;
+}
 .container {
 	margin: 20px auto;
 	display: grid;

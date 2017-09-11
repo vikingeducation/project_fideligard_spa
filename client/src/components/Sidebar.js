@@ -1,7 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Table from "./Table";
 
-export const Sidebar = ({ columnNames, data }) => {
+const Sidebar = ({ data, onClick }) => {
+	const columns = ["Symbol", "Price", "1 Day", "7 Day", "30 Day", "Trade?"];
+	let dataWithLink = data;
+
+	if (data.length && data[0].length !== columns.length) {
+		dataWithLink = data.map(row => {
+			row.push(
+				<Link to="/trade" onClick={() => onClick(row[0])}>
+					trade
+				</Link>
+			);
+
+			return row;
+		});
+	}
+
 	return (
 		<div className="sidebar">
 			<div>
@@ -10,8 +26,10 @@ export const Sidebar = ({ columnNames, data }) => {
 				<input type="text" name="stockFilter" />
 			</div>
 			<div>
-				<Table columnNames={columnNames} data={data} />
+				<Table columnNames={columns} data={dataWithLink} onClick={onClick} />
 			</div>
 		</div>
 	);
 };
+
+export default Sidebar;

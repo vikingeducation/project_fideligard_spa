@@ -1,8 +1,9 @@
 import React from "react";
 
-export const Slider = ({ onChange }) => {
+export const Slider = ({ onChange, date }) => {
 	return (
 		<div className="slider">
+			<h3>{date}</h3>
 			<input
 				type="range"
 				min="0"

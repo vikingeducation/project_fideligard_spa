@@ -1,26 +1,23 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, withRouter } from "react-router-dom";
 
 import { Navbar } from "./components/Navbar";
 import { Slider } from "./components/Slider";
-import { Sidebar } from "./components/Sidebar";
+import Sidebar from "./components/Sidebar";
+import { Link } from "react-router-dom";
 import Main from "./components/Main";
 
 import "./App.css";
 
-const sidebarColumns = [
-  "Symbol",
-  "Price",
-  "1 Day",
-  "7 Day",
-  "30 Day",
-  "Trade?"
-];
+const SidebarRoute = withRouter(Sidebar);
+const MainRoute = withRouter(Main);
 
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      sideBarData: []
+      sideBarData: [],
+      symbol: "AAPL"
     };
   }
 
@@ -70,15 +67,29 @@ class App extends Component {
     //
   };
 
+  handleClick = symbol => {
+    this.setState({ symbol: symbol });
+  };
+
   render() {
     return (
       <div className="App">
         <Navbar />
-        <div className="container">
-          <Sidebar columnNames={sidebarColumns} data={this.state.sideBarData} />
-          <Slider onChange={this.changeDate} />
-          <Main onChange={this.changePage} />
-        </div>
+        <Router>
+          <div className="container">
+            <SidebarRoute
+              data={this.state.sideBarData}
+              onClick={this.handleClick}
+            />
+            <Slider onChange={this.changeDate} date={this.props.date} />
+            <MainRoute
+              onChange={this.changePage}
+              date={this.props.date}
+              symbol={this.state.symbol}
+            />
+            )}
+          </div>
+        </Router>
       </div>
     );
   }

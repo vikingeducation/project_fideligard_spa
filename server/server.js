@@ -17,7 +17,6 @@ const parseJSON = prices => {
   let date = new Date("2014", "11", "01");
   let keyString;
   let previous;
-  console.log(Object.keys(obj).length);
   for (let i = 0; i < 395; i++) {
     let newdate = new Date(date);
     newdate.setDate(newdate.getDate() + i);

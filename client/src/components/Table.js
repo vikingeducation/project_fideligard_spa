@@ -1,6 +1,6 @@
 import React from "react";
 
-const Table = ({ columnNames, data }) => {
+const Table = ({ columnNames, data, onClick }) => {
   return (
     <table className="table table-striped">
       <thead>
@@ -12,9 +12,6 @@ const Table = ({ columnNames, data }) => {
             return (
               <tr key={row[0]}>
                 {row.map((cell, i) => <td key={i}>{cell}</td>)}
-                <td>
-                  <a href={`/trades/${row[0]}`}>trade</a>
-                </td>
               </tr>
             );
           })
