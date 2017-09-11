@@ -1,11 +1,42 @@
-.App {
-  text-align: center;
-  display: grid;
-  grid-template-columns: 30% 60%;
-  grid-column-gap: 10%;
+.nav {
+	background-color: #346;
+	color: white;
 }
 
+.nav h1 {
+	display: inline-block;
+	margin: 10px 50px;
+}
+
+.container {
+	margin: 20px auto;
+	display: grid;
+	grid-template-columns: 40% 55%;
+	grid-column-gap: 5%;
+}
+.sidebar {
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	grid-column-start: 1;
+	grid-column-end: 2;
+	grid-row-start: 1;
+	grid-row-end: span 4;
+	padding: 10px;
+}
+
+.slider {
+	grid-column-start: 2;
+}
 .routeContainer {
-  display: grid;
-  border: 2px solid #ccc;
+	grid-column-start: 2;
+	grid-row-start: 3;
+	grid-row-end: span 2;
+	border: 2px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+}
+
+.trade-container {
+	display: grid;
+	grid-template-columns: 50% 50%;
 }

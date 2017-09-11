@@ -27,6 +27,10 @@ class App extends Component {
 
   componentDidMount = async () => {
     await Promise.resolve(this.props.getStocks());
+    this.updateSideBar();
+  };
+
+  updateSideBar = () => {
     const sideBarData = this.formatSidebarData(
       this.props.stockData[this.props.date]
     );
@@ -37,33 +41,54 @@ class App extends Component {
     const dataArray = Object.entries(data);
     const date = new Date(this.props.date);
     return dataArray.map(row => {
-      row.push(Number(row[1] - this.parseDate(date, 1, row[0])).toFixed(2));
-      row.push(Number(row[1] - this.parseDate(date, 7, row[0])).toFixed(2));
-      row.push(Number(row[1] - this.parseDate(date, 30, row[0])).toFixed(2));
+      row.push(
+        Number(row[1] - this.calcPriceDiff(date, -1, row[0])).toFixed(2)
+      );
+      row.push(
+        Number(row[1] - this.calcPriceDiff(date, -7, row[0])).toFixed(2)
+      );
+      row.push(
+        Number(row[1] - this.calcPriceDiff(date, -30, row[0])).toFixed(2)
+      );
       return row;
     });
   };
 
-  parseDate = (date, difference, symbol) => {
+  parseDate = (date, change) => {
     let newdate = new Date(date);
-    newdate.setDate(newdate.getDate() - difference);
-    const string = newdate.toISOString().split("T")[0];
-    return this.props.stockData[string][symbol];
+    console.log(newdate);
+    newdate.setDate(newdate.getDate() + change);
+    return newdate.toISOString().split("T")[0];
+  };
+
+  calcPriceDiff = (date, change, symbol) => {
+    const dateString = this.parseDate(date, change);
+    return this.props.stockData[dateString][symbol];
+  };
+
+  changeDate = async e => {
+    const newDate = this.parseDate("2015-01-01", e.target.value);
+    console.log(newDate);
+    await Promise.resolve(this.props.setDate(newDate));
+    console.log(this.props.date);
+    await Promise.resolve(this.updateSideBar());
   };
 
   render() {
     return (
       <div className="App">
         <Navbar />
-        <Slider />
-        <Sidebar columnNames={sidebarColumns} data={this.state.sideBarData} />
-        <BrowserRouter>
-          <div className="routeContainer">
-            <Route exact path="/trades" component={Trades} />
-            <Route exact path="/transactions" component={Transactions} />
-            <Route exact path="/portfolio" component={Portfolio} />
-          </div>
-        </BrowserRouter>
+        <div className="container">
+          <Sidebar columnNames={sidebarColumns} data={this.state.sideBarData} />
+          <Slider onChange={this.changeDate} />
+          <BrowserRouter>
+            <div className="routeContainer">
+              <Route exact path="/trades" component={Trades} />
+              <Route exact path="/transactions" component={Transactions} />
+              <Route exact path="/portfolio" component={Portfolio} />
+            </div>
+          </BrowserRouter>
+        </div>
       </div>
     );
   }

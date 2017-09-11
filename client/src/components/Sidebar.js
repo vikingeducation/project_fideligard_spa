@@ -3,7 +3,7 @@ import Table from "./Table";
 
 export const Sidebar = ({ columnNames, data }) => {
 	return (
-		<div>
+		<div className="sidebar">
 			<div>
 				<h2>Stocks</h2>
 				<label htmlFor="stockFilter">Filter</label>
