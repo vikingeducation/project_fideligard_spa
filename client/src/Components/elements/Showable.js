@@ -1,9 +1,9 @@
 import React from "react";
 
-const Showable = ({ isFetching, children }) => {
-  // console.log("props = ", props);
+const Showable = ({ isFetching, loadScreen, children }) => {
+  loadScreen = loadScreen || <p>Loading...</p>;
   if (isFetching) {
-    return null;
+    return <div>{loadScreen}</div>;
   }
 
   return <div>{children}</div>;

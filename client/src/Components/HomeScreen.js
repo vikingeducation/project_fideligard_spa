@@ -1,10 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-const Portfolio = () => {
+const HomeScreen = () => {
   return (
     <div className="card">
-      <h4 className="card-header">Portfolio</h4>
+      <h4 className="card-header">HomeScreen</h4>
       <div className="card-body">
         <h4 className="card-title">Special title treatment</h4>
         <p className="card-text">
@@ -17,4 +17,4 @@ const Portfolio = () => {
     </div>
   );
 };
-export default Portfolio;
+export default HomeScreen;

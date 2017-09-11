@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { getStocks } from "../actions/stocks";
+
+//components
 import Input from "../Components/elements/Input";
 import Caret from "../Components/elements/Caret";
-
-//testing table
+import Showable from "../Components/elements/Showable";
 import Table from "../Components/elements/Table";
+// import ReactBootstrapSlider from "react-bootstrap-slider";
+
 const columns = ["Symbol", "Price", "1d", "7d", "30d", "Trade?"];
 // const rows = [["AAPL", 100], ["thing", "stuff"]];
 
@@ -31,7 +34,7 @@ class StockContainer extends Component {
   //needs sorting
 
   setSort = e => {
-    console.log("clicked");
+    // console.log("clicked");
     // console.log("e.target =", e.target, e.target.data);
     // console.log(e.target.)
     console.log("state = ", this.state);
@@ -61,7 +64,7 @@ class StockContainer extends Component {
   };
   sortStocks = rows => {
     let newRows = rows;
-    console.log("rows in sort");
+    // console.log("rows in sort");
     // return newRows;
 
     return rows.sort(this.sortHash[this.state.sort]);
@@ -69,18 +72,18 @@ class StockContainer extends Component {
   //note filtering is case-sensitive
   filterStocks = rows => {
     let newRows = rows;
-    console.log("filter = ", this.state.filter);
-    console.log("rows in filter", rows);
+    // console.log("filter = ", this.state.filter);
+    // console.log("rows in filter", rows);
     return rows.filter(row => {
       return row[0].includes(this.state.filter);
     });
   };
 
   onChange = e => {
-    console.log("e ", e);
+    // console.log("e ", e);
     console.log(e.target);
     //set filter
-    console.log("this = ", this);
+    // console.log("this = ", this);
     this.setState({ [e.target.name]: e.target.value });
     // this.setState((previous, props) => {
     //   console.log("props = ", props);
@@ -94,6 +97,14 @@ class StockContainer extends Component {
     // };
   };
 
+  //get rid of padding, 2016-01-01 => 2016-1-1
+  convertDate = dateString => {
+    return dateString
+      .split("-")
+      .map(part => Number(part))
+      .join("-");
+  };
+
   render() {
     // const stockData = this.props.stocks;
     //i need to transform the arrays of stock data in redux
@@ -102,11 +113,15 @@ class StockContainer extends Component {
     const tickers = ["V", "UNH"]; //fix the server to include this later
     let rows = [];
     const defaultDate = "2016-1-2";
+    const date = this.convertDate(this.props.date);
+    console.log("date = ", date);
+    // ("2016-01-02");
+    // console.log("stockContainer date = ", this.props.date);
     if (!this.props.isFetching) {
       for (let index in tickers) {
         let ticker = tickers[index];
         // console.log("ticker = ", ticker);
-        // console.log("this.props.stocks[ticker] = ", this.props.stocks[ticker]);
+        console.log("this.props.stocks[ticker] = ", this.props.stocks[ticker]);
         let price;
         if (this.props.stocks[ticker]) {
           // console.log("date??", this.props.stocks[ticker].prices);
@@ -114,7 +129,7 @@ class StockContainer extends Component {
           //   "default date??",
           //   this.props.stocks[ticker].prices[defaultDate]
           // );
-          price = this.props.stocks[ticker].prices[defaultDate].price || 0;
+          price = this.props.stocks[ticker].prices[date].price || 0;
           // console.log("price = ", price);
         } else {
           price = 0;
@@ -127,38 +142,41 @@ class StockContainer extends Component {
     }
 
     // console.log("sC props = ", this.props);
-    console.log("rows = ", rows);
+    // console.log("rows = ", rows);
     rows = this.filterStocks(rows);
-    console.log("rows after filter = ", rows);
+    // console.log("rows after filter = ", rows);
     rows = this.sortStocks(rows);
-    console.log("rows after sort = ", rows);
+    // console.log("rows after sort = ", rows);
     const filter = this.state.filter;
     // const sorted = "asc";
     return (
       <div className="container-fluid">
         {/* <div>Test: {filter}</div> */}
-        <div id="stock-controls" className="row">
-          <div className="col-6">
-            <p>Stocks</p>
+        <h1>CurrentDate = {date}</h1>
+        <Showable isFetching={this.props.isFetching}>
+          <div id="stock-controls" className="row">
+            <div className="col-6">
+              <p>Stocks</p>
+            </div>
+            <div className="col-6">
+              <p>Filter</p>
+              <Input
+                name="filter"
+                value={this.state.filter}
+                onChange={this.onChange}
+              />
+            </div>
           </div>
-          <div className="col-6">
-            <p>Filter</p>
-            <Input
-              name="filter"
-              value={this.state.filter}
-              onChange={this.onChange}
+          <div className="row">
+            {/* <Table rows={rows} columns={columns} /> */}
+            <Table
+              rows={rows}
+              columns={columns}
+              sorted={this.state.sort}
+              sortFunction={this.setSort}
             />
           </div>
-        </div>
-        <div className="row">
-          {/* <Table rows={rows} columns={columns} /> */}
-          <Table
-            rows={rows}
-            columns={columns}
-            sorted={this.state.sort}
-            sortFunction={this.setSort}
-          />
-        </div>
+        </Showable>
       </div>
     );
   }

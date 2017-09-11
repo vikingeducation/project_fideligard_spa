@@ -13,6 +13,7 @@
     "react": "^15.6.1",
     "react-addons-css-transition-group": "^15.6.0",
     "react-addons-transition-group": "^15.6.0",
+    "react-bootstrap-slider": "^2.0.1",
     "react-datetime-slider": "0.0.8",
     "react-dom": "^15.6.1",
     "react-loading": "^0.1.4",

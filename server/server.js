@@ -331,9 +331,45 @@ const genDate = function*(startDate = "2016-01-01", endDate = "2017-01-01") {
 };
 //TODO:
 //make a day of the year function
-
-const dateTypeToDateString = date => {
-  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}}`;
+//TODO: FIX THIS LATER
+/*
+dateTypeToDateString(date) =  2016-01-01
+case 2
+stockData[counter] =  2016-01-04
+dateTypeToDateString(date) =  2016-01-2
+case 2
+stockData[counter] =  2016-01-04
+dateTypeToDateString(date) =  2016-01-3
+*/
+var countDigits = number => {
+  let digits = 1;
+  let num = number;
+  while (num > 1) {
+    num = Math.trunc(num / 10);
+    digits++;
+  }
+  return digits;
+};
+var isOneDigit = string => {
+  let number = Number(string);
+  if (countDigits(number) === 1) {
+    return true;
+  }
+  return false;
+};
+//if it's one digit add a 0
+var dateTypeToDateString = date => {
+  const m = date.getMonth() + 1;
+  const d = date.getDate();
+  const month = isOneDigit(m) ? `0${m}` : `${m}`;
+  const day = isOneDigit(d) ? `0${d}` : `${d}`;
+  // console.log(
+  //   "date = ",
+  //   date,
+  //   "isOneDigit(date.getDate() + 1) ",
+  //   isOneDigit(date.getDate())
+  // );
+  return `${date.getFullYear()}-${month}-${day}`;
 };
 
 const getDatesArr = (startDate, endDate) => {
@@ -365,7 +401,10 @@ const parse = (
 
   const json = dates.map((date, index, arr) => {
     //if the date is in there then use it
-    if (dateTypeToDateString(date) === stockData[counter]) {
+    console.log("stockData[counter] = ", stockData[counter][0]);
+    console.log("dateTypeToDateString(date) = ", dateTypeToDateString(date));
+    if (dateTypeToDateString(date) === stockData[counter][0]) {
+      console.log("case 1");
       let newDay = {
         date: date,
         price: stockData[counter][columnNameCloseIndex],
@@ -377,6 +416,7 @@ const parse = (
       return newDay;
     } else if (counter === 0) {
       //check to see if we started our dates before we have data
+      console.log("case 2");
       let newDay = {
         date: date,
         price: stockData[counter][columnNameCloseIndex],
@@ -387,14 +427,29 @@ const parse = (
       return newDay;
     } else {
       //if not use a previous day
+      console.log("case 3");
       let dateIter = genDate(date, endDate);
-      let yesterday;
+      let yesterday = dateTypeToDateString(dateIter.next(-1).value);
       let tmpCounter = counter;
-      while (
-        (yesterday =
-          dateTypeToDateString(dateIter.next(-1)) !== stockData[tmpCounter])
-      ) {
-        //keep looking for a day we have data for
+      // while (
+      //   (yesterday =
+      //     dateTypeToDateString(dateIter.next(-1).value) !==
+      //     stockData[tmpCounter])
+      // ) {
+      //   //keep looking for a day we have data for
+      //   tmpCounter--;
+      // }
+      // console.log(`tmpCounter = ${tmpCounter}`);
+      // console.log("stockData = ", stockData);
+      while (yesterday !== stockData[tmpCounter][0]) {
+        // console.log(
+        //   "yesterday = ",
+        //   yesterday,
+        //   "\nstockData[tmpCounter] ==",
+        //   stockData[tmpCounter]
+        // );
+        // console.log(`tmpCounter = ${tmpCounter}`);
+        yesterday = dateTypeToDateString(dateIter.next(-1).value);
         tmpCounter--;
       }
       let newDay = {
@@ -410,14 +465,14 @@ const parse = (
   // let prices = json;
   // change json from = [{},{}]
   // to prices = {date: {}, date: {}}
-
+  // console.log("json = ", json);
   let prices = json.reduce((hash, priceObj) => {
     let dateString = `${priceObj.date.getFullYear()}-${priceObj.date.getMonth() +
       1}-${priceObj.date.getDate()}`;
     hash[dateString] = priceObj;
     return hash;
   }, {});
-  console.log(prices, " = prices");
+  // console.log(prices, " = prices");
   let stockDataParsed = {
     info: {
       name: getCompanyName(jsonCompany.dataset.description),
@@ -428,5 +483,6 @@ const parse = (
     },
     prices
   };
+  // console.log("stock data from server = ", stockDataParsed);
   return stockDataParsed;
 };
