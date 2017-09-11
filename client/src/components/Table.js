@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const Table = ({ columnNames, data }) => {
+const Table = ({ columnNames, data, onClick, thisDatePrice, symbol }) => {
+  console.log(thisDatePrice);
+  console.log(symbol);
   return (
     <table className="table table-striped table-bordered">
       <thead>
@@ -15,7 +18,6 @@ const Table = ({ columnNames, data }) => {
       <tbody>
         {data.length > 0
           ? data.map(row => {
-              console.log(row);
               return (
                 <tr key={row[0]}>
                   {row.map((cell, i) =>
@@ -24,7 +26,14 @@ const Table = ({ columnNames, data }) => {
                     </td>
                   )}
                   <td>
-                    <a href={`/trades/${row[0]}`}>trade</a>
+                    <Link
+                      to={`/trades`}
+                      onClick={() => {
+                        onClick(row[0], row[1]);
+                      }}
+                    >
+                      trade
+                    </Link>
                   </td>
                 </tr>
               );

@@ -4,7 +4,6 @@ import Subheader from "./Subheader";
 const columnNames = ["Date", "Symbol", "Type", "Quantity", "Price"];
 
 const Transactions = props => {
-  console.log(props);
   return (
     <div>
       <Subheader title="Transactions" />

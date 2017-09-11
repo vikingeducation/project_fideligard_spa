@@ -13,24 +13,20 @@ class App extends Component {
     return (
       <div>
         <Title />
-        <div className="App">
-          <SidebarContainer />
-          <div className="rightSide">
-            <SliderContainer />
-            <BrowserRouter>
+        <BrowserRouter>
+          <div className="App">
+            <SidebarContainer />
+            <div className="rightSide">
+              <SliderContainer />
               <div className="routeContainer">
                 <Route exact path="/" component={TradesContainer} />
-                <Route exact path="/trades" component={TradesContainer} />
-                <Route
-                  exact
-                  path="/transactions"
-                  component={TransactionsContainer}
-                />
-                <Route exact path="/portfolio" component={Portfolio} />
+                <Route path="/trades" component={TradesContainer} />
+                <Route path="/transactions" component={TransactionsContainer} />
+                <Route path="/portfolio" component={Portfolio} />
               </div>
-            </BrowserRouter>
+            </div>
           </div>
-        </div>
+        </BrowserRouter>
       </div>
     );
   }

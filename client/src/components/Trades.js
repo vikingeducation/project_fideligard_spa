@@ -40,7 +40,6 @@ const symbols = [
 ];
 
 const Trades = (props, state) => {
-  console.log(props);
   return (
     <div className="flex-col">
       <div className="Trades-top">
@@ -58,8 +57,6 @@ const Trades = (props, state) => {
               name="symbol"
               componentClass="select"
               onChange={e => {
-                console.log(e.target.value);
-                console.log(props.stockData);
                 props.setSymbol(e);
                 props.setThisDatePrice(props.thisDateStocks[e.target.value]);
               }}

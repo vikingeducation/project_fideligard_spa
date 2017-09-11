@@ -21,7 +21,14 @@ const Sidebar = props =>
     </div>
     {props.sideBarData.length > 0
       ? <div>
-          <Table columnNames={sidebarColumns} data={props.sideBarData} />;
+          {console.log(props)}
+          <Table
+            columnNames={sidebarColumns}
+            data={props.sideBarData}
+            onClick={props.onClick}
+            symbol={props.symbol}
+            thisDatePrice={props.thisDatePrice}
+          />;
         </div>
       : <div />}
   </div>;
