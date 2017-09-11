@@ -6,7 +6,7 @@ export const Slider = ({ onChange }) => {
 			<input
 				type="range"
 				min="0"
-				max="363"
+				max="364"
 				defaultValue="40"
 				onChange={onChange}
 			/>

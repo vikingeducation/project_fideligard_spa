@@ -14,11 +14,11 @@ const parseJSON = prices => {
     obj[price[1]] = obj[price[1]] || {};
     obj[price[1]][price[0]] = price[2];
   });
-  let date = new Date("2015", "00", "01");
+  let date = new Date("2014", "11", "01");
   let keyString;
   let previous;
   console.log(Object.keys(obj).length);
-  for (let i = 0; i < 364; i++) {
+  for (let i = 0; i < 395; i++) {
     let newdate = new Date(date);
     newdate.setDate(newdate.getDate() + i);
     keyString = newdate.toISOString().split("T")[0];
@@ -34,7 +34,7 @@ const parseJSON = prices => {
 app.get("/api/prices", async (req, res) => {
   try {
     let response = await fetch(
-      `${BASE_URL}?date.gte=20150101&date.lte=20151231&ticker=${STOCK_LIST}&qopts.columns=ticker,date,close&api_key=${API_KEY}`
+      `${BASE_URL}?date.gte=20141201&date.lte=20151231&ticker=${STOCK_LIST}&qopts.columns=ticker,date,close&api_key=${API_KEY}`
     );
     let prices = await response.json();
     res.json(parseJSON(prices.datatable.data));

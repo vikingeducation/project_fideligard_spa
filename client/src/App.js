@@ -37,27 +37,34 @@ class App extends Component {
     const dataArray = Object.entries(data);
     const date = new Date(this.props.date);
     return dataArray.map(row => {
-      row.push(Number(row[1] - this.parseDate(date, 1, row[0])).toFixed(2));
-      row.push(Number(row[1] - this.parseDate(date, 7, row[0])).toFixed(2));
-      row.push(Number(row[1] - this.parseDate(date, 30, row[0])).toFixed(2));
+      row.push(Number(row[1] - this.prevData(date, -1, row[0])).toFixed(2));
+      row.push(Number(row[1] - this.prevData(date, -7, row[0])).toFixed(2));
+      row.push(Number(row[1] - this.prevData(date, -30, row[0])).toFixed(2));
       return row;
     });
   };
 
-  parseDate = (date, difference, symbol) => {
+  parseDate = (date, change, symbol) => {
     let newdate = new Date(date);
-    newdate.setDate(newdate.getDate() - difference);
-    const string = newdate.toISOString().split("T")[0];
+    newdate.setDate(newdate.getDate() + change);
+    return newdate.toISOString().split("T")[0];
+  };
+
+  prevData = (date, difference, symbol) => {
+    const string = this.parseDate(date, difference);
     return this.props.stockData[string][symbol];
   };
 
   changeDate = async e => {
-    let newdate = new Date(2015, 0, 1);
-    newdate.setDate(newdate.getDate() + Number(e.target.value));
-
-    const string = newdate.toISOString().split("T")[0];
+    const date = new Date(2015, 0, 1);
+    const string = this.parseDate(date, Number(e.target.value));
     await Promise.resolve(this.props.setDate(string));
-    console.log(this.props.date);
+
+    const sideBarData = this.formatSidebarData(
+      this.props.stockData[this.props.date]
+    );
+
+    await Promise.resolve(this.setState({ sideBarData: sideBarData }));
   };
 
   render() {
