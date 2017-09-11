@@ -25,6 +25,7 @@ const stocks = (state = intialState, action) => {
     case FAILURE_GET_STOCK:
       return {
         ...state,
+        isFetching: false,
         error: action.data
       };
     default:

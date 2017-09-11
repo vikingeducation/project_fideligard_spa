@@ -13,10 +13,6 @@ import Trade from "./Trade";
 import Transactions from "./Transactions";
 
 import StockContainer from "../Containers/StocksContainer";
-<<<<<<< HEAD
-=======
-import NavLinks from "./NavLinks";
->>>>>>> stocks
 
 class App extends Component {
   render() {

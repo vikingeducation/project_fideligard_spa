@@ -5,6 +5,10 @@
 //apiData.json
 //NOTE: SAVING A DATA FILE WHICH IS THE SCRUBBED VERSION OF RESULTS
 //data.json
+
+//TODO: make a day of the year function
+
+//TODO: ADD A TICKER ARRAY
 //NOTE: try refactoring the single ticker route code and the allStocks route to reuse a single function
 
 const express = require("express");
@@ -13,6 +17,9 @@ require("dotenv").config();
 const API_KEY = process.env.API_KEY;
 require("isomorphic-fetch");
 const fs = require("fs");
+//holy moly I used the wrong db
+//TODO: redo server code to use the WIKI endpoint
+const fancyCall = `https://www.quandl.com/api/v3/datatables/WIKI/PRICES.json?date.gte=20150101&date.lt=20160101&ticker=V,UNH,PG,KO,GS,WMT,MRK,VZ,UTX,TRV,DIS,BA,HD,MMM,PFE,NKE,MCD,JPM,INTC,GE,CSCO,CVX,CAT,AXP,JNJ,XOM,MSFT,IBM,AAPL,FB&api_key=${API_KEY}`;
 const baseUrl = "https://www.quandl.com/api/v3/datasets/EOD";
 const randomAPIrequestLimit = 24;
 
@@ -63,21 +70,20 @@ server.get("/api/stocks", async (req, res) => {
   let result;
   let scrubbedData;
   try {
-    // getCompanyName(description)
-    console.log("apiData = ", apiData);
     scrubbedData = apiData.map(jsonCompany =>
-      parseJSON(jsonCompany, "2016-01-01", "2017-01-01")
+      // parseJSON(jsonCompany, "2016-01-01", "2017-01-01")
+      parse(jsonCompany, "2016-01-01", "2017-01-01")
     );
     let result = {};
     scrubbedData.forEach(company => (result[company.info.ticker] = company));
-    console.log("scrubbedData = ", scrubbedData);
-    console.log("result = ", result);
+    // console.log("scrubbedData = ", scrubbedData);
+    // console.log("result = ", result);
     scrubbedData = result;
   } catch (e) {
-    console.error(new Error(e));
+    console.error(e);
     return res.redirect("https://http.cat/500");
     // return res.setHeader(500);
-    throw new Error(e);
+    throw e;
   }
   return res.json(scrubbedData);
   // return res.send(JSON.stringify(scrubbedData));
@@ -101,7 +107,7 @@ server.get("/api/stocks/:ticker", (req, res) => {
     .then(json => {
       //testing
       let newJson = parseJSON(json);
-      console.log("new json = ", newJson);
+      // console.log("new json = ", newJson);
       // return res.send(json);
       return newJson;
     })
@@ -115,7 +121,10 @@ const port = server.listen(server.get("port"), () => {
   console.log(`listening on ${server.get("port")}`);
 });
 
-//testing our tickers
+//check if we need to even make an api call,
+//if yes makes it
+//if no grabs from apiData.json
+//return JSON
 const getAllStocks = async (
   startDate = "2016-01-01",
   endDate = "2017-01-01"
@@ -137,16 +146,15 @@ const getAllStocks = async (
     //set defaults
     const options = { startDate, endDate };
     const urlArray = tickerArray.map(ticker => makeUrls(options, ticker));
-    console.log(`urlArray = `, urlArray);
+    // console.log(`urlArray = `, urlArray);
     let data;
-    // let promises;
     //grab dat data
     try {
       data = urlArray.map(url => {
         return fetch(url);
       });
       apiData = await Promise.all(data);
-      console.log("apiData = ", apiData);
+      // console.log("apiData = ", apiData);
       let jsonPromises = apiData.map(buffer => {
         return buffer.json();
       });
@@ -155,12 +163,11 @@ const getAllStocks = async (
       //NOTE: this may be a little weird because it's all buffers and stuff
       fs.writeFileSync("apiData.json", JSON.stringify(json, null, 2));
     } catch (e) {
-      console.error(new Error(e));
-      throw new Error(e);
+      console.error(e);
+      throw e;
     }
   }
-
-  console.log("json = ", json);
+  // console.log("json = ", json);
   return json;
 };
 // getAllStocks();
@@ -304,3 +311,120 @@ function parseJSON(jsonCompany, startDate, endDate) {
   }
   return stockDataParsed;
 }
+
+//a date generator that moves forward by one day by default
+
+////let date = genDate();
+////date.next(-1)   //moves it back a day
+const genDate = function*(startDate = "2016-01-01", endDate = "2017-01-01") {
+  startDate = new Date(startDate);
+  endDate = new Date(endDate);
+  let currentDate = startDate;
+  while (currentDate <= endDate) {
+    let injected = yield currentDate;
+    injected = injected || 1;
+    currentDate = new Date(
+      currentDate.setDate(currentDate.getDate() + injected)
+    );
+  }
+  return null;
+};
+//TODO:
+//make a day of the year function
+
+const dateTypeToDateString = date => {
+  return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}}`;
+};
+
+const getDatesArr = (startDate, endDate) => {
+  const begin = new Date(startDate);
+  const finish = new Date(endDate);
+  const dateIter = genDate(begin, finish);
+  return [...dateIter];
+};
+//functional approach to parsing
+//...well attempted functional approach
+const parse = (
+  jsonCompany,
+  startDate = "2016-01-01",
+  endDate = "2017-01-01"
+) => {
+  console.log("running parse");
+  const columnNameCloseIndex = 4;
+  //extract data you want
+  //TODO: get rid of the reverse()
+  const stockData = jsonCompany["dataset"]["data"].reverse();
+
+  //make an array of all the dates
+  const dates = getDatesArr(startDate, endDate);
+  //for each date of the year grab the data you need
+  //filling in any gaps due to holidays
+
+  //set a previous value;
+  let counter = 0;
+
+  const json = dates.map((date, index, arr) => {
+    //if the date is in there then use it
+    if (dateTypeToDateString(date) === stockData[counter]) {
+      let newDay = {
+        date: date,
+        price: stockData[counter][columnNameCloseIndex],
+        "1d": null,
+        "7d": null,
+        "30d": null
+      };
+      counter++;
+      return newDay;
+    } else if (counter === 0) {
+      //check to see if we started our dates before we have data
+      let newDay = {
+        date: date,
+        price: stockData[counter][columnNameCloseIndex],
+        "1d": null,
+        "7d": null,
+        "30d": null
+      };
+      return newDay;
+    } else {
+      //if not use a previous day
+      let dateIter = genDate(date, endDate);
+      let yesterday;
+      let tmpCounter = counter;
+      while (
+        (yesterday =
+          dateTypeToDateString(dateIter.next(-1)) !== stockData[tmpCounter])
+      ) {
+        //keep looking for a day we have data for
+        tmpCounter--;
+      }
+      let newDay = {
+        date: date,
+        price: stockData[counter][columnNameCloseIndex],
+        "1d": null,
+        "7d": null,
+        "30d": null
+      };
+      return newDay;
+    }
+  });
+  let prices = json;
+  //change json from = [{},{}]
+  //to prices = {date: {}, date: {}}
+  //
+  // let prices = json.reduce((hash, priceObj) => {
+  //   hash[priceObj.date] = priceObj;
+  //   return hash;
+  // }, {});
+  console.log(prices, " = prices");
+  let stockDataParsed = {
+    info: {
+      name: getCompanyName(jsonCompany.dataset.description),
+      id: jsonCompany.dataset.id,
+      ticker: jsonCompany.dataset.dataset_code,
+      startDate: startDate,
+      endDate: endDate
+    },
+    prices
+  };
+  return stockDataParsed;
+};
