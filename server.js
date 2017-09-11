@@ -14,17 +14,35 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Get the data (from somewhere or other...)
-const loadData = require("./loadData");
+const tickers = [
+  "AAPL",
+  "MSFT",
+  "IBM",
+  "VZ",
+  "KO",
+  "BA",
+  "MMM",
+  "CAT",
+  "V",
+  "UNH",
+  "PG",
+  "GS",
+  "MRK",
+  "UTX",
+  "TRV"
+];
+
+// Gather and parse data
+const helper = require("./quandl-eod-helper");
+const Eod = new helper();
+Eod.setTickers(tickers);
+Eod.setYear("2016");
+Eod.fetch();
 
 // Endpoint!
-app.get("/api/stocks", async (req, res, next) => {
-  try {
-    const companies = await loadData();
-    res.json(companies);
-  } catch (error) {
-    next(error);
-  }
+app.get("/api/stocks", (req, res) => {
+  const data = Eod.data();
+  res.json(data);
 });
 
 // Defines next action for errors
