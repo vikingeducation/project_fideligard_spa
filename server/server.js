@@ -407,14 +407,16 @@ const parse = (
       return newDay;
     }
   });
-  let prices = json;
-  //change json from = [{},{}]
-  //to prices = {date: {}, date: {}}
-  //
-  // let prices = json.reduce((hash, priceObj) => {
-  //   hash[priceObj.date] = priceObj;
-  //   return hash;
-  // }, {});
+  // let prices = json;
+  // change json from = [{},{}]
+  // to prices = {date: {}, date: {}}
+
+  let prices = json.reduce((hash, priceObj) => {
+    let dateString = `${priceObj.date.getFullYear()}-${priceObj.date.getMonth() +
+      1}-${priceObj.date.getDate()}`;
+    hash[dateString] = priceObj;
+    return hash;
+  }, {});
   console.log(prices, " = prices");
   let stockDataParsed = {
     info: {
