@@ -1,18 +1,8 @@
 import React from "react";
 import { FormGroup, FormControl, ControlLabel, Button } from "react-bootstrap";
 
-const Trades = () => (
+const Trades = ({ onChange }) => (
   <div>
-    <div className="main-header">
-      <h2>Trade</h2>
-      <select>
-        <option value="trades" selected>
-          Trade
-        </option>
-        <option value="portfolio">Portfolio</option>
-        <option value="transactions">Transactions</option>
-      </select>
-    </div>
     <div className="trade-container">
       <div>
         <form>

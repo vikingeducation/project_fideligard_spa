@@ -66,6 +66,10 @@ class App extends Component {
     await Promise.resolve(this.setState({ sideBarData: sideBarData }));
   };
 
+  changePage = e => {
+    //
+  };
+
   render() {
     return (
       <div className="App">
@@ -73,7 +77,7 @@ class App extends Component {
         <div className="container">
           <Sidebar columnNames={sidebarColumns} data={this.state.sideBarData} />
           <Slider onChange={this.changeDate} />
-          <Main />
+          <Main onChange={this.changePage} />
         </div>
       </div>
     );

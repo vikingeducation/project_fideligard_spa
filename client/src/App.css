@@ -46,13 +46,10 @@
 	grid-template-columns: 3fr 1fr;
 	justify-items: start;
 	align-items: center;
+	margin-bottom: 20px;
 }
 
 .main-header h2 {
 	display: inline-block;
 	margin: 0;
-}
-
-.main-header {
-	justify-self: right;
 }
