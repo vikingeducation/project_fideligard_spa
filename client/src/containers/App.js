@@ -28,14 +28,19 @@ class App extends Component {
     
     let stockArray = this.props.stockReducer.stocks;
     let selectedDate = e.target.value
+    
     this.setState({
       selectedDate: selectedDate
     })
-    let newArray = stockArray.filter(arr=>{
 
-      return arr[1] == selectedDate 
+    const getStocksByDate = (date)=>{
+      return stockArray.filter(arr=>{
+        return arr[1] == date 
+      })
+    }
 
-    })
+    let newArray = getStocksByDate( selectedDate);
+
     newArray.map(arrMissingDate=>{
       if (!arrMissingDate.length) {
         arrMissingDate = stockArray.filter(arrPrevDate=>{
@@ -44,7 +49,7 @@ class App extends Component {
       }
     })
 
-    console.log("App.js line 25 ", newArray)
+    console.log("newArray ", newArray)
     this.setState({
       filteredStocks: newArray
     })
@@ -54,7 +59,7 @@ class App extends Component {
 
   render() {
 
-    console.log("App.js line 44 ", this.state)
+    console.log("this.state", this.state)
 
     return (
       <div className="app">
