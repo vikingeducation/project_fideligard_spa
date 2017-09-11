@@ -9,7 +9,7 @@ const Sidebar = ({ data, onClick }) => {
 	if (data.length && data[0].length !== columns.length) {
 		dataWithLink = data.map(row => {
 			row.push(
-				<Link to="/trade" onClick={() => onClick(row[0])}>
+				<Link to="/trade" onClick={() => onClick(row[0], row[1])}>
 					trade
 				</Link>
 			);

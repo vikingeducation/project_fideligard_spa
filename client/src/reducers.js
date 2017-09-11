@@ -23,13 +23,40 @@ const FideligardApp = (state = initialState, action) => {
     case Actions.CREATE_TRANSACTION:
       return {
         ...state,
-        transactions: [...this.state.transactions, action.data]
+        transactions: [...state.transactions, action.data]
       };
     case Actions.UPDATE_BALANCE:
       return {
         ...state,
-        balance: this.state.balance + action.data
+        balance: state.balance + Number(action.data)
       };
+    case Actions.UPDATE_PORTFOLIO:
+      const symbol = action.data.symbol;
+      if (state.portfolio[action.data.symbol]) {
+        return {
+          ...state,
+          portfolio: state.portfolio.map(entry => {
+            if (entry.symbol === symbol) {
+              entry.quantity += action.data.quantity;
+              entry.price += action.data.price;
+            }
+
+            return entry;
+          })
+        };
+      } else {
+        return {
+          ...state,
+          portfolio: [
+            ...state.portfolio,
+            {
+              symbol: symbol,
+              price: action.data.price,
+              quantity: action.data.quantity
+            }
+          ]
+        };
+      }
     default:
       return state;
   }

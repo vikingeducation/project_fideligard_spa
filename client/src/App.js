@@ -4,7 +4,6 @@ import { BrowserRouter as Router, withRouter } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { Slider } from "./components/Slider";
 import Sidebar from "./components/Sidebar";
-import { Link } from "react-router-dom";
 import Main from "./components/Main";
 
 import "./App.css";
@@ -17,7 +16,9 @@ class App extends Component {
     super();
     this.state = {
       sideBarData: [],
-      symbol: "AAPL"
+      symbol: "AAPL",
+      price: 0,
+      quantity: 0
     };
   }
 
@@ -26,7 +27,12 @@ class App extends Component {
     const sideBarData = this.formatSidebarData(
       this.props.stockData[this.props.date]
     );
-    this.setState({ sideBarData: sideBarData });
+    await this.setState({ sideBarData: sideBarData });
+    await this.setState({
+      price: Number(
+        this.state.sideBarData.filter(row => row[0] === this.state.symbol)[0][1]
+      )
+    });
   };
 
   formatSidebarData = data => {
@@ -67,8 +73,48 @@ class App extends Component {
     //
   };
 
-  handleClick = symbol => {
-    this.setState({ symbol: symbol });
+  handleClick = (symbol, price) => {
+    this.setState({ symbol: symbol, price: price });
+  };
+
+  changeQuantity = e => {
+    console.log(e.target.value);
+    this.setState({ quantity: Number(e.target.value) });
+  };
+
+  handleFormSubmit = async e => {
+    e.preventDefault();
+
+    let price, quantity;
+    const symbol = e.target.symbol.value;
+    const buySell = e.target.buySell.value;
+
+    const transaction = {
+      date: this.props.date,
+      symbol: symbol,
+      type: buySell,
+      quantity: e.target.quantity.value,
+      price: this.state.price
+    };
+
+    if (buySell === "buy") {
+      price = 0 - this.state.price;
+      quantity = 0 - e.target.quantity.value;
+    } else {
+      price = this.state.price;
+      quantity = e.target.quantity.value;
+    }
+
+    const portfolioData = {
+      symbol: e.target.symbol.value,
+      quantity: e.target.quantity.value,
+      price: price
+    };
+
+    await this.props.createTransaction(transaction);
+    await this.props.updatePortfolio(portfolioData);
+    await this.props.updateBalance(price);
+    console.log(this.props);
   };
 
   render() {
@@ -86,6 +132,12 @@ class App extends Component {
               onChange={this.changePage}
               date={this.props.date}
               symbol={this.state.symbol}
+              transactionData={this.props.transactions}
+              balance={this.props.balance}
+              price={this.state.price}
+              changeQuantity={this.changeQuantity}
+              total={this.state.quantity * this.state.price}
+              onSubmit={this.handleFormSubmit}
             />
             )}
           </div>

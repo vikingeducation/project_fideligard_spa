@@ -1,6 +1,12 @@
 import { connect } from "react-redux";
 import App from "../App.js";
-import { getStocks, setDate } from "../actions";
+import {
+	getStocks,
+	setDate,
+	createTransaction,
+	updatePortfolio,
+	updateBalance
+} from "../actions";
 
 const mapStateToProps = state => {
 	return state;
@@ -13,6 +19,15 @@ const mapDispatchToProps = dispatch => {
 		},
 		setDate: date => {
 			dispatch(setDate(date));
+		},
+		createTransaction: data => {
+			dispatch(createTransaction(data));
+		},
+		updatePortfolio: data => {
+			dispatch(updatePortfolio(data));
+		},
+		updateBalance: amount => {
+			dispatch(updateBalance(amount));
 		}
 	};
 };
