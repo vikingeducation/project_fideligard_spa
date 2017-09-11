@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import Dashboard from './Dashboard';
 import Header from '../components/Header';
-// import _ from 'lodash'
+
 
 class App extends Component {
   constructor() {
@@ -23,9 +23,8 @@ class App extends Component {
     }
   }
 
-
   onDateChange = (e) => {
-    
+
     let stockArray = this.props.stockReducer.stocks;
     let selectedDate = e.target.value
     
@@ -86,18 +85,15 @@ class App extends Component {
     const thirtyDayAgoArray = getStocksByDate(getPrevDate(selectedDate, 30));
 
     const newArray = selectedDateArray.map((arr, index) => {
-      return arr.concat(oneDayAgoArray[index][2], sevenDayAgoArray[index][2], thirtyDayAgoArray[index][2])
+      return arr.concat((arr[2]-oneDayAgoArray[index][2]).toFixed(2), (arr[2] - sevenDayAgoArray[index][2]).toFixed(2), (arr[2] - thirtyDayAgoArray[index][2]).toFixed(2))
      })
 
-    console.log("newArray ", newArray)
     this.setState({
       filteredStocks: newArray
     })
   }
 
   render() {
-
-    console.log("this.state", this.state)
 
     return (
       <div className="app">
