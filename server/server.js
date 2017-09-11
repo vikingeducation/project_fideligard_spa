@@ -14,7 +14,7 @@ const parseJSON = prices => {
     obj[price[1]] = obj[price[1]] || {};
     obj[price[1]][price[0]] = price[2];
   });
-  let date = new Date("2015", "00", "02");
+  let date = new Date("2015", "00", "01");
   let keyString;
   let previous;
   console.log(Object.keys(obj).length);

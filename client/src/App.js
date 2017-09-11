@@ -27,10 +27,6 @@ class App extends Component {
 
   componentDidMount = async () => {
     await Promise.resolve(this.props.getStocks());
-    this.updateSideBar();
-  };
-
-  updateSideBar = () => {
     const sideBarData = this.formatSidebarData(
       this.props.stockData[this.props.date]
     );
@@ -41,37 +37,27 @@ class App extends Component {
     const dataArray = Object.entries(data);
     const date = new Date(this.props.date);
     return dataArray.map(row => {
-      row.push(
-        Number(row[1] - this.calcPriceDiff(date, -1, row[0])).toFixed(2)
-      );
-      row.push(
-        Number(row[1] - this.calcPriceDiff(date, -7, row[0])).toFixed(2)
-      );
-      row.push(
-        Number(row[1] - this.calcPriceDiff(date, -30, row[0])).toFixed(2)
-      );
+      row.push(Number(row[1] - this.parseDate(date, 1, row[0])).toFixed(2));
+      row.push(Number(row[1] - this.parseDate(date, 7, row[0])).toFixed(2));
+      row.push(Number(row[1] - this.parseDate(date, 30, row[0])).toFixed(2));
       return row;
     });
   };
 
-  parseDate = (date, change) => {
+  parseDate = (date, difference, symbol) => {
     let newdate = new Date(date);
-    console.log(newdate);
-    newdate.setDate(newdate.getDate() + change);
-    return newdate.toISOString().split("T")[0];
-  };
-
-  calcPriceDiff = (date, change, symbol) => {
-    const dateString = this.parseDate(date, change);
-    return this.props.stockData[dateString][symbol];
+    newdate.setDate(newdate.getDate() - difference);
+    const string = newdate.toISOString().split("T")[0];
+    return this.props.stockData[string][symbol];
   };
 
   changeDate = async e => {
-    const newDate = this.parseDate("2015-01-01", e.target.value);
-    console.log(newDate);
-    await Promise.resolve(this.props.setDate(newDate));
+    let newdate = new Date(2015, 0, 1);
+    newdate.setDate(newdate.getDate() + Number(e.target.value));
+
+    const string = newdate.toISOString().split("T")[0];
+    await Promise.resolve(this.props.setDate(string));
     console.log(this.props.date);
-    await Promise.resolve(this.updateSideBar());
   };
 
   render() {
