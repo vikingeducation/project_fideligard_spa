@@ -33,21 +33,39 @@ class App extends Component {
       selectedDate: selectedDate
     })
 
+    const backFill = (stocksOnDate, date) =>{
+      //if there's data, continue to next
+      if (stocksOnDate.length === 13) {
+        return stocksOnDate;
+      }
+      // If there's no data at all for that date, go back in time til you find some
+      if (stocksOnDate.length<1) {
+        //get previous date
+        //Hard-coding the assumption that we don't go back to previous month
+        let prevDate;
+        let prevDayNum = Number(date.slice(8)) - 1
+        if (prevDayNum<10) {
+          prevDate = date.slice(0, 8) + '0' + prevDayNum.toString();
+        }
+        if (prevDayNum>=10) {
+          prevDate = date.slice(0, 8) + prevDayNum.toString();
+        }
+        let stocksOnPrevDate = 
+        getStocksByDate(prevDate)
+
+        return stocksOnPrevDate
+      }
+    }
+
     const getStocksByDate = (date)=>{
-      return stockArray.filter(arr=>{
+      let stocksByDate = stockArray.filter(arr=>{
         return arr[1] == date 
       })
+      stocksByDate = backFill(stocksByDate, date);
+      return stocksByDate
     }
 
     let newArray = getStocksByDate( selectedDate);
-
-    newArray.map(arrMissingDate=>{
-      if (!arrMissingDate.length) {
-        arrMissingDate = stockArray.filter(arrPrevDate=>{
-          return arrPrevDate[0]===arrMissingDate[0] && arrPrevDate[2] === (arrMissingDate[2] - 1)
-        })
-      }
-    })
 
     console.log("newArray ", newArray)
     this.setState({
