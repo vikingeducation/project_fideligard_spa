@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Transactions = () => {
-  return <h1>Transactions</h1>
+  return <h3>Transactions</h3>
 }
 
 

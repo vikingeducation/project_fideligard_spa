@@ -15,6 +15,7 @@ const StockRow = ({stockArr})=>{
 }
 
 export default props => {
+	const regx = new RegExp(props.filterText, 'i')
 	return (
 		<div>
 			<h2>Stocks</h2>
@@ -22,7 +23,8 @@ export default props => {
 				type="text"
 				id="filter"
 				name="filter"
-				placeholder="filter stocks"
+				placeholder="filter stocks" 
+				onChange={props.onFilterChange}
 			/>
 			<table className="table">
 				<thead>
@@ -37,7 +39,9 @@ export default props => {
 				</thead>
 				<tbody>
 					{props.stocks.map(arr=>{
-						return <StockRow stockArr={arr} key={arr[0]}/>
+						if (regx.test(arr[0])) {
+							return <StockRow stockArr={arr} key={arr[0]}/>
+						} else return null
 					})}
 				</tbody>
 			</table>

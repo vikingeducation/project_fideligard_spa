@@ -14,6 +14,7 @@ class App extends Component {
     this.state = {
       filteredStocks: [],
       selectedDate: null,
+      filtertext: ''
     }
   }
 
@@ -89,7 +90,14 @@ class App extends Component {
      })
 
     this.setState({
-      filteredStocks: newArray
+      filteredStocks: newArray,
+    })
+  }
+
+  onFilterChange = (e) => {
+    let filterText = e.target.value
+    this.setState({
+      filterText: filterText,
     })
   }
 
@@ -98,7 +106,7 @@ class App extends Component {
     return (
       <div className="app">
         <Header />
-        <Dashboard onDateChange={this.onDateChange} stocks={this.state.filteredStocks}/>
+        <Dashboard onDateChange={this.onDateChange} onFilterChange={this.onFilterChange} stocks={this.state.filteredStocks} filterText={this.state.filterText} />
       </div>
     );
   }
