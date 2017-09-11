@@ -40,3 +40,19 @@
 	display: grid;
 	grid-template-columns: 50% 50%;
 }
+
+.main-header {
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	justify-items: start;
+	align-items: center;
+}
+
+.main-header h2 {
+	display: inline-block;
+	margin: 0;
+}
+
+.main-header {
+	justify-self: right;
+}

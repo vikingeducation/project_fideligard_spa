@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { BrowserRouter, Route } from "react-router-dom";
+
 import { Navbar } from "./components/Navbar";
 import { Slider } from "./components/Slider";
 import { Sidebar } from "./components/Sidebar";
-import Trades from "./components/Trades";
-import Transactions from "./components/Transactions";
-import Portfolio from "./components/Portfolio";
+import Main from "./components/Main";
+
 import "./App.css";
 
 const sidebarColumns = [
@@ -74,13 +73,7 @@ class App extends Component {
         <div className="container">
           <Sidebar columnNames={sidebarColumns} data={this.state.sideBarData} />
           <Slider onChange={this.changeDate} />
-          <BrowserRouter>
-            <div className="routeContainer">
-              <Route exact path="/trades" component={Trades} />
-              <Route exact path="/transactions" component={Transactions} />
-              <Route exact path="/portfolio" component={Portfolio} />
-            </div>
-          </BrowserRouter>
+          <Main />
         </div>
       </div>
     );
