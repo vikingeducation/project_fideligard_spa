@@ -38,7 +38,6 @@ class App extends Component {
             {/*TOP OF PAGE  */}
             <Navbar />
             <h1>Stock Portfolio App</h1>
-            <h1>CurrentDate = {this.state.selectedDate}</h1>
             <div className="row">
               {/* left panel */}
               <div className="col-5">

@@ -2,7 +2,7 @@ import React from "react";
 import Caret from "./Caret";
 
 const Table = ({ rows, columns, sorted, sortFunction }) => {
-  console.log("table sees rows = ", rows);
+  // console.log("table sees rows = ", rows);
   const direction = sorted === "ASC" ? "up" : "down";
   const tablerows = rows.map((row, idx) => {
     let td = columns.map((col, index) => <td key={index}>{row[index]}</td>);

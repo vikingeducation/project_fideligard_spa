@@ -412,7 +412,7 @@ const parse = (
         "7d": null,
         "30d": null
       };
-      counter++;
+      // counter++;       //broke the server fix later
       return newDay;
     } else if (counter === 0) {
       //check to see if we started our dates before we have data

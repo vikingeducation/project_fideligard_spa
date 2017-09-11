@@ -23,6 +23,7 @@ class StockContainer extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.setSort = this.setSort.bind(this);
+    this.computeRows = this.computeRows.bind(this);
   }
   //lifecycle hooks?
   componentDidMount() {
@@ -79,22 +80,11 @@ class StockContainer extends Component {
     });
   };
 
+  //FILTERING, handler
   onChange = e => {
-    // console.log("e ", e);
     console.log(e.target);
     //set filter
-    // console.log("this = ", this);
     this.setState({ [e.target.name]: e.target.value });
-    // this.setState((previous, props) => {
-    //   console.log("props = ", props);
-    //   console.log("previous = ", previous);
-    //   // return {
-    //   //   filter: e.target.value
-    //   // };
-    // });
-    // this.setState = {
-    //   filter: e.target.value
-    // };
   };
 
   //get rid of padding, 2016-01-01 => 2016-1-1
@@ -104,12 +94,25 @@ class StockContainer extends Component {
       .map(part => Number(part))
       .join("-");
   };
+  //date = "2016-1-2"
+  computeRows = (date, ticker) => {
+    const columns = ["Symbol", "Price", "1d", "7d", "30d", "Trade?"];
+    console.log("date = ", date);
+    console.log("this.props.stocks", this.props);
+    const priceObj = this.props.stocks[ticker].prices;
+    const thing = columns.map(col => {
+      return priceObj[col] || null;
+    });
+    console.log("thing = ", thing);
+
+    return [ticker, priceObj[date].price];
+  };
 
   render() {
     // const stockData = this.props.stocks;
     //i need to transform the arrays of stock data in redux
     //into dataRows that I need
-    console.log("state = ", this.state);
+    // console.log("state = ", this.state);
     const tickers = ["V", "UNH"]; //fix the server to include this later
     let rows = [];
     const defaultDate = "2016-1-2";
@@ -120,27 +123,34 @@ class StockContainer extends Component {
     if (!this.props.isFetching) {
       for (let index in tickers) {
         let ticker = tickers[index];
+        let newRow;
+        // this.computeRows(date, );
         // console.log("ticker = ", ticker);
         console.log("this.props.stocks[ticker] = ", this.props.stocks[ticker]);
         let price;
         if (this.props.stocks[ticker]) {
-          // console.log("date??", this.props.stocks[ticker].prices);
-          // console.log(
-          //   "default date??",
-          //   this.props.stocks[ticker].prices[defaultDate]
-          // );
-          price = this.props.stocks[ticker].prices[date].price || 0;
-          // console.log("price = ", price);
+          let currentDateInfo = this.props.stocks[ticker].prices[date];
+          price = currentDateInfo.price || 0;
+          //const columns = ["Symbol", "Price", "1d", "7d", "30d", "Trade?"];
+
+          newRow = [
+            ticker,
+            price,
+            currentDateInfo["1d"] || 0,
+            currentDateInfo["7d"] || 0,
+            currentDateInfo["30d"] || 0
+          ];
         } else {
           price = 0;
         }
         // console.log("price = ", price);
+        // rows.push(newRow);
         rows.push([ticker, price]);
       }
     } else {
       const rows = [["AAPL", 100], ["thing", "stuff"]];
     }
-
+    console.log("rows = ", rows);
     // console.log("sC props = ", this.props);
     // console.log("rows = ", rows);
     rows = this.filterStocks(rows);
@@ -151,8 +161,6 @@ class StockContainer extends Component {
     // const sorted = "asc";
     return (
       <div className="container-fluid">
-        {/* <div>Test: {filter}</div> */}
-        <h1>CurrentDate = {date}</h1>
         <Showable isFetching={this.props.isFetching}>
           <div id="stock-controls" className="row">
             <div className="col-6">
@@ -168,7 +176,6 @@ class StockContainer extends Component {
             </div>
           </div>
           <div className="row">
-            {/* <Table rows={rows} columns={columns} /> */}
             <Table
               rows={rows}
               columns={columns}

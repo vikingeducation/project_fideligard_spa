@@ -7,6 +7,7 @@ Buy low, sell high.
 
 //TODO:
 fix server, refactor as well
+USE MOMENT FOR EVERYTHING BECAUSE JS SUCKS
 
 //
 //think about redux store

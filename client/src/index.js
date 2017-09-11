@@ -10,7 +10,8 @@ import { createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from "redux-thunk";
 
 import stocks from "./reducers/stocks";
-const Reducers = { stocks };
+import user from "./reducers/user";
+const Reducers = { stocks, user };
 const store = createStore(combineReducers(Reducers), applyMiddleware(thunk));
 console.log("store = ", store);
 console.log("store.getState() = ", store.getState());
