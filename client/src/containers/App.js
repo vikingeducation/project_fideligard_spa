@@ -24,7 +24,7 @@ class App extends Component {
   }
 
 
-  onDateChange = (e)=>{
+  onDateChange = (e) => {
     
     let stockArray = this.props.stockReducer.stocks;
     let selectedDate = e.target.value
@@ -32,6 +32,29 @@ class App extends Component {
     this.setState({
       selectedDate: selectedDate
     })
+
+    const getPrevDate = (dateStr, numberDaysPrevious) => {
+      let prevDate;
+      let prevDayNum = Number(dateStr.slice(8)) - numberDaysPrevious;
+      let prevMonthNum = Number(dateStr.slice(5, 7)) - 1
+      if (prevDayNum === 0) {
+        if (prevMonthNum === 0) {
+      //hardcoding to go back no further than 2016-01-01
+          return '2016-01-01';
+        }
+        prevDate = '2016-' + prevMonthNum.toString() + '-31';
+      }
+      if (prevDayNum<0) {
+        prevDate = '2016-' + prevMonthNum.toString() + '-' + (31 + prevDayNum).toString();
+      }
+      if (prevDayNum<10 && prevDayNum>0) {
+          prevDate = dateStr.slice(0, 8) + '0' + prevDayNum.toString();
+        }
+      if (prevDayNum>=10) {
+          prevDate = dateStr.slice(0, 8) + prevDayNum.toString();
+        }
+      return prevDate
+    }
 
     const backFill = (stocksOnDate, date) =>{
       //if there's data, continue to next
@@ -41,17 +64,8 @@ class App extends Component {
       // If there's no data at all for that date, go back in time til you find some
       if (stocksOnDate.length<1) {
         //get previous date
-        //Hard-coding the assumption that we don't go back to previous month
-        let prevDate;
-        let prevDayNum = Number(date.slice(8)) - 1
-        if (prevDayNum<10) {
-          prevDate = date.slice(0, 8) + '0' + prevDayNum.toString();
-        }
-        if (prevDayNum>=10) {
-          prevDate = date.slice(0, 8) + prevDayNum.toString();
-        }
         let stocksOnPrevDate = 
-        getStocksByDate(prevDate)
+        getStocksByDate(getPrevDate(date, 1))
 
         return stocksOnPrevDate
       }
@@ -65,15 +79,21 @@ class App extends Component {
       return stocksByDate
     }
 
-    let newArray = getStocksByDate( selectedDate);
+    const selectedDateArray = getStocksByDate(selectedDate);
+    console.log(selectedDateArray)
+    const oneDayAgoArray = getStocksByDate(getPrevDate(selectedDate, 1));
+    const sevenDayAgoArray = getStocksByDate(getPrevDate(selectedDate, 7));
+    const thirtyDayAgoArray = getStocksByDate(getPrevDate(selectedDate, 30));
+
+    const newArray = selectedDateArray.map((arr, index) => {
+      return arr.concat(oneDayAgoArray[index][2], sevenDayAgoArray[index][2], thirtyDayAgoArray[index][2])
+     })
 
     console.log("newArray ", newArray)
     this.setState({
       filteredStocks: newArray
     })
   }
-
-
 
   render() {
 

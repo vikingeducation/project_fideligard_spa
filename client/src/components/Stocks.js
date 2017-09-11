@@ -7,9 +7,9 @@ const StockRow = ({stockArr})=>{
 		<tr>
 			<td>{stockArr[0]}</td>
 			<td>{stockArr[2]}</td>
-			<td>140</td>
-			<td>140</td>
-			<td>140</td>
+			<td>{stockArr[3]}</td>
+			<td>{stockArr[4]}</td>
+			<td>{stockArr[5]}</td>
 			<td>Trade</td>
 		</tr>
 
