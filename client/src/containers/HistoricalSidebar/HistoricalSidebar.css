@@ -1,0 +1,19 @@
+.historical-sidebar-header {
+	font-family: Nunito;
+}
+
+.historical-sidebar {
+	height: 100%;
+	background-image: linear-gradient(
+		to right,
+		#f6f6f6 5%,
+		#f0f0f0 25%,
+		#f0f0f0 100%
+	);
+}
+
+.historial-sidebar-card {
+	margin-bottom: 1em;
+	height: 1000px;
+	overflow-y: scroll;
+}
