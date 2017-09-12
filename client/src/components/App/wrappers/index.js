@@ -35,7 +35,7 @@ export const NavLinks = props => {
 
 export const MainContainer = props => {
 	return (
-		<main className="componentscontainer-fluid">
+		<main className="components container-fluid">
 			<section className="row">
 				<div className="col">
 					<div className="container alert alert-success" role="alert">

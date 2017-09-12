@@ -11,6 +11,8 @@ import ScrollToTop from '../ScrollToTop';
 import Header from '../Header';
 import { NavLinks, MainContainer } from './wrappers';
 import Portfolio from '../../containers/Portfolio';
+import Transaction from '../../containers/Transaction';
+import Trade from '../../containers/Trade';
 import store from '../../store';
 import * as Actions from '../../components/HistoricalSidebar/actions';
 // <FAIcon className="icon-btn" icon="user" />
@@ -29,7 +31,7 @@ export default class App extends Component {
 	}
 
 	render() {
-		// console.log(this.props);
+		// console.log('APP', this.props);
 		return (
 			<Router>
 				<ScrollToTop>
@@ -38,6 +40,8 @@ export default class App extends Component {
 						<MainContainer socket={this.socket}>
 							<Switch>
 								<Route exact path="/" component={Portfolio} />
+								<Route path="/transactions" component={Transaction} />
+								<Route path="/trade/:symbol?" component={Trade} />
 							</Switch>
 						</MainContainer>
 					</div>
@@ -46,24 +50,3 @@ export default class App extends Component {
 		);
 	}
 }
-
-// <Route
-//MainContainer // 	exact
-// 	path="/planets"
-// 	render={rProps => <PlanetsHome {...rProps} {...this.props} />}
-// />
-// <Route
-// 	exact
-// 	path="/planets/:id"
-// 	render={rProps => <PlanetView {...rProps} {...this.props} />}
-// />
-// <Route
-// 	exact
-// 	path="/people"
-// 	render={rProps => <PeopleHome {...this.props} />}
-// />
-// <Route
-// 	exact
-// 	path="/people/:id"
-// 	render={rProps => <PersonView {...this.props} />}
-// />

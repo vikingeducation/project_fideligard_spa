@@ -1,5 +1,5 @@
-import RangeSliderReducer from '../../components/RangeSlider/reducer';
+import PortfolioReducer from '../../components/Portfolio/reducer';
 
 export default {
-	RangeSliderReducer
+	PortfolioReducer
 };

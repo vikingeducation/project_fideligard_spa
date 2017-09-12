@@ -1,25 +1,34 @@
-import * as SliderActions from './actions';
+import * as PortfolioActions from './actions';
 
-const ONE_DAY_STEP = 8.64e7 / 1000;
-const newDate = new Date();
-const strippedDate =
-	new Date(
-		newDate.getFullYear(),
-		newDate.getMonth(),
-		newDate.getDate()
-	).getTime() / 1000;
 const initialState = {
-	currentValue: strippedDate - ONE_DAY_STEP * 5,
-	startDate: strippedDate - ONE_DAY_STEP * 5,
-	endDate: strippedDate + ONE_DAY_STEP * 5
+	transactions: [],
+	funds: 1000000,
+	stock: {}
 };
 
 export default (state = initialState, action) => {
 	switch (action.type) {
-		case SliderActions.SET_DATE_SLIDER_VALUES:
+		case PortfolioActions.PURCHASE_STOCK:
+			const totalCost = +action.data.cost.slice(1);
 			return {
-				...state,
-				...action.data
+				transactions: [...state.transactions, action.data],
+				funds: state.funds - totalCost,
+				stock: Object.assign({}, state.stock, {
+					[action.data.symbol]: state.stock[action.data.symbol]
+						? state.stock[action.data.symbol] + +action.data.quantity
+						: +action.data.quantity
+				})
+			};
+		case PortfolioActions.SELL_STOCK:
+			const totalValue = +(+action.data.quantity *
+				+action.data.price.slice(1)).toFixed(2);
+			return {
+				transactions: [...state.transactions, action.data],
+				funds: state.funds + totalValue,
+				stock: Object.assign({}, state.stock, {
+					[action.data.symbol]:
+						state.stock[action.data.symbol] - +action.data.quantity
+				})
 			};
 		default:
 			return state;
