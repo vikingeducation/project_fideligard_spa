@@ -15,14 +15,17 @@ class TradesContainer extends Component {
     this.state = {
       quantity: 1,
       date: "2015-02-14",
-      price: "",
-      symbol: null
+      price: "127.08",
+      symbol: "AAPL"
     };
   }
 
   componentWillReceiveProps(newProps) {
     if (newProps.thisDatePrice !== this.state.price) {
       this.setState({ price: newProps.thisDatePrice });
+    }
+    if (newProps.date !== this.state.date) {
+      this.setState({ date: newProps.date });
     }
     if (newProps.symbol !== this.state.symbol) {
       this.setState({ symbol: newProps.symbol });

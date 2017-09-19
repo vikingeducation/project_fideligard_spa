@@ -2,8 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Table = ({ columnNames, data, onClick, thisDatePrice, symbol }) => {
-  console.log(thisDatePrice);
-  console.log(symbol);
   return (
     <table className="table table-striped table-bordered">
       <thead>

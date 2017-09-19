@@ -57,9 +57,13 @@ export const setThisDatePrice = price => {
     data: price
   };
 };
+const BASE_URL =
+  process.env.NODE_ENV === "production"
+    ? "http://localhost:3001/api"
+    : "http://localhost:3000/api";
 
 export const getStocks = () => async dispatch => {
-  const response = await fetch("/api/prices");
+  const response = await fetch(`${BASE_URL}/prices`);
   const stocks = await response.json();
   dispatch(setStocks(stocks));
 };

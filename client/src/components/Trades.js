@@ -56,6 +56,7 @@ const Trades = (props, state) => {
             <FormControl
               name="symbol"
               componentClass="select"
+              value={props.symbol}
               onChange={e => {
                 props.setSymbol(e);
                 props.setThisDatePrice(props.thisDateStocks[e.target.value]);
@@ -88,7 +89,7 @@ const Trades = (props, state) => {
             <FormControl
               name="date"
               type="date"
-              defaultValue={props.date}
+              value={props.date}
               onChange={props.onDateChange}
             />
           </FormGroup>
@@ -112,8 +113,10 @@ const Trades = (props, state) => {
             Place Order!
           </Button>
         </form>
-        <div>
-          Cash available: {props.balance}
+        <div className="Trades-right">
+          <h3>
+            Cash available: ${props.balance}
+          </h3>
         </div>
       </div>
     </div>

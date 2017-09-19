@@ -21,7 +21,6 @@ const Sidebar = props =>
     </div>
     {props.sideBarData.length > 0
       ? <div>
-          {console.log(props)}
           <Table
             columnNames={sidebarColumns}
             data={props.sideBarData}

@@ -16,8 +16,6 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onClick: (symbol, price) => {
-      console.log(symbol);
-      console.log(price);
       dispatch(setSymbol(symbol));
       dispatch(setThisDatePrice(price));
     }

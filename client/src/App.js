@@ -6,6 +6,7 @@ import SidebarContainer from "./containers/SidebarContainer";
 import TradesContainer from "./containers/TradesContainer";
 import TransactionsContainer from "./containers/TransactionsContainer";
 import Portfolio from "./components/Portfolio";
+import PerfProfiler from "./components/PerfProfiler";
 import "./App.css";
 
 class App extends Component {
@@ -13,6 +14,7 @@ class App extends Component {
     return (
       <div>
         <Title />
+        <PerfProfiler />
         <BrowserRouter>
           <div className="App">
             <SidebarContainer />
