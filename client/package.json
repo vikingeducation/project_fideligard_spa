@@ -1,0 +1,36 @@
+{
+  "name": "client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001/",
+  "dependencies": {
+    "bootstrap": "^4.0.0-beta",
+    "classnames": "^2.2.5",
+    "material-ui": "^0.19.1",
+    "moment": "^2.18.1",
+    "rc-slider": "^8.3.1",
+    "rc-tooltip": "^3.4.9",
+    "react": "^15.6.1",
+    "react-addons-css-transition-group": "^15.6.0",
+    "react-addons-transition-group": "^15.6.0",
+    "react-bootstrap-slider": "^2.0.1",
+    "react-datetime-slider": "0.0.8",
+    "react-dom": "^15.6.1",
+    "react-loading": "^0.1.4",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "react-scripts": "1.0.13",
+    "react-tap-event-plugin": "^2.0.1",
+    "react-time-slider": "0.0.1",
+    "reactstrap": "^4.8.0",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0",
+    "thunk": "0.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
