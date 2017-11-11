@@ -23,6 +23,26 @@ export function previousDate(currentDate, daysBack) {
   }
 }
 
+export function dateDifference(firstDate, secondDate) {
+  let dateOne = new Date(firstDate);
+  let dateTwo = new Date(secondDate);
+  var _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
+  // Discard the time and time-zone information.
+  let utc1 = Date.UTC(
+    dateOne.getFullYear(),
+    dateOne.getMonth(),
+    dateOne.getDate()
+  );
+  let utc2 = Date.UTC(
+    dateTwo.getFullYear(),
+    dateTwo.getMonth(),
+    dateTwo.getDate()
+  );
+
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY) - 1;
+}
+
 export function sanitizeStocks(stock1, stock2, stock3, stock4) {
   let arrayStock = [stock1, stock2, stock3, stock4];
   //Sort shortest to longest
@@ -96,7 +116,8 @@ export function sanitizeStocks(stock1, stock2, stock3, stock4) {
   }
   //Sort by date, current, yesterday, past...
   answer.sort(function(a, b) {
-    return a[1] > b[1];
+    return a[0][1] > b[0][1];
   });
+
   return answer;
 }

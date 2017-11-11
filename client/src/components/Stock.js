@@ -1,21 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Stock = ({ yesterStock, weekStock, monthStock, singleStock }) => {
+const Stock = ({ yesterStock, weekStock, monthStock, todayStock }) => {
   return (
-    <tr key={singleStock[1]}>
-      <td>
-        {singleStock[0]} {singleStock[1]} {singleStock[2]}
-      </td>
-      <td>
-        {yesterStock[0]} {yesterStock[1]} {yesterStock[2]}
-      </td>
-      <td>
-        {weekStock[0]} {weekStock[1]} {weekStock[2]}
-      </td>
-      <td>
-        {monthStock[0]} {monthStock[1]} {monthStock[2]}
-      </td>
+    <tr key={todayStock[1]}>
+      <td>{todayStock[0]}</td>
+      <td>${todayStock[2]}</td>
+      <td>{Math.floor(todayStock[2] * 100 - yesterStock[2] * 100) / 100}</td>
+      <td>{Math.floor(todayStock[2] * 100 - weekStock[2] * 100) / 100}</td>
+      <td>{Math.floor(todayStock[2] * 100 - monthStock[2] * 100) / 100}</td>
+      <td>trade</td>
     </tr>
   );
 };

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Stock from "../components/Stock";
-import { sanitizeStocks } from "../helpers/helper";
+import StockHeader from "../components/StockHeader";
+import { sanitizeStocks, dateDifference } from "../helpers/helper";
 
 const StocksContainer = ({
   isFetching,
@@ -11,28 +12,25 @@ const StocksContainer = ({
   todayStocks
 }) => {
   let stockRows;
+  let combinedStocks = [];
   if (
     todayStocks.data &&
     monthStocks.data &&
     weekStocks.data &&
     yesterStocks.data
   ) {
-    let combinedStocks = sanitizeStocks(
+    combinedStocks = sanitizeStocks(
       todayStocks.data,
       monthStocks.data,
       weekStocks.data,
       yesterStocks.data
     );
-    stockRows = todayStocks.data.map((tStock, index) => (
+    stockRows = combinedStocks.map((tStock, index) => (
       <Stock
-        yesterStock={
-          yesterStocks.data[index] ? yesterStocks.data[index] : [0, 0, 0]
-        }
-        weekStock={weekStocks.data[index] ? weekStocks.data[index] : [0, 0, 0]}
-        monthStock={
-          monthStocks.data[index] ? monthStocks.data[index] : [0, 0, 0]
-        }
-        singleStock={tStock ? tStock : [0, 0, 0]}
+        todayStock={combinedStocks[index][0]}
+        yesterStock={combinedStocks[index][1]}
+        weekStock={combinedStocks[index][2]}
+        monthStock={combinedStocks[index][3]}
       />
     ));
   } else {
@@ -48,7 +46,6 @@ const StocksContainer = ({
   // obj[key1]
   // stock_data = { "A": { prices: { "20170929": "64.5", "20171109": "65.8"},
   // "B": { prices: { "20171109": "70" }}
-
   return (
     <span>
       {isFetching ? (
@@ -56,12 +53,7 @@ const StocksContainer = ({
       ) : todayStocks ? (
         <table className="table-bordered">
           <thead>
-            <tr>
-              <th>Today</th>
-              <th>1 D</th>
-              <th>7 D</th>
-              <th>30 D</th>
-            </tr>
+            <StockHeader stocks={combinedStocks.length ? combinedStocks : ""} />
           </thead>
           <tbody>{stockRows}</tbody>
         </table>
