@@ -1,17 +1,22 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
-import Stock from "../components/Stock";
-import StockHeader from "../components/StockHeader";
-import { sanitizeStocks, dateDifference } from "../helpers/helper";
+import Stock from "../components/Stock/Stock";
+import StockHeader from "../components/Stock/StockHeader";
+import { sanitizeStocks, displayDate } from "../helpers/helper";
+import { setSearch } from "../actions";
 
 const StocksContainer = ({
   isFetching,
   monthStocks,
   weekStocks,
   yesterStocks,
-  todayStocks
+  todayStocks,
+  searchBox,
+  setSearchEnter,
+  todaysDate
 }) => {
   let stockRows;
+  let combinedStocksFiltered = [];
   let combinedStocks = [];
   if (
     todayStocks.data &&
@@ -25,12 +30,20 @@ const StocksContainer = ({
       weekStocks.data,
       yesterStocks.data
     );
-    stockRows = combinedStocks.map((tStock, index) => (
+    combinedStocksFiltered = combinedStocks;
+    if (searchBox.length) {
+      combinedStocksFiltered = combinedStocks.filter(item => {
+        return item[0][0].includes(searchBox.toUpperCase());
+      });
+    }
+
+    stockRows = combinedStocksFiltered.map((tStock, index) => (
       <Stock
-        todayStock={combinedStocks[index][0]}
-        yesterStock={combinedStocks[index][1]}
-        weekStock={combinedStocks[index][2]}
-        monthStock={combinedStocks[index][3]}
+        todayStock={combinedStocksFiltered[index][0]}
+        yesterStock={combinedStocksFiltered[index][1]}
+        weekStock={combinedStocksFiltered[index][2]}
+        monthStock={combinedStocksFiltered[index][3]}
+        key={combinedStocksFiltered[index][0][0]}
       />
     ));
   } else {
@@ -40,23 +53,43 @@ const StocksContainer = ({
       </tr>
     );
   }
-
-  //   { key1: value1, key2: value2 }
-  // obj = _
-  // obj[key1]
-  // stock_data = { "A": { prices: { "20170929": "64.5", "20171109": "65.8"},
-  // "B": { prices: { "20171109": "70" }}
   return (
     <span>
       {isFetching ? (
         <span>Loading</span>
       ) : todayStocks ? (
-        <table className="table-bordered">
-          <thead>
-            <StockHeader stocks={combinedStocks.length ? combinedStocks : ""} />
-          </thead>
-          <tbody>{stockRows}</tbody>
-        </table>
+        <div className="container stockElement bordered">
+          <div className="row">
+            <div className="col-6">
+              <h2>Stocks</h2>
+              <small>{displayDate(todaysDate)}</small>
+            </div>
+            <div className="col-6">
+              <label htmlFor="filter">
+                Filter{" "}
+                <input
+                  type="name"
+                  id="filter"
+                  onChange={e => setSearchEnter(e.target.value)}
+                />
+              </label>
+            </div>
+          </div>
+          <div className="row">
+            <table className="table table-bordered">
+              <thead>
+                {combinedStocks.length ? (
+                  <StockHeader stocks={combinedStocks} />
+                ) : (
+                  <tr>
+                    <th>Loading</th>
+                  </tr>
+                )}
+              </thead>
+              <tbody>{stockRows}</tbody>
+            </table>
+          </div>
+        </div>
       ) : (
         <span>Still Loading...</span>
       )}
@@ -65,14 +98,23 @@ const StocksContainer = ({
 };
 
 const mapStateToProps = state => {
-  console.log("state", state);
   return {
     todayStocks: state.todayStocks,
     yesterStocks: state.yesterStocks,
     weekStocks: state.weekStocks,
     monthStocks: state.monthStocks,
-    isFetching: state.isFetching
+    isFetching: state.isFetching,
+    searchBox: state.searchBox,
+    todaysDate: state.todaysDate
   };
 };
 
-export default connect(mapStateToProps)(StocksContainer);
+const mapDispatchToProps = dispatch => {
+  return {
+    setSearchEnter: inputSearch => {
+      dispatch(setSearch(inputSearch));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(StocksContainer);

@@ -5,6 +5,8 @@ export const GET_WEEK_SUCCESS = "GET_WEEK_SUCCESS";
 export const GET_MONTH_SUCCESS = "GET_MONTH_SUCCESS";
 export const GET_REQUEST = "GET_REQUEST";
 export const GET_REQUEST_FAILURE = "GET_REQUEST_FAILURE";
+export const SET_SEARCH = "SET_SEARCH";
+export const SET_DATE = "SET_DATE";
 export const CLEAR_DATA = "CLEAR_DATA";
 
 export function getRequest() {
@@ -48,6 +50,20 @@ export function getRequestFailure(error) {
   };
 }
 
+export function setSearch(data) {
+  return {
+    type: SET_SEARCH,
+    data
+  };
+}
+
+export function setDate(data) {
+  return {
+    type: SET_DATE,
+    data
+  };
+}
+
 const checkStatus = response => {
   if (!response.ok) {
     throw new Error("Error with api");
@@ -57,7 +73,6 @@ const checkStatus = response => {
 
 export function getApiData(section, params, date, successCB) {
   return dispatch => {
-    console.log("RequestDataCall", section, params, date);
     dispatch(getRequest());
     if (!section || !params || !date) {
       return {};

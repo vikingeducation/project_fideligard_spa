@@ -4,3 +4,39 @@ body {
   font-family: sans-serif;
   background-color: white;
 }
+
+.bordered {
+  border: 2px solid black;
+  border-radius: 1%;
+}
+
+.stockElement {
+  height: 30em;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.stockElement .row:nth-child(2) {
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.stockElement .row * {
+  width: 100%;
+  padding: 0;
+}
+
+.slider {
+  text-align: center;
+  width: auto;
+}
+
+.portfolio {
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+.portfolio .table * {
+  padding: 0;
+}

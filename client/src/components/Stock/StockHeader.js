@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { dateDifference } from "../helpers/helper";
+import { dateDifference } from "../../helpers/helper";
 
 const StockHeader = ({ stocks }) => {
   if (!stocks) {
@@ -24,6 +24,10 @@ const StockHeader = ({ stocks }) => {
       <th>Trade?</th>
     </tr>
   );
+};
+
+StockHeader.propTypes = {
+  stocks: PropTypes.array.isRequired
 };
 
 export default StockHeader;

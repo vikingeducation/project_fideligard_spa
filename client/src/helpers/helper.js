@@ -1,29 +1,53 @@
-export function previousDate(currentDate, daysBack) {
+export function apiDate(date) {
+  if (!date) {
+    date = new Date();
+  }
+  return (
+    date.getFullYear() +
+    "-" +
+    (Number(date.getMonth()) + 1) +
+    "-" +
+    date.getDate()
+  );
+}
+
+export function displayDate(currentDate) {
+  if (!currentDate) {
+    currentDate = new Date();
+  }
   let formattedDate = new Date(currentDate);
+  return (
+    Number(formattedDate.getMonth()) +
+    1 +
+    "-" +
+    formattedDate.getDate() +
+    "-" +
+    formattedDate.getFullYear()
+  );
+}
+
+export function previousDate(currentDate, daysBack) {
+  let formattedDate;
+  if (!currentDate) {
+    formattedDate = new Date();
+  } else {
+    formattedDate = new Date(currentDate);
+  }
 
   if (!daysBack) {
-    return (
-      formattedDate.getFullYear() +
-      "-" +
-      (Number(formattedDate.getMonth()) + 1) +
-      "-" +
-      formattedDate.getDate()
-    );
+    return apiDate(formattedDate);
   } else if (daysBack) {
     formattedDate.setDate(formattedDate.getDate() - daysBack);
-    return (
-      formattedDate.getFullYear() +
-      "-" +
-      (Number(formattedDate.getMonth()) + 1) +
-      "-" +
-      formattedDate.getDate()
-    );
+    return apiDate(formattedDate);
   } else {
     return "";
   }
 }
 
 export function dateDifference(firstDate, secondDate) {
+  if (!firstDate || !secondDate) {
+    return false;
+  }
   let dateOne = new Date(firstDate);
   let dateTwo = new Date(secondDate);
   var _MS_PER_DAY = 1000 * 60 * 60 * 24;
@@ -44,6 +68,9 @@ export function dateDifference(firstDate, secondDate) {
 }
 
 export function sanitizeStocks(stock1, stock2, stock3, stock4) {
+  if (!stock1 || !stock2 || !stock3 || !stock4) {
+    return false;
+  }
   let arrayStock = [stock1, stock2, stock3, stock4];
   //Sort shortest to longest
   arrayStock.sort(function(a, b) {
@@ -115,9 +142,11 @@ export function sanitizeStocks(stock1, stock2, stock3, stock4) {
     }
   }
   //Sort by date, current, yesterday, past...
-  answer.sort(function(a, b) {
-    return a[0][1] > b[0][1];
-  });
+  for (var j = 0; j < answer.length; j++) {
+    answer[j].sort((a, b) => {
+      return new Date(a[1]) < new Date(b[1]);
+    });
+  }
 
   return answer;
 }

@@ -2,15 +2,24 @@ import * as Actions from "./actions";
 
 const initalState = {
   todayStocks: {},
+  todaysDate: new Date(),
   yesterStocks: {},
   weekStocks: {},
   monthStocks: {},
   isFetching: false,
-  error: null
+  error: null,
+  searchBox: "",
+  portfolio: {},
+  transactions: {},
+  dropdownPaths: [
+    { url: "/", label: "Portfolio" },
+    { url: "/trade", label: "Trade" },
+    { url: "/transactions", label: "Transactions" }
+  ]
 };
 
 export function fideligard(state = initalState, action) {
-  console.log(action);
+  console.log(action, state);
   switch (action.type) {
     case Actions.GET_TODAY_SUCCESS:
       return {
@@ -52,7 +61,16 @@ export function fideligard(state = initalState, action) {
         isFetching: false,
         error: action.error
       };
-
+    case Actions.SET_SEARCH:
+      return {
+        ...state,
+        searchBox: action.data
+      };
+    case Actions.SET_DATE:
+      return {
+        ...state,
+        todaysDate: new Date(action.data)
+      };
     default:
       return state;
   }

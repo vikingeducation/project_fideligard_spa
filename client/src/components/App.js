@@ -6,43 +6,70 @@ import {
   getTodaySuccess,
   getYesterSuccess,
   getWeekAgoSuccess,
-  getMonthAgoSuccess
+  getMonthAgoSuccess,
+  setDate
 } from "../actions";
-import { previousDate } from "../helpers/helper";
+import { previousDate, displayDate } from "../helpers/helper";
 import JumbotronFluid from "./elements/JumbotronFluid";
-import HomeContainer from "../containers/HomeContainer";
+import Slider from "./elements/Slider";
+
+import StocksContainer from "../containers/StocksContainer";
+import PortfolioContainer from "../containers/PortfolioContainer";
+import TradeContainer from "../containers/TradeContainer";
+import TransactionContainer from "../containers/TransactionContainer";
 
 class App extends Component {
   componentWillMount() {
-    const thisDate = new Date();
+    this.props.setDateData(new Date());
 
-    this.props.getData(previousDate(thisDate, 0), getTodaySuccess);
-    this.props.getData(previousDate(thisDate, 1), getYesterSuccess);
-    this.props.getData(previousDate(thisDate, 7), getWeekAgoSuccess);
-    this.props.getData(previousDate(thisDate, 30), getMonthAgoSuccess);
-  }
-  componentDidMount() {
-    console.log("RERER", this.props.todayStocks);
+    this.props.getData(previousDate(this.props.todaysDate, 0), getTodaySuccess);
+    this.props.getData(
+      previousDate(this.props.todaysDate, 1),
+      getYesterSuccess
+    );
+    this.props.getData(
+      previousDate(this.props.todaysDate, 7),
+      getWeekAgoSuccess
+    );
+    this.props.getData(
+      previousDate(this.props.todaysDate, 30),
+      getMonthAgoSuccess
+    );
   }
   render() {
     return (
       <Router>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-12">
-              <header className="App-header">
-                <JumbotronFluid
-                  lead={"Fideligard Historical Portfolio Simulator"}
+        <div>
+          <header className="App-header">
+            <JumbotronFluid
+              lead={"Fideligard Historical Portfolio Simulator"}
+            />
+          </header>
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-sm-6">
+                <StocksContainer />
+              </div>
+              <div className="col-sm-6">
+                <Slider
+                  endDate={new Date()}
+                  startDate={new Date("10-30-2017")}
+                  onChange={e => this.props.setDateData(Number(e.target.value))}
+                  value={this.props.todaysDate}
+                  label={displayDate(this.props.todaysDate)}
                 />
-              </header>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-12">
-              <Switch>
-                <Route exact path="/" component={HomeContainer} />
-                <Route path="/" render={() => <p>ERR</p>} />
-              </Switch>
+
+                <Switch>
+                  <Route
+                    exact
+                    path="/transactions"
+                    component={TransactionContainer}
+                  />
+                  <Route exact path="/trade" component={TradeContainer} />
+                  <Route exact path="/" component={PortfolioContainer} />
+                  <Route path="/" render={() => <p>ERR</p>} />
+                </Switch>
+              </div>
             </div>
           </div>
         </div>
@@ -56,7 +83,8 @@ const mapStateToProps = state => {
     todayStocks: state.todayStocks,
     yesterStocks: state.yesterStocks,
     weekStocks: state.weekStocks,
-    monthStocks: state.monthStocks
+    monthStocks: state.monthStocks,
+    todaysDate: state.todaysDate
   };
 };
 
@@ -64,6 +92,21 @@ const mapDispatchToProps = dispatch => {
   return {
     getData: (date, callBack) => {
       dispatch(getApiData("WIKI", "PRICES", date, callBack));
+    },
+    setDateData: date => {
+      dispatch(setDate(date));
+      dispatch(
+        getApiData("WIKI", "PRICES", previousDate(date, 0), getTodaySuccess)
+      );
+      dispatch(
+        getApiData("WIKI", "PRICES", previousDate(date, 1), getYesterSuccess)
+      );
+      dispatch(
+        getApiData("WIKI", "PRICES", previousDate(date, 7), getWeekAgoSuccess)
+      );
+      dispatch(
+        getApiData("WIKI", "PRICES", previousDate(date, 30), getMonthAgoSuccess)
+      );
     }
   };
 };
