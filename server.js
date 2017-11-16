@@ -27,9 +27,10 @@ function checkStatus(response) {
 app.get("/:databaseCode/:dataset/:date/", (req, res, next) => {
   console.log(
     `Requesting Search: ${baseUrl}${req.params.databaseCode}/${req.params
-      .dataset}?date=${req.params.date}&qopts.columns=date,close&api_key=APIKEY`
+      .dataset}?date=${req.params
+      .date}&qopts.columns=ticker,date,close&api_key=${FIDELIGARD_API_KEY}`
   );
-  //&ticker=AAP,APPL,ABC,DIN
+
   fetch(
     `${baseUrl}${req.params.databaseCode}/${req.params.dataset}?date=${req
       .params

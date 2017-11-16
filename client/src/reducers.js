@@ -9,8 +9,9 @@ const initalState = {
   isFetching: false,
   error: null,
   searchBox: "",
-  portfolio: {},
-  transactions: {},
+  transactions: [],
+  trade: { symbol: "", price: [0], date: [0], quantity: 0, buy: "BUY" },
+  cash: 10000,
   dropdownPaths: [
     { url: "/", label: "Portfolio" },
     { url: "/trade", label: "Trade" },
@@ -70,6 +71,48 @@ export function fideligard(state = initalState, action) {
       return {
         ...state,
         todaysDate: new Date(action.data)
+      };
+    case Actions.SET_TRADE_SYMBOL:
+      return {
+        ...state,
+        trade: { ...state.trade, symbol: action.data }
+      };
+    case Actions.SET_TRADE_PRICE:
+      return {
+        ...state,
+        trade: { ...state.trade, price: action.data }
+      };
+    case Actions.SET_TRADE_DATE:
+      return {
+        ...state,
+        trade: { ...state.trade, date: action.data }
+      };
+    case Actions.SET_TRADE_QUANTITY:
+      return {
+        ...state,
+        trade: { ...state.trade, quantity: action.data }
+      };
+    case Actions.SET_TRADE_BUY:
+      return {
+        ...state,
+        trade: { ...state.trade, buy: action.data }
+      };
+    case Actions.SET_CASH:
+      return {
+        ...state,
+        cash: action.data
+      };
+    case Actions.SET_TRANSACTION:
+      return {
+        ...state,
+        transactions: [...state.transactions, action.data]
+      };
+    case Actions.CLEAR_TRANSACTION_TRADE:
+      return {
+        ...state,
+        transactions: [],
+        trade: { symbol: "", price: [0], date: [0], quantity: 0, buy: "BUY" },
+        cash: 10000
       };
     default:
       return state;

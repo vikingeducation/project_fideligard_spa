@@ -6,23 +6,26 @@ import { connect } from "react-redux";
 class Dropdown extends Component {
   render() {
     const { src, history, location } = this.props;
-    console.log(this.props);
     let options = src.map(item => {
-      if (item.url === location.pathname) {
-        return (
-          <option value={item.url} selected>
-            {item.label}
-          </option>
-        );
-      }
-      return <option value={item.url}>{item.label}</option>;
+      return (
+        <option key={item.url} value={item.url}>
+          {item.label}
+        </option>
+      );
     });
-
+    //filter out everything after 2nd / = /trade/a/123 => /trade
+    let defValu = location.pathname.match(/\/\w+\//g);
+    if (!!defValu) {
+      defValu = defValu[0].substring(0, defValu[0].length - 1);
+    } else {
+      defValu = location.pathname;
+    }
     return (
       <select
         onChange={e => {
           history.push(e.target.value);
         }}
+        defaultValue={defValu}
       >
         {options}
       </select>

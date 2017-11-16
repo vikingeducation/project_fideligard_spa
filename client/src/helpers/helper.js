@@ -1,6 +1,8 @@
 export function apiDate(date) {
   if (!date) {
     date = new Date();
+  } else {
+    date = new Date(date);
   }
   return (
     date.getFullYear() +
@@ -45,8 +47,11 @@ export function previousDate(currentDate, daysBack) {
 }
 
 export function dateDifference(firstDate, secondDate) {
-  if (!firstDate || !secondDate) {
+  if (!firstDate) {
     return false;
+  }
+  if (!secondDate) {
+    secondDate = new Date();
   }
   let dateOne = new Date(firstDate);
   let dateTwo = new Date(secondDate);
@@ -150,3 +155,20 @@ export function sanitizeStocks(stock1, stock2, stock3, stock4) {
 
   return answer;
 }
+//
+// export function hashStocks(stocks) {
+//   let hashedStocks = {};
+//   console.log(stocks);
+//   for (var i = 0; i < stocks.length; i++) {
+//     hashedStocks[stocks[i][0][0]] = {
+//       price: [
+//         stocks[i][0][2],
+//         stocks[i][1][2],
+//         stocks[i][2][2],
+//         stocks[i][3][2]
+//       ],
+//       date: [stocks[i][0][1], stocks[i][1][1], stocks[i][2][1], stocks[i][3][1]]
+//     };
+//   }
+//   return hashedStocks;
+// }

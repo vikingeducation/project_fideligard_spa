@@ -6,12 +6,14 @@ const Stock = ({ yesterStock, weekStock, monthStock, todayStock }) => {
   return (
     <tr id={todayStock[0]}>
       <td>{todayStock[0]}</td>
-      <td>${todayStock[2].toFixed(2)}</td>
+      <td>${Number(todayStock[2]).toFixed(2)}</td>
       <td>{(todayStock[2] - yesterStock[2]).toFixed(2)}</td>
       <td>{(todayStock[2] - weekStock[2]).toFixed(2)}</td>
       <td>{(todayStock[2] - monthStock[2]).toFixed(2)}</td>
       <td>
-        <Link to={`/trade/${todayStock[0]}/${todayStock[2]}/`}>trade</Link>
+        <Link to={`/trade/${todayStock[0]}/${todayStock[1]}/${todayStock[2]}/`}>
+          trade
+        </Link>
       </td>
     </tr>
   );

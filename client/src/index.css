@@ -40,3 +40,7 @@ body {
 .portfolio .table * {
   padding: 0;
 }
+
+.transactions .table * {
+  padding: 0;
+}

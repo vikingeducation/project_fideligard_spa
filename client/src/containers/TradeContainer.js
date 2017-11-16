@@ -1,11 +1,36 @@
 import React from "react";
 import Dropdown from "../components/Dropdown";
-import Input from "../components/elements/Input";
-import InputGroup from "../components/elements/InputGroup";
-import Button from "../components/elements/Button";
+import TradeForm from "../components/Trade/TradeForm";
+
 import { connect } from "react-redux";
 
-const TradeContainer = ({}) => {
+const TradeContainer = ({ trade, cash, transactions, todayStocks }) => {
+  let validIndic;
+  let valid = false;
+  if (trade.buy === "BUY") {
+    if (cash - trade.quantity * trade.price[0] > 0) {
+      valid = true;
+      validIndic = <p>VALID</p>;
+    } else {
+      validIndic = <p>INVALID</p>;
+    }
+  } else {
+    let matched = false;
+    for (var i = 0; i < transactions.length; i++) {
+      if (
+        transactions[i].symbol === trade.symbol &&
+        trade.quantity <= transactions[i].quantity
+      ) {
+        matched = true;
+      }
+    }
+    if (matched) {
+      valid = true;
+      validIndic = <p>VALID SELL</p>;
+    } else {
+      validIndic = <p>INVALID SELL</p>;
+    }
+  }
   return (
     <div className="container trade bordered">
       <div className="row">
@@ -18,54 +43,26 @@ const TradeContainer = ({}) => {
       </div>
       <div className="row">
         <div className="col">
-          <form>
-            <InputGroup name="symbol" labelText="Symbol">
-              <Input name="symbol" />
-            </InputGroup>
-            <InputGroup name="buy" labelText="Buy/Sell">
-              <select name="buy">
-                <option value="BUY">BUY</option>
-                <option value="SELL">SELL</option>
-              </select>
-            </InputGroup>
-            <InputGroup name="quantity" labelText="Quantity">
-              <Input name="quantity" />
-            </InputGroup>
-            <InputGroup name="date" labelText="Date">
-              <Input name="date" type="date" />
-            </InputGroup>
-            <p>
-              <b>Price</b> $123.45
-            </p>
-            <p>
-              <b>Cost</b> $123.45
-            </p>
-            <Button color="primary" type="button">
-              Place Order!
-            </Button>
-          </form>
+          {todayStocks.data ? <TradeForm valid={valid} /> : ""}
         </div>
         <div className="col">
           <h5>Cash Available:</h5>
-          <p>$123,456.78</p>
+          <p>${cash.toFixed(2)}</p>
           <h5>Order Status</h5>
-          <p className="success">VALID</p>
+          {validIndic}
         </div>
       </div>
     </div>
   );
 };
 
-// const mapStateToProps = state => {
-//   return {
-//
-//   };
-// };
+const mapStateToProps = state => {
+  return {
+    trade: state.trade,
+    cash: state.cash,
+    transactions: state.transactions,
+    todayStocks: state.todayStocks
+  };
+};
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//
-//   }
-// }
-
-export default connect()(TradeContainer);
+export default connect(mapStateToProps)(TradeContainer);

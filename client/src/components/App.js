@@ -7,7 +7,8 @@ import {
   getYesterSuccess,
   getWeekAgoSuccess,
   getMonthAgoSuccess,
-  setDate
+  setDate,
+  clearTransactionTrade
 } from "../actions";
 import { previousDate, displayDate } from "../helpers/helper";
 import JumbotronFluid from "./elements/JumbotronFluid";
@@ -17,6 +18,10 @@ import StocksContainer from "../containers/StocksContainer";
 import PortfolioContainer from "../containers/PortfolioContainer";
 import TradeContainer from "../containers/TradeContainer";
 import TransactionContainer from "../containers/TransactionContainer";
+// import todayResponse from "../apiCalls/2017-11-14";
+// import yesterdayResponse from "../apiCalls/2017-11-13";
+// import weekResponse from "../apiCalls/2017-11-7";
+// import monthResponse from "../apiCalls/2017-10-16";
 
 class App extends Component {
   componentWillMount() {
@@ -35,6 +40,10 @@ class App extends Component {
       previousDate(this.props.todaysDate, 30),
       getMonthAgoSuccess
     );
+    // this.props.todaySuccess(todayResponse.datatable);
+    // this.props.yesterdaySuccess(yesterdayResponse.datatable);
+    // this.props.weekSuccess(weekResponse.datatable);
+    // this.props.monthSuccess(monthResponse.datatable);
   }
   render() {
     return (
@@ -64,6 +73,11 @@ class App extends Component {
                     exact
                     path="/transactions"
                     component={TransactionContainer}
+                  />
+                  <Route
+                    exact
+                    path="/trade/:symbol/:date/:price/"
+                    component={TradeContainer}
                   />
                   <Route exact path="/trade" component={TradeContainer} />
                   <Route exact path="/" component={PortfolioContainer} />
@@ -107,6 +121,19 @@ const mapDispatchToProps = dispatch => {
       dispatch(
         getApiData("WIKI", "PRICES", previousDate(date, 30), getMonthAgoSuccess)
       );
+      dispatch(clearTransactionTrade());
+    },
+    todaySuccess: data => {
+      dispatch(getTodaySuccess(data));
+    },
+    yesterdaySuccess: data => {
+      dispatch(getYesterSuccess(data));
+    },
+    weekSuccess: data => {
+      dispatch(getWeekAgoSuccess(data));
+    },
+    monthSuccess: data => {
+      dispatch(getMonthAgoSuccess(data));
     }
   };
 };

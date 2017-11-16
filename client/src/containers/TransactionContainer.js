@@ -1,5 +1,6 @@
 import React from "react";
 import Dropdown from "../components/Dropdown";
+import Transaction from "../components/Transaction/Transaction";
 import { connect } from "react-redux";
 
 const TransactionContainer = ({}) => {
@@ -14,45 +15,7 @@ const TransactionContainer = ({}) => {
         </div>
       </div>
       <div className="row">
-        <table className="table table-bordered">
-          <thead>
-            <tr>
-              <th>Date</th>
-
-              <th>Symbol</th>
-
-              <th>Type</th>
-
-              <th>Quantity</th>
-
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1/1/2014</td>
-
-              <td>AAPL</td>
-
-              <td>BUY</td>
-
-              <td>100</td>
-
-              <td>321.21</td>
-            </tr>
-            <tr>
-              <td>1/1/2014</td>
-
-              <td>AAPL</td>
-
-              <td>SELL</td>
-
-              <td>10</td>
-
-              <td>32.12</td>
-            </tr>
-          </tbody>
-        </table>
+        <Transaction />
       </div>
     </div>
   );
@@ -60,7 +23,7 @@ const TransactionContainer = ({}) => {
 
 // const mapStateToProps = state => {
 //   return {
-//
+//     transactions: state.transactions
 //   };
 // };
 
