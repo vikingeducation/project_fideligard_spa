@@ -1,0 +1,13 @@
+{
+  "development": {
+    "database": "fideligard_development",
+    "host": "localhost"
+  },
+  "test": {
+    "database": "fideligard_test",
+    "host": "localhost"
+  },
+  "production": {
+    "use_env_variable": "MONGODB_URI"
+  }
+}

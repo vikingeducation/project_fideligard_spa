@@ -1,0 +1,71 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+
+.App-header {
+  padding: 10px 0 5px 20px;
+  background-color: #f7f7f9;
+  border-bottom: 2px solid #DDDDE9;
+  margin-bottom: 40px;
+}
+
+.PageTitle {
+  display: inline-block;
+}
+
+.NavSelect {
+  display: inline-block;
+}
+
+.card {
+  margin-bottom: 30px;
+}
+
+div.card-body {
+  padding: 15px;
+}
+
+.DateRange .card-header {
+  padding: 0px 15px;
+}
+
+input[type="range"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/*Range output Styles*/
+output {
+  position: relative;
+  text-align: center;
+  font-size: 12px !important;
+  display: inline-block;
+  bottom: 50%;
+  left: 630px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.StartDate {
+  position: absolute;
+  text-align: center;
+  font-size: 12px !important;
+  display: inline-block;
+  bottom: 100%;
+  left: 0;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.EndDate {
+  position: absolute;
+  text-align: center;
+  font-size: 12px !important;
+  display: inline-block;
+  bottom: 100%;
+  right: 0;
+  margin-left: 3px;
+  margin-right: 3px;
+}
