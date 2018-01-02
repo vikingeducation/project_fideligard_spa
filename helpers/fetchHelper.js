@@ -5,7 +5,7 @@ const checkStatus = (response) => {
     throw error;
   }
 
-  return response.text();
+  return response.json();
 };
 
 module.exports = { checkStatus };

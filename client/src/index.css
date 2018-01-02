@@ -43,7 +43,7 @@ output {
   font-size: 12px !important;
   display: inline-block;
   bottom: 50%;
-  left: 630px;
+  left: 0;
   margin-left: 3px;
   margin-right: 3px;
 }

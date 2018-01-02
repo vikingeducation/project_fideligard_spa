@@ -4,7 +4,6 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const { checkStatus } = require('./helpers/fetchHelper');
 
 app.set('port', (process.env.PORT || 3001));
 
@@ -21,10 +20,9 @@ app.use((req, res, next) => {
   }
 });
 
-
-
-// Routes go here...
-
+// Routes
+const quandlAPI = require('./routers/quandlAPI');
+app.use('/api/v1', quandlAPI);
 
 
 const errorHandler = (err, req, res, next) => {
