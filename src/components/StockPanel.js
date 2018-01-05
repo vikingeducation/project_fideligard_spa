@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
-const StockPanel = ({ dataArray }) => {
+const StockPanel = ({ data }) => {
+  console.log(data);
   return (
     <div className="panel panel-default">
       <div className="panel-heading">
@@ -18,7 +19,6 @@ const StockPanel = ({ dataArray }) => {
             <tr>
               <th>Symbol</th>
               <th>Price</th>
-              {dataArray}
               <th>1d</th>
               <th>7d</th>
               <th>30d</th>
@@ -27,12 +27,12 @@ const StockPanel = ({ dataArray }) => {
           </thead>
           <tbody>
             <tr>
-              <th scope="row">1</th>
-              <td>Mark</td>
-              <td>Otto</td>
-              <td>@mdo</td>
-              <td>blah</td>
-              <td>blah</td>
+              <th scope="row">{data.stocks[0]}</th>
+              <td>{data.stocksArray[0][data.stocksArray[0].length - 1][1]}</td>
+              <td>{data.stocksArray[0][data.stocksArray[0].length - 2][1]}</td>
+              <td>{data.stocksArray[0][data.stocksArray[0].length - 7][1]}</td>
+              <td>{data.stocksArray[0][data.stocksArray[0].length - 30][1]}</td>
+              <td>Trade</td>
             </tr>
           </tbody>
         </table>

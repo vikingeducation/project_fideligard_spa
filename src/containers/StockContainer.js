@@ -10,39 +10,28 @@ class StockContainer extends Component {
   constructor(props) {
     super();
     this.state = {
-      stocks: ["Facebook", "Google"],
-      stocksArray: []
+      stocks: ["FB", "GOOGL"],
+      stocksArray: [FBdata.datatable.data, GOOGLEdata.datatable.data]
     };
   }
 
   componentDidMount() {
-    let dataArray = JSON.parse(FBdata);
-    console.log(dataArray);
-    this.state.stocksArray.push(dataArray);
+    // this.setState({
+    //   stocksArray: this.state.stocksArray.push(
+    //     FBdata.datatable.data,
+    //     GOOGLEdata.datatable.data
+    //   )
+    // });
+    console.log(this.state);
   }
-
-  // showing(data) {
-  //
-  // }
 
   render() {
     return (
       <div>
-        <StockPanel dataArray={this.state.stocksArray} />
+        <StockPanel data={this.state} />
       </div>
     );
   }
 }
 
 export default StockContainer;
-
-//   componentDidMount() {
-//     this.props._getInitialData();
-//   }
-// }
-//
-// const mapDispatchToProps = () => {
-//   _getInitialData: () => dispatch(getInitialData())
-// }
-//
-// export default connect(mapDispatchToProps, {})(StocksPresentional);
