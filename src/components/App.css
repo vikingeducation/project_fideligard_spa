@@ -43,3 +43,10 @@ body {
 .table-margin-right {
   margin-right: 50px;
 }
+
+.panel {
+  border: black solid 1px;
+  background: white;
+  opacity: 0.9;
+  padding: 30px;
+}

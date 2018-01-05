@@ -3,7 +3,7 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 const TradePanel = () => (
-  <div>
+  <div className="panel">
     <div className="row">
       <h2>Trade</h2>
       <div className="rightAlign">
