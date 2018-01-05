@@ -28,6 +28,7 @@ const TradePanel = () => (
             </select>
             <label htmlFor="quantity">Quantity:</label>
             <input type="text" name="quantity" className="form-control" />
+            <p>Date:</p>
             <p>1/5/2018</p>
             <p>$100.00</p>
             <p>$1,000.00</p>

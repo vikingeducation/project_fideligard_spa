@@ -11,7 +11,7 @@ class App extends Component {
     return (
       <div>
         <Navbar />
-        <div className="container">
+        <div>
           <div className="row">
             <div className="col-xs-4 table-margin-right">
               <StockPanel />
