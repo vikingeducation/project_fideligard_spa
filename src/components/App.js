@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "./App.css";
 import Navbar from "./Navbar";
-import StockPanel from "./StockPanel";
+import StockContainer from "../containers/StockContainer";
 import DateWidget from "./DateWidget";
 import TradePanel from "./TradePanel";
 
@@ -12,7 +12,7 @@ const App = () => (
     <div>
       <div className="row">
         <div className="col-xs-4">
-          <StockPanel />
+          <StockContainer />
         </div>
         <div className="col-xs-8">
           <DateWidget />
