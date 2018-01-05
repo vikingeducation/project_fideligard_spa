@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import "./index.css";
-import App from "./components/App";
+import AppContainer from "./containers/AppContainer";
 import registerServiceWorker from "./registerServiceWorker";
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
@@ -13,7 +13,7 @@ let store = createStore(stockApp, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <AppContainer />
   </Provider>,
   document.getElementById("root")
 );

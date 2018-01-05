@@ -4,6 +4,19 @@ import "bootstrap/dist/css/bootstrap.css";
 
 const StockPanel = ({ data }) => {
   console.log(data);
+  let rows = [];
+  for (let i = 0; i < data.stocks.length; i++) {
+    rows.push(
+      <tr>
+        <th scope="row">{data.stocks[i]}</th>
+        <td>{data.stocksArray[i][data.stocksArray[i].length - 1][1]}</td>
+        <td>{data.stocksArray[i][data.stocksArray[i].length - 2][1]}</td>
+        <td>{data.stocksArray[i][data.stocksArray[i].length - 7][1]}</td>
+        <td>{data.stocksArray[i][data.stocksArray[i].length - 30][1]}</td>
+        <td>Trade</td>
+      </tr>
+    );
+  }
   return (
     <div className="panel panel-default">
       <div className="panel-heading">
@@ -25,16 +38,7 @@ const StockPanel = ({ data }) => {
               <th>Trade?</th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <th scope="row">{data.stocks[0]}</th>
-              <td>{data.stocksArray[0][data.stocksArray[0].length - 1][1]}</td>
-              <td>{data.stocksArray[0][data.stocksArray[0].length - 2][1]}</td>
-              <td>{data.stocksArray[0][data.stocksArray[0].length - 7][1]}</td>
-              <td>{data.stocksArray[0][data.stocksArray[0].length - 30][1]}</td>
-              <td>Trade</td>
-            </tr>
-          </tbody>
+          <tbody>{rows}</tbody>
         </table>
       </div>
     </div>

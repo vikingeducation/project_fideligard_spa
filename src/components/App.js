@@ -6,16 +6,16 @@ import StockContainer from "../containers/StockContainer";
 import DateWidget from "./DateWidget";
 import TradePanel from "./TradePanel";
 
-const App = () => (
+const App = ({ onChange }) => (
   <div>
     <Navbar />
     <div>
       <div className="row">
-        <div className="col-xs-4">
+        <div className="col">
           <StockContainer />
         </div>
-        <div className="col-xs-8">
-          <DateWidget />
+        <div className="col">
+          <DateWidget onChange={onChange} />
           <TradePanel />
         </div>
       </div>
