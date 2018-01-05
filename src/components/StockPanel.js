@@ -12,7 +12,7 @@ const StockPanel = () => (
       </div>
     </div>
     <div className="row">
-      <table class="table table-striped">
+      <table className="table table-striped">
         <thead>
           <tr>
             <th>Symbol</th>

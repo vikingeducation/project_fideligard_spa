@@ -21,13 +21,12 @@ const TradePanel = () => (
           <form>
             <label htmlFor="buy-sell">Buy/Sell:</label>
             <select name="buy-sell" className="form-control" placeholder="buy">
-              <option value="buy" selected>
-                Buy
-              </option>
+              <option value="buy">Buy</option>
               <option value="sell">Sell</option>
             </select>
             <label htmlFor="quantity">Quantity:</label>
             <input type="text" name="quantity" className="form-control" />
+            <p>Date:</p>
             <p>1/5/2018</p>
             <p>$100.00</p>
             <p>$1,000.00</p>
