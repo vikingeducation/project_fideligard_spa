@@ -1,5 +1,5 @@
 body {
-  background: url(/stock-background.jpg);
+  background: url("./stock-background.jpg");
   background-size: cover;
 }
 
