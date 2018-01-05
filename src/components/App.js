@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import "./App.css";
 import Navbar from "./Navbar";
 import StockPanel from "./StockPanel";
 import DateWidget from "./DateWidget";
@@ -11,7 +11,7 @@ const App = () => (
     <Navbar />
     <div>
       <div className="row">
-        <div className="col-xs-4 table-margin-right">
+        <div className="col-xs-4">
           <StockPanel />
         </div>
         <div className="col-xs-8">

@@ -3,15 +3,15 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 const StockPanel = () => (
-  <div>
-    <div className="row">
-      <h3>Stocks</h3>
+  <div className="panel panel-default">
+    <div className="panel-heading">
+      <h3 className="panel-title">Stocks</h3>
       <div className="rightAlign">
         <label htmlFor="stockFilter">Filter:</label>
         <input type="text" name="stockFilter" />
       </div>
     </div>
-    <div className="row">
+    <div className="panel-body">
       <table className="table table-striped">
         <thead>
           <tr>
