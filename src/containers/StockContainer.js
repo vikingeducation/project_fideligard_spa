@@ -11,7 +11,8 @@ class StockContainer extends Component {
     super();
     this.state = {
       stocks: ["FB", "GOOGL"],
-      stocksArray: [FBdata.datatable.data, GOOGLEdata.datatable.data]
+      stocksArray: [FBdata.datatable.data, GOOGLEdata.datatable.data],
+      date: props
     };
   }
 
