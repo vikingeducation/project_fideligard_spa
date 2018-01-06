@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import DateRange from '../components/DateRange';
-import { setSlider } from '../actions';
+import { setSlider, getStocks } from '../actions';
 import moment from 'moment';
-import { getDates } from '../helpers/slider';
+import { getDates } from '../helpers';
 
 const mapStateToProps = (state) => {
   return state.slider;
@@ -25,13 +25,12 @@ const mapDispatchToState = (dispatch) => {
       };
 
       dispatch(setSlider(newSliderInfo));
+    },
+
+    getStocks: (date) => {
+      dispatch(getStocks(date));
     }
   };
 };
 
-const DateRangeContainer = connect(
-  mapStateToProps,
-  mapDispatchToState
-)(DateRange);
-
-export default DateRangeContainer;
+export default connect(mapStateToProps, mapDispatchToState)(DateRange);

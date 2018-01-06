@@ -4,6 +4,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 app.set('port', (process.env.PORT || 3001));
 
@@ -20,9 +21,15 @@ app.use((req, res, next) => {
   }
 });
 
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
 // Routes
-const quandlAPI = require('./routers/quandlAPI');
-app.use('/api/v1', quandlAPI);
+const stocks = require('./routers/stocks');
+const transactions = require('./routers/transactions');
+
+app.use('/api/v1/stocks', stocks);
+app.use('/api/v1/transactions', transactions);
 
 
 const errorHandler = (err, req, res, next) => {

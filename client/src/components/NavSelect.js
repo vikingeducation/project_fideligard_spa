@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Input } from 'reactstrap';
-import { redirectFromSelect } from '../helpers/nav';
+import { redirectFromSelect } from '../helpers';
 
 class NavSelect extends Component {
   render() {

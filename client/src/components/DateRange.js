@@ -11,7 +11,7 @@ class DateRange extends Component {
   }
 
   render() {
-    const { max, min, value, outputPos, setSlider, outputText } = this.props;
+    const { max, min, value, outputPos, setSlider, outputText, getStocks } = this.props;
 
     return (
       <Card className="DateRange">
@@ -27,6 +27,7 @@ class DateRange extends Component {
             max={`${ max }`}
             value={value}
             onChange={setSlider}
+            onMouseUp={() => getStocks(outputText)}
           />
         </CardHeader>
       </Card>
@@ -40,6 +41,7 @@ DateRange.propTypes = {
   value: PropTypes.number.isRequired,
   outputPos: PropTypes.number.isRequired,
   setSlider: PropTypes.func.isRequired,
+  getStocks: PropTypes.func.isRequired,
   outputText: PropTypes.string.isRequired
 };
 
