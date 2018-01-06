@@ -3,11 +3,13 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 
 const StockPanel = ({ data }) => {
-  console.log("====================");
-  console.log(data);
-  console.log("====================");
-
   let dateIndex = 100;
+  for (let i = 0; i < data.stocksArray[0].length; i++) {
+    if (data.stocksArray[0][i][0] === data.date) {
+      dateIndex = i;
+    }
+  }
+
   let rows = [];
   for (let i = 0; i < data.stocks.length; i++) {
     rows.push(
@@ -21,18 +23,6 @@ const StockPanel = ({ data }) => {
       </tr>
     );
   }
-
-  // for (let h = 0; h < data.stocksArray[i].length; h++) {
-  //   console.log("\\\\\\\\\\\\\\\\\\");
-  //   console.log(data.stocksArray[100][0]);
-  //   console.log(data.date);
-  //   console.log("\\\\\\\\\\\\\\\\\\");
-  //   if (data.stocksArray[i][h][0] === data.date) {
-  //     dateIndex = h;
-  //     console.log("++++++++++++++");
-  //     console.log(data.stocksArray[i][0][dateIndex]);
-  //   }
-  // }
 
   console.log(rows);
 
