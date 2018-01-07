@@ -5,7 +5,7 @@ import ScrollToTop from './ScrollToTop';
 import Header from './Header';
 import StockValuesContainer from '../containers/StockValuesContainer';
 import DateRangeContainer from '../containers/DateRangeContainer';
-import Portfolio from './Portfolio';
+import PortfolioContainer from '../containers/PortfolioContainer';
 import TradeContainer from '../containers/TradeContainer';
 import TransactionsContainer from '../containers/TransactionsContainer';
 
@@ -32,7 +32,7 @@ class App extends Component {
               <DateRangeContainer />
               <Switch>
                 <Redirect exact from='/' to='/portfolio'/>
-                <Route path="/portfolio" component={Portfolio} />
+                <Route path="/portfolio" component={PortfolioContainer} />
                 <Route path="/trade" component={TradeContainer} />
                 <Route path="/transactions" component={TransactionsContainer} />
                 <Route render={() => <h1 className="text-center">404 - Page Not Found</h1>} />

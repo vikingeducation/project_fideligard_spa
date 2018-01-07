@@ -37,6 +37,16 @@ const stockInfo = (state = initialState, action) => {
           direction: state.sortBy.direction === 'DESC' ? 'ASC' : 'DESC'
         }
       };
+    case Actions.RESET:
+      return {
+        ...state,
+        isFetching: false,
+        error: null,
+        sortBy: {
+          column: 'code',
+          direction: 'NONE'
+        }
+      };
     default:
       return state;
   }

@@ -104,9 +104,9 @@ export function updateTransaction(data) {
   };
 }
 
-export function resetForm() {
+export function reset() {
   return {
-    type: Actions.RESET_FORM
+    type: Actions.RESET
   };
 }
 
@@ -191,3 +191,46 @@ export function sortTransactions(column) {
     column
   };
 }
+
+export function getPortfolioRequest() {
+  return {
+    type: Actions.GET_PORTFOLIO_REQUEST
+  };
+}
+
+export function getPortfolioSuccess(data) {
+  return {
+    type: Actions.GET_PORTFOLIO_SUCCESS,
+    data
+  };
+}
+
+export function getPortfolioFailure(error) {
+  return {
+    type: Actions.GET_PORTFOLIO_FAILURE,
+    error
+  };
+}
+
+export function getPortfolio() {
+  return (dispatch) => {
+    dispatch(getPortfolioRequest());
+
+    fetch('api/v1/portfolios')
+      .then(checkStatus)
+      .then(portfolio => {
+        dispatch(getPortfolioSuccess(portfolio));
+      })
+      .catch(error => {
+        dispatch(getPortfolioFailure(error));
+      });
+  };
+}
+
+export function sortPortfolio(column) {
+  return {
+    type: Actions.SORT_PORTFOLIO,
+    column
+  };
+}
+

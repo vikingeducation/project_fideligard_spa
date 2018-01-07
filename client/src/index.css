@@ -54,11 +54,11 @@ input[type="range"] {
   text-decoration: underline;
 }
 
-.StockTable .trade-th {
+.StockTable .reg-th {
   cursor: initial;
 }
 
-.StockTable .trade-th:hover {
+.StockTable .reg-th:hover {
   text-decoration: none;
 }
 

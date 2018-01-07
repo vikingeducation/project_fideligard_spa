@@ -8,14 +8,20 @@ const checkStatus = (response) => {
   return response.json();
 };
 
-const extractStockData = (stocks) => {
-  const stockInfo = stocks.datatable.data;
+const extractStockData = (stocks, amount) => {
+  const stockInfo = stocks.datatable ? stocks.datatable.data : stocks;
   const stockCodes = [];
 
-  // Get 12 unique stock codes
+  // Get unique stock codes based on amount
   for (let stock of stockInfo) stockCodes.push(stock[0]);
   let codes = [...new Set(stockCodes)];
-  const uniqueCodes = codes.slice(codes.length - 13, codes.length - 1);
+  let uniqueCodes;
+
+  if (amount) {
+    uniqueCodes = codes.slice(codes.length - (amount + 1), codes.length - 1);
+  } else {
+    uniqueCodes = codes;
+  }
 
   // create an object of objects with the code as the key and the value an array of dates and price
   const parsedStocks = {};

@@ -5,9 +5,23 @@ import { Card, CardHeader } from 'reactstrap';
 import moment from 'moment';
 
 class DateRange extends Component {
+  constructor() {
+    super();
+    this.resetSlider = this.resetSlider.bind(this);
+  }
+
   componentDidMount() {
-    const rangeInput = document.getElementsByName('date')[0];
-    this.props.setSlider(rangeInput);
+    this.rangeInput = document.getElementsByName('date')[0];
+    this.props.setSlider(this.rangeInput);
+    window.addEventListener("resize", this.resetSlider);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener("resize", this.resetSlider);
+  }
+
+  resetSlider() {
+    this.props.setSlider(this.rangeInput);
   }
 
   render() {

@@ -23,9 +23,9 @@ router.get('/', (req, res, next) => {
     next(error);
   }
 
-  fetch(`${ baseURL }/datatables/WIKI/PRICES.json?DATE.lte=${ formattedDate }&DATE.gte=${ oneMonthAgo }&api_key=${ QUANDL_API_KEY }&qopts.per_page=400&qopts.columns=ticker,date,close`)
+  fetch(`${ baseURL }/datatables/WIKI/PRICES.json?DATE.lte=${ formattedDate }&DATE.gte=${ oneMonthAgo }&api_key=${ QUANDL_API_KEY }&qopts.per_page=600&qopts.columns=ticker,date,close`)
     .then(checkStatus)
-    .then(extractStockData)
+    .then(stocks => extractStockData(stocks, 20))
     .then(stockData => {
       res.json(stockData);
     })

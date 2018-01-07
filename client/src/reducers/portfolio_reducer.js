@@ -1,35 +1,39 @@
 import * as Actions from '../actionTypes';
 
 const initialState = {
+  investments: [],
   transactions: [],
   isFetching: false,
   error: null,
   sortBy: {
-    column: 'date',
+    column: 'code',
     direction: 'NONE'
   }
 };
 
-const transactionsInfo = (state = initialState, action) => {
+const portfolio = (state = initialState, action) => {
   switch (action.type) {
-    case Actions.GET_TRANSACTIONS_REQUEST:
+    case Actions.GET_PORTFOLIO_REQUEST:
       return {
         ...state,
         isFetching: true
       };
-    case Actions.GET_TRANSACTIONS_SUCCESS:
+    case Actions.GET_PORTFOLIO_SUCCESS:
       return {
         ...state,
+        investments: action.data.investments,
+        transactions: action.data.transactions,
+        cash: action.data.user.cash,
         isFetching: false,
-        transactions: action.data
+        error: null
       };
-    case Actions.GET_TRANSACTIONS_FAILURE:
+    case Actions.GET_PORTFOLIO_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
-    case Actions.SORT_TRANSACTIONS:
+    case Actions.SORT_PORTFOLIO:
       return {
         ...state,
         sortBy: {
@@ -43,7 +47,7 @@ const transactionsInfo = (state = initialState, action) => {
         isFetching: false,
         error: null,
         sortBy: {
-          column: 'date',
+          column: 'code',
           direction: 'NONE'
         }
       };
@@ -52,4 +56,4 @@ const transactionsInfo = (state = initialState, action) => {
   }
 };
 
-export default transactionsInfo;
+export default portfolio;

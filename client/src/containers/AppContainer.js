@@ -1,11 +1,11 @@
 import App from '../components/App';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import { resetForm } from '../actions';
+import { reset } from '../actions';
 
 function mapDispatchToProps(dispatch) {
   return {
-    onPageChange: () => dispatch(resetForm())
+    onPageChange: () => dispatch(reset())
   };
 }
 

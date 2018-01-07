@@ -59,7 +59,7 @@ class StockValues extends Component {
             />
           </th>
 
-          <th scope="col" className="trade-th">Trade?</th>
+          <th scope="col" className="reg-th">Trade?</th>
         </tr>
       </thead>
     );

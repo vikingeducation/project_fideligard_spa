@@ -29,15 +29,6 @@ export function checkStatus(response) {
   return response.json();
 }
 
-export function formatMoney(number) {
-  if (!number) return 0;
-  return number.toLocaleString(undefined, {minimumFractionDigits: 2});
-}
-
-export function formatValueChange(number) {
-  return `${ number < 0 ? '' : '+' }${ number.toFixed(2).slice(0) }`;
-}
-
 export function validateFormInfo(state) {
   const {
     transactionType,
@@ -72,7 +63,7 @@ export function validateFormInfo(state) {
 
 ///////// Sort Helpers ///////////
 
-export function sortStockByColumn(stocks, column, direction) {
+export function sortStockByColumn(stocks, column, direction, transactions) {
   let sorted;
   switch (direction) {
     case 'NONE':
@@ -81,7 +72,11 @@ export function sortStockByColumn(stocks, column, direction) {
         return { ...stock, key: stock.code };
       });
     case 'ASC':
-      if (column !== 'code') {
+      if (column === 'costBasis') {
+        sorted = stocks.sort((a, b) => costBasis(transactions, a.code) - costBasis(transactions, b.code));
+      } else if (column === 'profitLoss') {
+        sorted = stocks.sort((a, b) => (b.currentValue - costBasis(transactions, b.code)) - (a.currentValue - costBasis(transactions, a.code)));
+      } else if (column !== 'code') {
         sorted = stocks.sort((a, b) => a[column] - b[column]);
       } else {
         sorted = stocks.sort((a, b) => b.code.localeCompare(a.code));
@@ -91,7 +86,11 @@ export function sortStockByColumn(stocks, column, direction) {
         return { ...stock, key: stock.code };
       });
     case 'DESC':
-      if (column !== 'code') {
+      if (column === 'costBasis') {
+        sorted = stocks.sort((a, b) => costBasis(transactions, b.code) - costBasis(transactions, a.code));
+      } else if (column === 'profitLoss') {
+        sorted = stocks.sort((a, b) => (a.currentValue - costBasis(transactions, a.code)) - (b.currentValue - costBasis(transactions, b.code)));
+      } else if (column !== 'code') {
         sorted = stocks.sort((a, b) => b[column] - a[column]);
       } else {
         sorted = stocks.sort((a, b) => a.code.localeCompare(b.code));
@@ -140,3 +139,34 @@ export function sortTransactionsByColumn(transactions, column, direction) {
   }
 }
 
+/////// Table Formating Helpers ////////
+
+export function formatMoney(number) {
+  if (number !== 0 && !number) return 0;
+  return number.toLocaleString(undefined, {minimumFractionDigits: 2});
+}
+
+export function formatValueChange(number) {
+  return `${ number < 0 ? '' : '+' }${ number.toFixed(2).slice(0) }`;
+}
+
+export function costBasis(transactions, ticker) {
+  let profit = 0, cost = 0;
+  const tickerTransactions = ticker ? transactions.filter(t => t.ticker === ticker) : null;
+
+  for (let transaction of tickerTransactions || transactions) {
+    if (transaction.type === 'BUY') {
+      cost += transaction.cost;
+    } else {
+      profit += transaction.cost;
+    }
+  }
+
+  return cost - profit;
+}
+
+export function getValueSum(items, prop) {
+  return items.reduce((a, b) => {
+    return a + b[prop];
+  }, 0);
+}

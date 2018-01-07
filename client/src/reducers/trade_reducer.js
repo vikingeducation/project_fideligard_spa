@@ -57,7 +57,7 @@ const trade = (state = initialState, action) => {
         transactionQuantity: 0,
         total: 0
       };
-    case Actions.RESET_FORM:
+    case Actions.RESET:
       return {
         ...state,
         transactionType: 'BUY',
