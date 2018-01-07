@@ -1,46 +1,30 @@
 import { checkStatus } from './helpers';
 import moment from 'moment';
-
-export const SET_SLIDER = "SET_SLIDER";
-export const GET_STOCKS_REQUEST = 'GET_STOCKS_REQUEST';
-export const GET_STOCKS_SUCCESS = 'GET_STOCKS_SUCCESS';
-export const GET_STOCKS_FAILURE = 'GET_STOCKS_FAILURE';
-export const SORT_STOCKS = 'SORT_STOCKS';
-export const GET_TRADE_INFO_REQUEST = 'GET_TRADE_INFO_REQUEST';
-export const GET_TRADE_INFO_SUCCESS = 'GET_TRADE_INFO_SUCCESS';
-export const GET_TRADE_INFO_FAILURE = 'GET_TRADE_INFO_FAILURE';
-export const GET_TRADE_INFO = 'GET_TRADE_INFO';
-export const SET_TRANSACTION_TYPE = 'SET_TRANSACTION_TYPE';
-export const UPDATE_TRANSACTION = 'UPDATE_TRANSACTION';
-export const RESET_FORM = 'RESET_FORM';
-export const POST_TRANSACTION_REQUEST = 'POST_TRANSACTION_REQUEST';
-export const POST_TRANSACTION_SUCCESS = 'POST_TRANSACTION_SUCCESS';
-export const POST_TRANSACTION_FAILURE = 'POST_TRANSACTION_FAILURE';
-export const CREATE_TRANSACTION = 'CREATE_TRANSACTION';
+import * as Actions from './actionTypes';
 
 export function setSlider(data) {
   return {
-    type: SET_SLIDER,
+    type: Actions.SET_SLIDER,
     data
   };
 }
 
 export function getStocksRequest() {
   return {
-    type: GET_STOCKS_REQUEST
+    type: Actions.GET_STOCKS_REQUEST
   };
 }
 
 export function getStocksSuccess(data) {
   return {
-    type: GET_STOCKS_SUCCESS,
+    type: Actions.GET_STOCKS_SUCCESS,
     data
   };
 }
 
 export function getStocksFailure(error) {
   return {
-    type: GET_STOCKS_FAILURE,
+    type: Actions.GET_STOCKS_FAILURE,
     error
   };
 }
@@ -65,27 +49,27 @@ export function getStocks(date) {
 
 export function sortStocks(column) {
   return {
-    type: SORT_STOCKS,
+    type: Actions.SORT_STOCKS,
     column
   };
 }
 
 export function getTradeInfoRequest() {
   return {
-    type: GET_TRADE_INFO_REQUEST
+    type: Actions.GET_TRADE_INFO_REQUEST
   };
 }
 
 export function getTradeInfoSuccess(data) {
   return {
-    type: GET_TRADE_INFO_SUCCESS,
+    type: Actions.GET_TRADE_INFO_SUCCESS,
     data
   };
 }
 
 export function getTradeInfoFailure(error) {
   return {
-    type: GET_TRADE_INFO_FAILURE,
+    type: Actions.GET_TRADE_INFO_FAILURE,
     error
   };
 }
@@ -108,40 +92,40 @@ export function getTradeInfo(ticker) {
 
 export function setTransactionType(value) {
   return {
-    type: SET_TRANSACTION_TYPE,
+    type: Actions.SET_TRANSACTION_TYPE,
     value
   };
 }
 
 export function updateTransaction(data) {
   return {
-    type: UPDATE_TRANSACTION,
+    type: Actions.UPDATE_TRANSACTION,
     data
   };
 }
 
 export function resetForm() {
   return {
-    type: RESET_FORM
+    type: Actions.RESET_FORM
   };
 }
 
 export function postTransactionRequest() {
   return {
-    type: POST_TRANSACTION_REQUEST
+    type: Actions.POST_TRANSACTION_REQUEST
   };
 }
 
 export function postTransactionSuccess(data) {
   return {
-    type: POST_TRANSACTION_SUCCESS,
+    type: Actions.POST_TRANSACTION_SUCCESS,
     data
   };
 }
 
 export function postTransactionFailure(error) {
   return {
-    type: POST_TRANSACTION_FAILURE,
+    type: Actions.POST_TRANSACTION_FAILURE,
     error
   };
 }
@@ -163,5 +147,47 @@ export function createTransaction(body) {
       .catch(error => {
         dispatch(postTransactionFailure(error));
       });
+  };
+}
+
+export function getTransactionsRequest() {
+  return {
+    type: Actions.GET_TRANSACTIONS_REQUEST
+  };
+}
+
+export function getTransactionsSuccess(data) {
+  return {
+    type: Actions.GET_TRANSACTIONS_SUCCESS,
+    data
+  };
+}
+
+export function getTransactionsFailure(error) {
+  return {
+    type: Actions.GET_TRANSACTIONS_FAILURE,
+    error
+  };
+}
+
+export function getTransactions() {
+  return (dispatch) => {
+    dispatch(getTransactionsRequest());
+
+    fetch('api/v1/transactions')
+      .then(checkStatus)
+      .then(transactions => {
+        dispatch(getTransactionsSuccess(transactions));
+      })
+      .catch(error => {
+        dispatch(getTransactionsFailure(error));
+      });
+  };
+}
+
+export function sortTransactions(column) {
+  return {
+    type: Actions.SORT_TRANSACTIONS,
+    column
   };
 }

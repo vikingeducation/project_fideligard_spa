@@ -1,8 +1,17 @@
 const express = require('express');
 const router = express.Router();
+const { Transaction } = require('../models');
 const TransactionService = require('../services/transactionService');
 
-router.post('/', (req, res) => {
+router.get('/', (req, res, next) => {
+  Transaction.find()
+    .then(transactions => {
+      res.json(transactions);
+    })
+    .catch(e => next(e));
+});
+
+router.post('/', (req, res, next) => {
   const { shares } = req.body;
 
   if (!shares || !shares.trim()) {
@@ -14,7 +23,7 @@ router.post('/', (req, res) => {
     .then(result => {
       res.json(result);
     })
-    .catch(e => res.status(500).json({ status: 500, message: e.message }));
+    .catch(e => next(e));
 });
 
 module.exports = router;

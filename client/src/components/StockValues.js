@@ -13,16 +13,8 @@ class StockValues extends Component {
   }
 
   render() {
-    const {
-      stocks,
-      isFetching,
-      error,
-      selectedDate,
-      sort,
-      sortDirection,
-      sortColumn,
-      getTradeInfo
-    } = this.props;
+    const { stocks, isFetching, error, selectedDate, sort,
+      sortDirection, sortColumn, getTradeInfo } = this.props;
 
     const tableHead = (
       <thead>

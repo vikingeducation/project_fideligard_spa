@@ -7,7 +7,7 @@ import StockValuesContainer from '../containers/StockValuesContainer';
 import DateRangeContainer from '../containers/DateRangeContainer';
 import Portfolio from './Portfolio';
 import TradeContainer from '../containers/TradeContainer';
-import Transactions from './Transactions';
+import TransactionsContainer from '../containers/TransactionsContainer';
 
 class App extends Component {
   constructor(props) {
@@ -34,7 +34,7 @@ class App extends Component {
                 <Redirect exact from='/' to='/portfolio'/>
                 <Route path="/portfolio" component={Portfolio} />
                 <Route path="/trade" component={TradeContainer} />
-                <Route path="/transactions" component={Transactions} />
+                <Route path="/transactions" component={TransactionsContainer} />
                 <Route render={() => <h1 className="text-center">404 - Page Not Found</h1>} />
               </Switch>
             </div>

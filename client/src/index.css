@@ -46,7 +46,7 @@ input[type="range"] {
     font-size: .5em;
   }
 }
-.StockTable th {
+.StockTable th, .TransactionTable th {
   cursor: pointer;
 }
 

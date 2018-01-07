@@ -1,4 +1,4 @@
-import * as Actions from '../actions';
+import * as Actions from '../actionTypes';
 import moment from 'moment';
 
 const initialState = {

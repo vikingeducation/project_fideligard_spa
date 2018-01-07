@@ -1,35 +1,35 @@
 import * as Actions from '../actionTypes';
 
 const initialState = {
-  stocks: [],
+  transactions: [],
   isFetching: false,
   error: null,
   sortBy: {
-    column: 'code',
+    column: 'date',
     direction: 'NONE'
   }
 };
 
-const stockInfo = (state = initialState, action) => {
+const transactionsInfo = (state = initialState, action) => {
   switch (action.type) {
-    case Actions.GET_STOCKS_REQUEST:
+    case Actions.GET_TRANSACTIONS_REQUEST:
       return {
         ...state,
         isFetching: true
       };
-    case Actions.GET_STOCKS_SUCCESS:
+    case Actions.GET_TRANSACTIONS_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        stocks: action.data.stockData
+        transactions: action.data
       };
-    case Actions.GET_STOCKS_FAILURE:
+    case Actions.GET_TRANSACTIONS_FAILURE:
       return {
         ...state,
         isFetching: false,
         error: action.error
       };
-    case Actions.SORT_STOCKS:
+    case Actions.SORT_TRANSACTIONS:
       return {
         ...state,
         sortBy: {
@@ -42,4 +42,4 @@ const stockInfo = (state = initialState, action) => {
   }
 };
 
-export default stockInfo;
+export default transactionsInfo;

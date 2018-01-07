@@ -4,37 +4,14 @@ import { withRouter } from 'react-router-dom';
 import NavSelect from './NavSelect';
 import Loader from './elements/Loader';
 import { formatMoney } from '../helpers';
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  Form,
-  FormGroup,
-  Label,
-  Col,
-  Input,
-  Button,
-  Alert
-} from 'reactstrap';
+import { Card, CardHeader, CardBody, Form, FormGroup, Label,
+  Col, Input, Button, Alert } from 'reactstrap';
 
 class Trade extends Component {
   render() {
-    const {
-      cashAvailable,
-      currentPrice,
-      isFetching,
-      error,
-      success,
-      quantityOwned,
-      ticker,
-      total,
-      transactionType,
-      isValid,
-      invalidMessage,
-      setType,
-      updateTransaction,
-      onSubmit
-    } = this.props;
+    const { cashAvailable, currentPrice, isFetching, error, success,
+      quantityOwned, ticker, total, transactionType, isValid, invalidMessage,
+      setType, updateTransaction, onSubmit } = this.props;
 
     const transactionForm = () => {
       if (isFetching) return <Loader/>;
