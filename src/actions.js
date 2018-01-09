@@ -3,6 +3,11 @@ import api_key from "./private.js";
 export const GET_REQUEST = "GET_REQUEST";
 export const GET_SUCCESS = "GET_SUCCESS";
 export const GET_FAILURE = "GET_FAILURE";
+export const SET_STOCK = "SET_STOCK";
+export const SET_DATE = "SET_DATE";
+export const CHANGE_ORDER_TYPE = "CHANGE_ORDER_TYPE";
+export const DO_TRANSACTION = "DO_TRANSACTION";
+export const CHANGE_QUANTITY = "CHANGE_QUANTITY";
 
 export function getRequest() {
   return {
@@ -21,6 +26,34 @@ export function getFailure(error) {
   return {
     type: GET_FAILURE,
     error
+  };
+}
+
+export function setDate(data) {
+  return {
+    type: SET_DATE,
+    data
+  };
+}
+
+export function changeOrderType(data) {
+  return {
+    type: CHANGE_ORDER_TYPE,
+    data
+  };
+}
+
+export function doTransaction(data) {
+  return {
+    type: DO_TRANSACTION,
+    data
+  };
+}
+
+export function changeQuantity(data) {
+  return {
+    type: CHANGE_QUANTITY,
+    data
   };
 }
 

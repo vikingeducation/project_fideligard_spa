@@ -4,7 +4,7 @@ import App from "../components/App";
 import serialize from "form-serialize";
 import { getStockData, setStock } from "../actions";
 import { withRouter } from "react-router-dom";
-import StockPanel from "../components/StockPanel";
+import TransactionsPanel from "../components/TransactionsPanel";
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -16,14 +16,10 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    getStockData: () => {
-      dispatch(getStockData("AAPL"));
-    }
-  };
+  return {};
 };
 
-const StockContainer = withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(StockPanel)
+const TransactionsContainer = withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(TransactionsPanel)
 );
-export default StockContainer;
+export default TransactionsContainer;
