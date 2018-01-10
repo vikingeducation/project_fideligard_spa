@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import logo from "./stock.png";
+import React, { Component } from 'react'
+import logo from './stock.png'
 
 const Navbar = () => (
   <div className="App">
@@ -8,6 +8,6 @@ const Navbar = () => (
       <h1 className="App-title">Welcome to Fideligard</h1>
     </header>
   </div>
-);
+)
 
-export default Navbar;
+export default Navbar

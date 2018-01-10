@@ -1,10 +1,10 @@
-import React, { Component } from "react";
-import "./App.css";
-import "bootstrap/dist/css/bootstrap.css";
+import React, { Component } from 'react'
+import './App.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 class TradePanel extends Component {
   render() {
-    console.log(this.props);
+    console.log(this.props)
     return (
       <div className="panel">
         <div className="row">
@@ -20,8 +20,7 @@ class TradePanel extends Component {
                   form="trade"
                   onChange={this.props.changeOrderType}
                   className="form-control"
-                  placeholder="BUY"
-                >
+                  placeholder="BUY">
                   <option value="BUY">Buy</option>
                   <option value="SELL">Sell</option>
                 </select>
@@ -52,8 +51,8 @@ class TradePanel extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default TradePanel;
+export default TradePanel

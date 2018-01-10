@@ -1,19 +1,19 @@
-import React, { Component } from "react";
-import "bootstrap/dist/css/bootstrap.css";
-import "./App.css";
+import React, { Component } from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import './App.css'
 import {
   BrowserRouter as Router,
   Route,
   NavLink,
   Switch
-} from "react-router-dom";
-import Navbar from "./Navbar";
-import DateWidget from "./DateWidget";
-import StockContainer from "../containers/StockContainer";
-import TradeContainer from "../containers/TradeContainer";
-import TransactionsContainer from "../containers/TransactionsContainer";
-import PortfolioPanel from "./PortfolioPanel";
-import { connect } from "react-redux";
+} from 'react-router-dom'
+import Navbar from './Navbar'
+import DateWidget from './DateWidget'
+import StockContainer from '../containers/StockContainer'
+import TradeContainer from '../containers/TradeContainer'
+import TransactionsContainer from '../containers/TransactionsContainer'
+import PortfolioPanel from './PortfolioPanel'
+import { connect } from 'react-redux'
 
 const App = () => (
   <div>
@@ -28,13 +28,21 @@ const App = () => (
             <div className="col">
               <DateWidget />
               <Switch>
-                <Route exact path="/portfolio" component={PortfolioPanel} />
                 <Route
-                  exact
+                  exact="exact"
+                  path="/portfolio"
+                  component={PortfolioPanel}
+                />
+                <Route
+                  exact="exact"
                   path="/transactions"
                   component={TransactionsContainer}
                 />
-                <Route exact path="/trade/:ticker" component={TradeContainer} />
+                <Route
+                  exact="exact"
+                  path="/trade/:ticker"
+                  component={TradeContainer}
+                />
               </Switch>
             </div>
           </div>
@@ -42,16 +50,16 @@ const App = () => (
       </div>
     </Router>
   </div>
-);
+)
 
 const mapStateToProps = (state, ownProps) => {
-  return {};
-};
+  return {}
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => {
-  return {};
-};
+  return {}
+}
 
-const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
+const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App)
 
-export default AppContainer;
+export default AppContainer
