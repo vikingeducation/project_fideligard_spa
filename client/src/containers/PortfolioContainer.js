@@ -8,13 +8,8 @@ const mapStateToProps = (state) => {
 
   return {
     cash: state.portfolio.cash,
-    investments: sortStockByColumn(
-      portfolio.investments,
-      portfolio.sortBy.column,
-      portfolio.sortBy.direction,
-      state.portfolio.transactions
-    ),
-    transactions: state.portfolio.transactions,
+    investments: sortStockByColumn(portfolio),
+    transactions: portfolio.transactions,
     isFetching: portfolio.isFetching,
     error: portfolio.error,
     sortDirection: portfolio.sortBy.direction,

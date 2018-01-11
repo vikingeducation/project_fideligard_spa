@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Card, CardHeader, CardBody, Alert, Table } from 'reactstrap';
 import Loader from './elements/Loader';
@@ -8,7 +8,7 @@ import PortfolioTableHead from './PortfolioTableHead';
 import PortfolioTotalsTable from './PortfolioTotalsTable';
 import { formatValueChange, formatMoney, costBasis } from '../helpers';
 
-class Portfolio extends Component {
+class Portfolio extends PureComponent {
   componentWillMount() {
     this.props.getPortfolio();
   }
@@ -53,7 +53,7 @@ class Portfolio extends Component {
                   transactions={transactions}
                   investments={investments}
                 />
-                <h5>Portfolio:</h5>
+                <h5>Investments:</h5>
                 <Table striped className="StockTable">
                   <PortfolioTableHead
                     sort={sort}

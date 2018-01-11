@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from  'prop-types';
 import { withRouter } from 'react-router-dom';
 import NavSelect from './NavSelect';
@@ -7,7 +7,7 @@ import { formatMoney } from '../helpers';
 import { Card, CardHeader, CardBody, Form, FormGroup, Label,
   Col, Input, Button, Alert } from 'reactstrap';
 
-class Trade extends Component {
+class Trade extends PureComponent {
   render() {
     const { cashAvailable, currentPrice, isFetching, error, success,
       quantityOwned, ticker, total, transactionType, isValid, invalidMessage,

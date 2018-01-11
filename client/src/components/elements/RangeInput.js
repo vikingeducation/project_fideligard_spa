@@ -3,6 +3,10 @@ import PropTypes from 'prop-types';
 
 // change date display onInput but only update page info onMouseUp
 class RangeInput extends Component {
+  shouldComponentUpdate(nextProps) {
+    return !(this.props.value === nextProps.value);
+  }
+
   render() {
     const { ...props } = this.props;
 

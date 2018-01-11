@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import _ from 'lodash';
 import { Card, CardHeader, CardBody } from 'reactstrap';
 import Loader from './elements/Loader';
 import { Alert, Table } from 'reactstrap';
@@ -10,6 +11,20 @@ class StockValues extends Component {
   componentWillMount() {
     const { getStocks, selectedDate } = this.props;
     getStocks(selectedDate);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    if (this.props.selectedDate !== nextProps.selectedDate ||
+        this.props.isFetching !== nextProps.isFetching ||
+        !(_.isEqual(this.props.error, nextProps.error)) ||
+        !(_.isEqual(this.props.stocks, nextProps.stocks)) ||
+        this.props.sortDirection !== nextProps.sortDirection ||
+        this.props.sortColumn !== nextProps.sortColumn)
+    {
+      return true;
+    }
+
+    return false;
   }
 
   render() {

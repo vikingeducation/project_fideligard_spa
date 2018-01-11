@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { Input } from 'reactstrap';
 import { redirectFromSelect } from '../helpers';
 
-class NavSelect extends Component {
+class NavSelect extends PureComponent {
   render() {
     const { location, history } = this.props;
 

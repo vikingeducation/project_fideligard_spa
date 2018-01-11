@@ -7,7 +7,7 @@ import { sortStockByColumn } from '../helpers';
 const mapStateToProps = (state) => {
   const stockInfo = state.stockInfo;
   return {
-    stocks: sortStockByColumn(stockInfo.stocks, stockInfo.sortBy.column, stockInfo.sortBy.direction),
+    stocks: sortStockByColumn(stockInfo),
     isFetching: stockInfo.isFetching,
     error: stockInfo.error,
     selectedDate: state.slider.outputText,

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import ScrollToTop from './ScrollToTop';
@@ -9,7 +9,7 @@ import PortfolioContainer from '../containers/PortfolioContainer';
 import TradeContainer from '../containers/TradeContainer';
 import TransactionsContainer from '../containers/TransactionsContainer';
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props);
     const { history, onPageChange } = this.props;

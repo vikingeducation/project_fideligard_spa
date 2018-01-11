@@ -21,7 +21,7 @@ const PortfolioService = {
           return fetch(`${ baseURL }/datatables/WIKI/PRICES.json?DATE.lte=${ today }&DATE.gte=${ oneMonthAgo }&api_key=${ QUANDL_API_KEY }&TICKER=${ tickers }&qopts.columns=ticker,date,close`);
         })
         .then(checkStatus)
-        .then(stocks => extractStockData(stocks, null))
+        .then(stocks => extractStockData(stocks.datatable.data, null))
         .then(stocks => {
           for (let investment of [...portfolio.user.portfolio]) {
             const stock = stocks.stockData.find(s => s.code === investment.ticker);

@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import SortCaret from './elements/SortCaret';
 
-class StockTableHead extends Component {
+class StockTableHead extends PureComponent {
   render() {
     const { sort, sortDirection, sortColumn } = this.props;
 

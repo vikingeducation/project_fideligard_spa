@@ -32,7 +32,7 @@ class DateRange extends Component {
         <CardHeader className="DateRangeSlider">
           <span className="StartDate">{moment().subtract(1, 'years').calendar()}</span>
           <span className="EndDate">{moment().format('L')}</span>
-          <output htmlFor="date" className="text-success" id="dateOutput" style={{left: outputPos}}>
+          <output htmlFor="date" id="dateOutput" style={{left: outputPos, color: '#A5D6A7'}}>
             {outputText}
           </output>
           <RangeInput

@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import { formatValueChange, formatMoney, costBasis, getValueSum } from '../helpers';
 
-class PortfolioTotalsTable extends Component {
+class PortfolioTotalsTable extends PureComponent {
   render() {
     const { cash, transactions, investments } = this.props;
     return (

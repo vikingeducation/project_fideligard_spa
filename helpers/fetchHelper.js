@@ -8,17 +8,14 @@ const checkStatus = (response) => {
   return response.json();
 };
 
-const extractStockData = (stocks, amount) => {
-  const stockInfo = stocks.datatable ? stocks.datatable.data : stocks;
-  const stockCodes = [];
-
-  // Get unique stock codes based on amount
-  for (let stock of stockInfo) stockCodes.push(stock[0]);
+const extractStockData = (stockInfo, numOfCodes) => {
+  // Get unique stock codes based on numOfCodes
+  const stockCodes = stockInfo.map(stock => stock[0]);
   let codes = [...new Set(stockCodes)];
   let uniqueCodes;
 
-  if (amount) {
-    uniqueCodes = codes.slice(codes.length - (amount + 1), codes.length - 1);
+  if (numOfCodes) {
+    uniqueCodes = codes.slice(codes.length - (numOfCodes + 1), codes.length - 1);
   } else {
     uniqueCodes = codes;
   }
@@ -27,7 +24,7 @@ const extractStockData = (stocks, amount) => {
   const parsedStocks = {};
   for (let code of uniqueCodes) {
     for (let [stockCode, date, price] of stockInfo) {
-      if (!parsedStocks[code]) parsedStocks[code] = [];
+      if (!(code in parsedStocks)) parsedStocks[code] = [];
 
       if (code === stockCode) {
         parsedStocks[code].push([date, price]);
@@ -39,10 +36,10 @@ const extractStockData = (stocks, amount) => {
   const stockData = [];
   for (let code of Object.keys(parsedStocks)) {
 
-    let currentIndex = parsedStocks[code].length - 1;
-    let oneDayIndex = parsedStocks[code].length - 2;
-    let sevenDayIndex = parsedStocks[code].length - 8;
-    let currentPrice = parsedStocks[code][currentIndex][1];
+    const currentIndex = parsedStocks[code].length - 1;
+    const oneDayIndex = parsedStocks[code].length - 2;
+    const sevenDayIndex = parsedStocks[code].length - 8;
+    const currentPrice = parsedStocks[code][currentIndex][1];
 
     stockData.push({
       code,

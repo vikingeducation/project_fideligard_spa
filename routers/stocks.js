@@ -13,8 +13,8 @@ router.get('/', (req, res, next) => {
     next(error);
   }
 
-  let date = Date.parse(req.query.date);
-  let formattedDate = moment(date).format('YYYY-MM-DD');
+  const date = Date.parse(req.query.date);
+  const formattedDate = moment(date).format('YYYY-MM-DD');
   const oneMonthAgo = moment(date).subtract(30, 'days').format('YYYY-MM-DD');
 
   if (formattedDate === 'Invalid date') {
@@ -25,7 +25,7 @@ router.get('/', (req, res, next) => {
 
   fetch(`${ baseURL }/datatables/WIKI/PRICES.json?DATE.lte=${ formattedDate }&DATE.gte=${ oneMonthAgo }&api_key=${ QUANDL_API_KEY }&qopts.per_page=600&qopts.columns=ticker,date,close`)
     .then(checkStatus)
-    .then(stocks => extractStockData(stocks, 20))
+    .then(stocks => extractStockData(stocks.datatable.data, 20))
     .then(stockData => {
       res.json(stockData);
     })
@@ -34,8 +34,9 @@ router.get('/', (req, res, next) => {
 
 router.get('/:ticker', (req, res, next) => {
   const ticker = req.params.ticker;
-  let formattedDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
+  const formattedDate = moment().subtract(1, 'days').format('YYYY-MM-DD');
   const threeDaysAgo = moment().subtract(3, 'days').format('YYYY-MM-DD');
+
   const tradeData = {};
   tradeData.ticker = ticker;
 
@@ -58,12 +59,7 @@ router.get('/:ticker', (req, res, next) => {
       tradeData.cashAvailable = user.cash;
 
       const investment = user.portfolio.find(investment => investment.ticker === ticker);
-
-      if (!investment) {
-        tradeData.quantityOwned = 0;
-      } else {
-        tradeData.quantityOwned = investment.shares;
-      }
+      tradeData.quantityOwned = investment ? investment.shares : 0;
 
       res.json({ status: 200, tradeData });
     })

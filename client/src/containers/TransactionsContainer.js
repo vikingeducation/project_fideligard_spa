@@ -7,11 +7,7 @@ const mapStateToProps = (state) => {
   let transactionState = state.transactionsInfo;
   return {
     ...transactionState,
-    transactions: sortTransactionsByColumn(
-      transactionState.transactions,
-      transactionState.sortBy.column,
-      transactionState.sortBy.direction
-    ),
+    transactions: sortTransactionsByColumn(transactionState),
     sortDirection: transactionState.sortBy.direction,
     sortColumn: transactionState.sortBy.column
   };
