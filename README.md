@@ -1,2 +1,2 @@
-# project_fideligard_spa
+# React/Redux Stock Portfolio
 Buy low, sell high.
