@@ -4,7 +4,7 @@
   "description": "Buy low, sell high.",
   "main": "server.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node server.js",
     "heroku-postbuild": "cd client && npm install && npm run build",
     "c": "node repl",
     "console": "node repl",
