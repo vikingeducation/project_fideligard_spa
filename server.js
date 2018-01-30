@@ -5,11 +5,12 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const path = require('path');
 
 app.set('port', (process.env.PORT || 3001));
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(path.join(__dirname, 'client/build')));
 }
 
 // Database
@@ -33,6 +34,9 @@ app.use('/api/v1/stocks', stocks);
 app.use('/api/v1/transactions', transactions);
 app.use('/api/v1/portfolios', portfolios);
 
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 const errorHandler = (err, req, res, next) => {
   res.status(err.response ? err.response.status : 500);
