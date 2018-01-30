@@ -39,6 +39,7 @@ app.get('*', (req, res) => {
 });
 
 const errorHandler = (err, req, res, next) => {
+  console.error(err);
   res.status(err.response ? err.response.status : 500);
   res.json(err.response);
   next();
