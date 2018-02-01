@@ -1,0 +1,248 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: #565656;
+}
+
+h3 {
+  color: #fff;
+}
+
+a {
+  color: #607D8B;
+}
+
+.App-header {
+  padding: 10px 0 5px 20px;
+  background-color: #607D8B;
+  border-bottom: none;
+  margin-bottom: 40px;
+}
+
+.card-header {
+  background-color: #607D8B;
+  border-bottom: none;
+}
+
+.PageTitle {
+  display: inline-block;
+}
+
+.NavSelect {
+  display: inline-block;
+}
+
+.card {
+  margin-bottom: 30px;
+}
+
+div.card-body {
+  padding: 15px;
+}
+
+.DateRange .card-header {
+  padding: 0px 15px;
+}
+
+input[type="range"] {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+input[type="range"]:focus, input[type="range"]:active {
+  outline-style:none;
+  box-shadow:none;
+  border-color:transparent;
+}
+
+.StockTable th, .StockTable td {
+  padding: 10px 5px;
+  font-size: .6em;
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1070px) {
+  .StockTable th, .StockTable td {
+    font-size: .5em;
+  }
+}
+.StockTable th, .TransactionTable th {
+  cursor: pointer;
+}
+
+.StockTable th:hover {
+  text-decoration: underline;
+}
+
+.StockTable .reg-th {
+  cursor: initial;
+}
+
+.StockTable .reg-th:hover {
+  text-decoration: none;
+}
+
+.fa-caret-up, .fa-caret-down {
+  margin-left: 2px;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(96,125,139, 0.5);
+}
+
+/********** Trade form styles ************/
+
+.input-replacement {
+  margin-bottom: 0;
+  padding-top: 6px;
+}
+
+.form-group {
+  margin-bottom: 7px;
+}
+
+button {
+  cursor: pointer;
+}
+
+.Status {
+  padding: 10px 30px;
+}
+
+/********** Range output Styles **********/
+
+output {
+  position: relative;
+  text-align: center;
+  font-size: 12px !important;
+  display: inline-block;
+  bottom: 50%;
+  left: 0;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.StartDate {
+  position: absolute;
+  text-align: center;
+  font-size: 12px !important;
+  display: inline-block;
+  bottom: 100%;
+  left: 0;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.EndDate {
+  position: absolute;
+  text-align: center;
+  font-size: 12px !important;
+  display: inline-block;
+  bottom: 100%;
+  right: 0;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+/*********** Loader Styles *************/
+
+.loader,
+.loader:before,
+.loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loader {
+  color: #d3d3d3;
+  font-size: 10px;
+  margin: 25px auto 80px auto;
+  position: relative;
+  text-indent: -9999em;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation-delay: -0.16s;
+  animation-delay: -0.16s;
+}
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loader:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loader:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.perf-profiler {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 50px;
+  top: 20px;
+  padding: 10px;
+  background: #EC407A;
+  text-align: center;
+  z-index: 1;
+}
+
+.perf-profiler > h1 {
+  font-size: 1.5em;
+  color: #fff;
+}
+
+.perf-profiler > button {
+  margin: 6px 0;
+  color: #fff;
+  background-color: #2196F3;
+  font-weight: 500;
+  height: 30.6px;
+  line-height: 30.6px;
+  padding: 0 16px;
+  font-size: 13px;
+  border: none;
+  cursor: pointer;
+}
+
+.perf-profiler > button:hover {
+  background-color: #39a1f4;
+  box-shadow: 0 0 2px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.2);
+  outline: 0;
+}
+
+.perf-profiler > button:focus {
+  background-color: #39a1f4;
+  box-shadow: 0 0 2px rgba(0,0,0,.12), 0 2px 2px rgba(0,0,0,.2);
+  outline: 0;
+}
+
