@@ -1,10 +1,7 @@
-import { previousDate } from "./helpers/helper";
+import { previousDate, apiDate } from "./helpers/helper";
 export const CLEAR_DATA = "CLEAR_DATA";
 //API CALLS
-export const GET_TODAY_SUCCESS = "GET_TODAY_SUCCESS";
-export const GET_YESTER_SUCCESS = "GET_YESTER_SUCCESS";
-export const GET_WEEK_SUCCESS = "GET_WEEK_SUCCESS";
-export const GET_MONTH_SUCCESS = "GET_MONTH_SUCCESS";
+export const GET_STOCK_SUCCESS = "GET_STOCK_SUCCESS";
 export const GET_REQUEST = "GET_REQUEST";
 export const GET_REQUEST_FAILURE = "GET_REQUEST_FAILURE";
 //INPUTS
@@ -27,31 +24,10 @@ export function getRequest() {
   };
 }
 
-export function getTodaySuccess(data) {
+export function getStockSuccess(date, data) {
   return {
-    type: GET_TODAY_SUCCESS,
-    data
-  };
-}
-
-export function getYesterSuccess(data) {
-  return {
-    type: GET_YESTER_SUCCESS,
-    data
-  };
-}
-
-export function getWeekAgoSuccess(data) {
-  return {
-    type: GET_WEEK_SUCCESS,
-    data
-  };
-}
-
-export function getMonthAgoSuccess(data) {
-  return {
-    type: GET_MONTH_SUCCESS,
-    data
+    type: GET_STOCK_SUCCESS,
+    data: { date, data }
   };
 }
 
@@ -140,25 +116,26 @@ const checkStatus = response => {
   return response.json();
 };
 
-export function getApiData(section, params, date, successCB) {
+export function getApiData(date, stocks) {
   return dispatch => {
     dispatch(getRequest());
-    if (!section || !params || !date) {
-      return {};
+    if (!date || !stocks) {
+      dispatch(() => {});
+    } else if (stocks[date] !== undefined) {
+      dispatch(() => {});
+    } else {
+      fetch(`WIKI/PRICES/${date}/`)
+        .then(checkStatus)
+        .then(json => {
+          if (json.datatable.data.length < 1) {
+            dispatch(getStockSuccess(date, null));
+          } else {
+            dispatch(getStockSuccess(date, json.datatable.data));
+          }
+        })
+        .catch(() => {
+          dispatch(() => {});
+        });
     }
-    fetch(`${section}/${params}/${date}/`)
-      .then(checkStatus)
-      .then(json => {
-        if (json.datatable.data.length < 1) {
-          dispatch(
-            getApiData(section, params, previousDate(date, 1), successCB)
-          );
-        } else {
-          dispatch(successCB(json.datatable));
-        }
-      })
-      .catch(error => {
-        dispatch(getApiData(section, params, previousDate(date, 1), successCB));
-      });
   };
 }

@@ -1,7 +1,9 @@
+import Input from "../elements/Input";
+import InputGroup from "../elements/InputGroup";
+import Button from "../elements/Button";
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import serialize from "form-serialize";
-import { withRouter } from "react-router-dom";
 import {
   setTradeSymbol,
   setTradePrice,
@@ -11,135 +13,170 @@ import {
   setCashAmount,
   setTransaction
 } from "../../actions";
-import { displayDate } from "../../helpers/helper";
+import { displayDate, inputDate } from "../../helpers/helper";
 import { connect } from "react-redux";
-import Trade from "./Trade";
-
-function indexOfStocks(stock, symbol) {
-  let matched = false;
-  if (!stock && !symbol) {
-    return [false, 0];
-  }
-  for (var i = 0; i < stock.length && !matched; i++) {
-    if (stock[i][0] === symbol) {
-      matched = true;
-    }
-  }
-
-  return [matched, i - 1];
-}
 
 class TradeForm extends Component {
   componentWillMount() {
-    let matched;
-    if (this.props.match.params) {
-      matched = indexOfStocks(
-        this.props.todayStocks.data,
-        this.props.match.params.symbol
-      );
-      if (matched[0]) {
-        this.props.setPrice([
-          this.props.todayStocks.data[matched[1]][2],
-          this.props.yesterStocks.data[matched[1]][2],
-          this.props.weekStocks.data[matched[1]][2],
-          this.props.monthStocks.data[matched[1]][2]
-        ]);
-        this.props.setDate([
-          this.props.todayStocks.data[matched[1]][1],
-          this.props.yesterStocks.data[matched[1]][1],
-          this.props.weekStocks.data[matched[1]][1],
-          this.props.monthStocks.data[matched[1]][1]
-        ]);
-        this.props.setSymbol(this.props.match.params.symbol);
-        this.props.setQuantity(1);
-      } else {
-        this.props.setPrice([0]);
-        this.props.setQuantity(1);
-        this.props.setSymbol("A");
-        this.props.setDate([
-          this.props.todayStocks.data[0][1],
-          this.props.yesterStocks.data[0][1],
-          this.props.weekStocks.data[0][1],
-          this.props.monthStocks.data[0][1]
-        ]);
-      }
+    console.log(this.props.match.params);
+    if (Object.keys(this.props.match.params).length) {
+      this.props.setDate(this.props.match.params.date);
+      this.props.setSymbol(this.props.match.params.symbol);
+      this.props.setPrice(this.props.match.params.price);
+    } else {
+      this.props.setDate(new Date());
+      this.props.setSymbol("");
+      this.props.setPrice(0);
     }
   }
   componentWillReceiveProps(nextProps) {
-    let matched;
-    //Set from link
-    if (
-      nextProps.match.params !== this.props.match.params &&
-      nextProps.match.params.symbol
-    ) {
-      matched = indexOfStocks(
-        this.props.todayStocks.data,
-        nextProps.match.params.symbol
-      );
-      if (matched[0]) {
-        this.props.setSymbol(nextProps.match.params.symbol);
-        nextProps.setDate([
-          this.props.todayStocks.data[matched[1]][1],
-          this.props.yesterStocks.data[matched[1]][1],
-          this.props.weekStocks.data[matched[1]][1],
-          this.props.monthStocks.data[matched[1]][1]
-        ]);
-        nextProps.setPrice([
-          this.props.todayStocks.data[matched[1]][2],
-          this.props.yesterStocks.data[matched[1]][2],
-          this.props.weekStocks.data[matched[1]][2],
-          this.props.monthStocks.data[matched[1]][2]
-        ]);
+    if (nextProps.match !== this.props.match) {
+      console.log("MATCH!!!!!");
+      if (Object.keys(this.props.match.params).length) {
+        this.props.setDate(this.props.match.params.date);
+        this.props.setSymbol(this.props.match.params.symbol);
+        this.props.setPrice(this.props.match.params.price);
       } else {
-        nextProps.setPrice([0]);
-        this.props.setQuantity(1);
-        this.props.setSymbol("A");
-        nextProps.setDate([
-          this.props.todayStocks.data[0][1],
-          this.props.yesterStocks.data[0][1],
-          this.props.weekStocks.data[0][1],
-          this.props.monthStocks.data[0][1]
-        ]);
-      }
-    }
-    //New symbol
-    if (nextProps.trade.symbol !== this.props.trade.symbol) {
-      matched = indexOfStocks(
-        this.props.todayStocks.data,
-        nextProps.trade.symbol
-      );
-
-      if (matched[0]) {
-        nextProps.setPrice([
-          this.props.todayStocks.data[matched[1]][2],
-          this.props.yesterStocks.data[matched[1]][2],
-          this.props.weekStocks.data[matched[1]][2],
-          this.props.monthStocks.data[matched[1]][2]
-        ]);
-        nextProps.setDate([
-          this.props.todayStocks.data[matched[1]][1],
-          this.props.yesterStocks.data[matched[1]][1],
-          this.props.weekStocks.data[matched[1]][1],
-          this.props.monthStocks.data[matched[1]][1]
-        ]);
-      } else {
-        nextProps.setPrice([0]);
+        this.props.setDate(new Date());
+        this.props.setSymbol("");
+        this.props.setPrice(0);
       }
     }
   }
+  submitButtonFunc = (trade, valid) => {
+    let submitButton;
+    if (trade.buy === "BUY") {
+      if (valid) {
+        submitButton = (
+          <Button color="primary" type="submit">
+            Place Order!
+          </Button>
+        );
+      } else {
+        submitButton = (
+          <Button color="primary" type="submit" disabled>
+            Too Much!
+          </Button>
+        );
+      }
+    } else if (trade.buy === "SELL") {
+      if (valid) {
+        submitButton = (
+          <Button color="primary" type="submit">
+            Sell Stocks!
+          </Button>
+        );
+      } else {
+        submitButton = (
+          <Button color="primary" type="submit" disabled>
+            Don't Own!
+          </Button>
+        );
+      }
+    }
+    return submitButton;
+  };
+
   render() {
-    const { valid } = this.props;
-    return <Trade valid={valid} />;
+    const {
+      match,
+      stocks,
+      trade,
+      cash,
+      transactions,
+      tradeStock,
+      setSymbol,
+      setBuy,
+      setQuantity,
+      setDate
+    } = this.props;
+    //trade: { symbol: "", price: [0], date: [0], quantity: 0, buy: "BUY" }
+
+    let valid = true;
+    let cost;
+    if (trade.price) {
+      cost = trade.price * trade.quantity;
+    } else {
+      cost = "";
+    }
+    if (Number(cost) > Number(cash)) {
+      valid = false;
+    }
+    let submitButton = this.submitButtonFunc(trade, valid);
+
+    return (
+      <div className="row">
+        <div className="col">
+          <form onSubmit={tradeStock}>
+            <InputGroup name="symbol" labelText="Symbol">
+              <Input
+                name="symbol"
+                onChange={e => {
+                  setSymbol(e.target.value);
+                }}
+                value={trade.symbol}
+              />
+            </InputGroup>
+            <InputGroup name="type" labelText="Buy/Sell">
+              <select
+                name="type"
+                onChange={e => {
+                  setBuy(e.target.value);
+                }}
+                defaultValue={trade.buy}
+              >
+                <option value="BUY">BUY</option>
+                <option value="SELL">SELL</option>
+              </select>
+            </InputGroup>
+            <InputGroup name="quantity" labelText="Quantity">
+              <Input
+                name="quantity"
+                value={trade.quantity}
+                onChange={e => {
+                  setQuantity(e.target.value);
+                }}
+              />
+            </InputGroup>
+            <InputGroup name="date" labelText="Date">
+              <Input
+                name="dateToShow"
+                type="date"
+                value={inputDate(trade.date)}
+                onChange={e => {
+                  setDate(e.target.value);
+                }}
+              />
+              <Input name="date" type="hidden" value={trade.date} />
+              <p>{displayDate(trade.date)}</p>
+            </InputGroup>
+            <p>
+              <b>Price</b> ${trade.price
+                ? Number(trade.price).toFixed(2)
+                : "ERR"}
+            </p>
+            <Input type="hidden" value={trade.price} name="price" />
+            <p>
+              <b>Cost</b> ${cost ? cost.toFixed(2) : "0"}
+            </p>
+            <Input type="hidden" value={cash} name="cash" />
+            {submitButton}
+          </form>
+        </div>
+        <div className="col">
+          <h5>Cash Available:</h5>
+          <p>${this.props.cash.toFixed(2)}</p>
+          <h5>Order Status</h5>
+          {valid ? "VALID" : "NOT VALID"}
+        </div>
+      </div>
+    );
   }
 }
 
 const mapStateToProps = state => {
   return {
-    trade: state.trade,
-    todayStocks: state.todayStocks,
-    yesterStocks: state.yesterStocks,
-    weekStocks: state.weekStocks,
-    monthStocks: state.monthStocks,
+    stocks: state.stocks,
     cash: state.cash,
     transactions: state.transactions
   };
@@ -174,6 +211,7 @@ const mapDispatchToProps = dispatch => {
       data.date[3] = displayDate(data.date[3]);
       data.quantity = Number(data.quantity);
       if (data.quantity > 0) {
+        console.log(data);
         dispatch(setTransaction(data));
         if (data.type === "BUY") {
           dispatch(
@@ -191,6 +229,4 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(TradeForm)
-);
+export default connect(mapStateToProps, mapDispatchToProps)(TradeForm);

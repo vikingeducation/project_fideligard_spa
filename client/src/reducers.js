@@ -1,11 +1,8 @@
 import * as Actions from "./actions";
-
+import { hashStocks } from "./helpers/helper";
 const initalState = {
-  todayStocks: {},
   todaysDate: new Date(),
-  yesterStocks: {},
-  weekStocks: {},
-  monthStocks: {},
+  stocks: {},
   isFetching: false,
   error: null,
   searchBox: "",
@@ -20,36 +17,18 @@ const initalState = {
 };
 
 export function fideligard(state = initalState, action) {
-  console.log(action, state);
   switch (action.type) {
-    case Actions.GET_TODAY_SUCCESS:
+    case Actions.GET_STOCK_SUCCESS:
+      if (action.data.data) {
+        action.data.data = hashStocks(action.data.data);
+      }
       return {
         ...state,
-        todayStocks: action.data,
+        stocks: { ...state.stocks, [action.data.date]: action.data.data },
         isFetching: false,
         error: null
       };
-    case Actions.GET_YESTER_SUCCESS:
-      return {
-        ...state,
-        yesterStocks: action.data,
-        isFetching: false,
-        error: null
-      };
-    case Actions.GET_WEEK_SUCCESS:
-      return {
-        ...state,
-        weekStocks: action.data,
-        isFetching: false,
-        error: null
-      };
-    case Actions.GET_MONTH_SUCCESS:
-      return {
-        ...state,
-        monthStocks: action.data,
-        isFetching: false,
-        error: null
-      };
+
     case Actions.GET_REQUEST:
       return {
         ...state,

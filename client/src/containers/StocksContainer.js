@@ -1,63 +1,20 @@
-import React from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import Stock from "../components/Stock/Stock";
 import StockHeader from "../components/Stock/StockHeader";
-import { sanitizeStocks, displayDate } from "../helpers/helper";
+import {
+  sanitizeStocks,
+  displayDate,
+  apiDate,
+  previousDate
+} from "../helpers/helper";
 import { setSearch } from "../actions";
 
-const StocksContainer = ({
-  isFetching,
-  monthStocks,
-  weekStocks,
-  yesterStocks,
-  todayStocks,
-  searchBox,
-  setSearchEnter,
-  todaysDate
-}) => {
-  let stockRows;
-  let combinedStocksFiltered = [];
-  let combinedStocks = [];
-  if (
-    todayStocks.data &&
-    monthStocks.data &&
-    weekStocks.data &&
-    yesterStocks.data
-  ) {
-    combinedStocks = sanitizeStocks(
-      todayStocks.data,
-      monthStocks.data,
-      weekStocks.data,
-      yesterStocks.data
-    );
-    combinedStocksFiltered = combinedStocks;
-    if (searchBox.length) {
-      combinedStocksFiltered = combinedStocks.filter(item => {
-        return item[0][0].includes(searchBox.toUpperCase());
-      });
-    }
-
-    stockRows = combinedStocksFiltered.map((tStock, index) => (
-      <Stock
-        todayStock={combinedStocksFiltered[index][0]}
-        yesterStock={combinedStocksFiltered[index][1]}
-        weekStock={combinedStocksFiltered[index][2]}
-        monthStock={combinedStocksFiltered[index][3]}
-        key={combinedStocksFiltered[index][0][0]}
-      />
-    ));
-  } else {
-    stockRows = (
-      <tr>
-        <td>Loading Some More</td>
-      </tr>
-    );
-  }
-  return (
-    <span>
-      {isFetching ? (
-        <span>Loading</span>
-      ) : todayStocks ? (
+class StocksContainer extends Component {
+  render() {
+    const { todaysDate, setSearchEnter, stocks, searchBox } = this.props;
+    return (
+      <span>
         <div className="container stockElement bordered">
           <div className="row">
             <div className="col-6">
@@ -78,32 +35,35 @@ const StocksContainer = ({
           <div className="row">
             <table className="table table-bordered">
               <thead>
-                {combinedStocks.length ? (
-                  <StockHeader stocks={combinedStocks} />
+                <StockHeader todaysDate={this.props.todaysDate} />
+              </thead>
+              <tbody id="stocks">
+                {Object.keys(stocks).length > 3 ? (
+                  <Stock
+                    todayStock={stocks[apiDate(todaysDate)]}
+                    yesterStock={stocks[apiDate(previousDate(todaysDate, 1))]}
+                    weekStock={stocks[apiDate(previousDate(todaysDate, 7))]}
+                    monthStock={stocks[apiDate(previousDate(todaysDate, 30))]}
+                    date={todaysDate}
+                    searchBox={searchBox}
+                  />
                 ) : (
                   <tr>
-                    <th>Loading</th>
+                    <td>-.--</td>
                   </tr>
                 )}
-              </thead>
-              <tbody>{stockRows}</tbody>
+              </tbody>
             </table>
           </div>
         </div>
-      ) : (
-        <span>Still Loading...</span>
-      )}
-    </span>
-  );
-};
+      </span>
+    );
+  }
+}
 
 const mapStateToProps = state => {
   return {
-    todayStocks: state.todayStocks,
-    yesterStocks: state.yesterStocks,
-    weekStocks: state.weekStocks,
-    monthStocks: state.monthStocks,
-    isFetching: state.isFetching,
+    stocks: state.stocks,
     searchBox: state.searchBox,
     todaysDate: state.todaysDate
   };

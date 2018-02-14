@@ -46,6 +46,22 @@ export function previousDate(currentDate, daysBack) {
   }
 }
 
+export function inputDate(date) {
+  date = new Date(date);
+  let inputValue = "";
+  let inputYear = date.getFullYear();
+  let inputDay = Number(date.getDate());
+  let inputMonth = Number(date.getMonth()) + 1;
+  if (inputMonth < 10) {
+    inputMonth = "0" + inputMonth;
+  }
+  if (inputDay < 10) {
+    inputDay = "0" + inputDay;
+  }
+  inputValue = inputYear + "-" + inputMonth + "-" + inputDay;
+  return inputValue;
+}
+
 export function dateDifference(firstDate, secondDate) {
   if (!firstDate) {
     return false;
@@ -72,103 +88,10 @@ export function dateDifference(firstDate, secondDate) {
   return Math.floor((utc2 - utc1) / _MS_PER_DAY) - 1;
 }
 
-export function sanitizeStocks(stock1, stock2, stock3, stock4) {
-  if (!stock1 || !stock2 || !stock3 || !stock4) {
-    return false;
-  }
-  let arrayStock = [stock1, stock2, stock3, stock4];
-  //Sort shortest to longest
-  arrayStock.sort(function(a, b) {
-    return a.length - b.length;
+export function hashStocks(stocks) {
+  let hashedStocks = {};
+  stocks.forEach(stock => {
+    hashedStocks[stock[0]] = stock[2];
   });
-  let answer = [];
-  for (var i = 0; i < arrayStock[0].length; i++) {
-    //If all symbols are equal, push
-    if (
-      arrayStock[0][i][0] === arrayStock[1][i][0] &&
-      arrayStock[2][i][0] === arrayStock[3][i][0] &&
-      arrayStock[0][i][0] === arrayStock[3][i][0]
-    ) {
-      answer.push([
-        arrayStock[0][i],
-        arrayStock[1][i],
-        arrayStock[2][i],
-        arrayStock[3][i]
-      ]);
-    } else {
-      let trimAndRepeat = false;
-      //if Banana > Apple, remove Apple
-      if (arrayStock[0][i][0] > arrayStock[1][i][0]) {
-        arrayStock[1].splice(i, 1);
-        trimAndRepeat = true;
-      }
-      if (arrayStock[0][i][0] > arrayStock[2][i][0]) {
-        arrayStock[2].splice(i, 1);
-        trimAndRepeat = true;
-      }
-      if (arrayStock[0][i][0] > arrayStock[3][i][0]) {
-        arrayStock[3].splice(i, 1);
-        trimAndRepeat = true;
-      }
-      //if Apple < Banana, add Empty Apple
-      if (arrayStock[0][i][0] < arrayStock[1][i][0]) {
-        arrayStock[1].splice(i, 0, [
-          arrayStock[0][i][0],
-          arrayStock[1][i][1],
-          "N/A"
-        ]);
-      }
-      if (arrayStock[0][i][0] < arrayStock[2][i][0]) {
-        arrayStock[2].splice(i, 0, [
-          arrayStock[0][i][0],
-          arrayStock[2][i][1],
-          "N/A"
-        ]);
-      }
-      if (arrayStock[0][i][0] < arrayStock[3][i][0]) {
-        arrayStock[3].splice(i, 0, [
-          arrayStock[0][i][0],
-          arrayStock[3][i][1],
-          "N/A"
-        ]);
-      }
-      //If removed from other arrays, repeat
-      if (trimAndRepeat && i !== arrayStock[0].length) {
-        i--;
-      }
-      //If trimmed too much, exit
-      if (
-        arrayStock[1].length < arrayStock[0].length ||
-        arrayStock[2] < arrayStock[0].length ||
-        arrayStock[3] < arrayStock[0].length
-      ) {
-        i = arrayStock[0].length + 1;
-      }
-    }
-  }
-  //Sort by date, current, yesterday, past...
-  for (var j = 0; j < answer.length; j++) {
-    answer[j].sort((a, b) => {
-      return new Date(a[1]) < new Date(b[1]);
-    });
-  }
-
-  return answer;
+  return hashedStocks;
 }
-//
-// export function hashStocks(stocks) {
-//   let hashedStocks = {};
-//   console.log(stocks);
-//   for (var i = 0; i < stocks.length; i++) {
-//     hashedStocks[stocks[i][0][0]] = {
-//       price: [
-//         stocks[i][0][2],
-//         stocks[i][1][2],
-//         stocks[i][2][2],
-//         stocks[i][3][2]
-//       ],
-//       date: [stocks[i][0][1], stocks[i][1][1], stocks[i][2][1], stocks[i][3][1]]
-//     };
-//   }
-//   return hashedStocks;
-// }

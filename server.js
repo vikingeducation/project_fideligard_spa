@@ -5,8 +5,6 @@ const express = require("express");
 const app = express();
 const FIDELIGARD_API_KEY = process.env.FIDELIGARD_API_KEY;
 const baseUrl = "https://www.quandl.com/api/v3/datatables/";
-//"https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?api_key=YOURAPIKEY"
-//https://www.quandl.com/api/v3/datasets/{database_code}/{dataset_code}/data.{return_format}
 
 app.set("port", process.env.PORT || 3001);
 
@@ -28,7 +26,7 @@ app.get("/:databaseCode/:dataset/:date/", (req, res, next) => {
   console.log(
     `Requesting Search: ${baseUrl}${req.params.databaseCode}/${req.params
       .dataset}?date=${req.params
-      .date}&qopts.columns=ticker,date,close&api_key=${FIDELIGARD_API_KEY}`
+      .date}&qopts.columns=ticker,date,close&api_key=APIKEY`
   );
 
   fetch(

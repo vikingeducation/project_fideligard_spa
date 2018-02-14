@@ -23,8 +23,8 @@ body {
 }
 
 .stockElement .row * {
-  width: 100%;
-  padding: 0;
+  width: auto;
+  padding: 1px;
 }
 
 .slider {

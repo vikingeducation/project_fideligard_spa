@@ -3,10 +3,7 @@ import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   getApiData,
-  getTodaySuccess,
-  getYesterSuccess,
-  getWeekAgoSuccess,
-  getMonthAgoSuccess,
+  getStockSuccess,
   setDate,
   clearTransactionTrade
 } from "../actions";
@@ -25,27 +22,25 @@ import TransactionContainer from "../containers/TransactionContainer";
 
 class App extends Component {
   componentWillMount() {
-    this.props.setDateData(new Date());
-
-    this.props.getData(previousDate(this.props.todaysDate, 0), getTodaySuccess);
-    this.props.getData(
-      previousDate(this.props.todaysDate, 1),
-      getYesterSuccess
-    );
-    this.props.getData(
-      previousDate(this.props.todaysDate, 7),
-      getWeekAgoSuccess
-    );
-    this.props.getData(
-      previousDate(this.props.todaysDate, 30),
-      getMonthAgoSuccess
-    );
-    // this.props.todaySuccess(todayResponse.datatable);
-    // this.props.yesterdaySuccess(yesterdayResponse.datatable);
-    // this.props.weekSuccess(weekResponse.datatable);
-    // this.props.monthSuccess(monthResponse.datatable);
+    this.props.setDateData(new Date(), {});
   }
+
+  onSliderChange = e => {
+    let date = e.target.value.split("-");
+    //2018-01-01 => 2018-1-1
+    if (date[1][0] === "0") {
+      date[1] = date[1][1];
+    }
+    if (date[2][0] === "0") {
+      date[2] = date[2][1];
+    }
+    date = date.join("-");
+    this.props.setDateData(date, this.props.stocks);
+  };
+
   render() {
+    let twoMonthsPrior = new Date();
+    twoMonthsPrior.setMonth(twoMonthsPrior.getMonth() - 2);
     return (
       <Router>
         <div>
@@ -60,12 +55,11 @@ class App extends Component {
                 <StocksContainer />
               </div>
               <div className="col-sm-6">
+                <p>{displayDate(this.props.todaysDate)}</p>
+
                 <Slider
-                  endDate={new Date()}
-                  startDate={new Date("10-30-2017")}
-                  onChange={e => this.props.setDateData(Number(e.target.value))}
+                  onChange={this.onSliderChange.bind(this)}
                   value={this.props.todaysDate}
-                  label={displayDate(this.props.todaysDate)}
                 />
 
                 <Switch>
@@ -94,46 +88,27 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    todayStocks: state.todayStocks,
-    yesterStocks: state.yesterStocks,
-    weekStocks: state.weekStocks,
-    monthStocks: state.monthStocks,
+    stocks: state.stocks,
     todaysDate: state.todaysDate
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    getData: (date, callBack) => {
-      dispatch(getApiData("WIKI", "PRICES", date, callBack));
+    getData: date => {
+      dispatch(getApiData("WIKI", "PRICES", date));
     },
-    setDateData: date => {
+    setDateData: (date, stocks) => {
       dispatch(setDate(date));
-      dispatch(
-        getApiData("WIKI", "PRICES", previousDate(date, 0), getTodaySuccess)
-      );
-      dispatch(
-        getApiData("WIKI", "PRICES", previousDate(date, 1), getYesterSuccess)
-      );
-      dispatch(
-        getApiData("WIKI", "PRICES", previousDate(date, 7), getWeekAgoSuccess)
-      );
-      dispatch(
-        getApiData("WIKI", "PRICES", previousDate(date, 30), getMonthAgoSuccess)
-      );
+      dispatch(getApiData(previousDate(date, 0), stocks));
+
+      dispatch(getApiData(previousDate(date, 1), stocks));
+
+      dispatch(getApiData(previousDate(date, 7), stocks));
+
+      dispatch(getApiData(previousDate(date, 30), stocks));
+
       dispatch(clearTransactionTrade());
-    },
-    todaySuccess: data => {
-      dispatch(getTodaySuccess(data));
-    },
-    yesterdaySuccess: data => {
-      dispatch(getYesterSuccess(data));
-    },
-    weekSuccess: data => {
-      dispatch(getWeekAgoSuccess(data));
-    },
-    monthSuccess: data => {
-      dispatch(getMonthAgoSuccess(data));
     }
   };
 };

@@ -70,8 +70,9 @@ const Portfolio = ({ transactions, cash }) => {
         <td>${Number(single.price[0] - single.price[3]).toFixed(2)}</td>
         <td>
           <Link
-            to={`/trade/${single.symbol}/${apiDate(single.date[0])}/${single
-              .price[0]}/`}
+            to={`/trade/${single.symbol}/${apiDate(single.date[0])}/${
+              single.price[0]
+            }/`}
           >
             trade
           </Link>
@@ -101,6 +102,11 @@ const mapStateToProps = state => {
     transactions: state.transactions,
     cash: state.cash
   };
+};
+
+Portfolio.propTypes = {
+  transactions: PropTypes.array.isRequired,
+  cash: PropTypes.number.isRequired
 };
 
 export default connect(mapStateToProps)(Portfolio);
