@@ -2,27 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { apiDate, dateDifference } from "../../helpers/helper";
+import { apiDate } from "../../helpers/helper";
+import { getApiData } from "../../actions";
 
-const Portfolio = ({ transactions, cash }) => {
+const Portfolio = ({ transactions, cash, latestStocks, getApiData }) => {
   const portfolioHeader = (
     <thead>
       <tr>
         <th>Symbol</th>
         <th>Quantity</th>
         <th>Cost Basis</th>
-        <th>Current Value</th>
+        <th>Transactioned Value</th>
         <th>Profit/Loss</th>
         <th>Current Price</th>
-        <th>
-          {transactions[0] ? dateDifference(transactions[0].date[1]) : "0"}d
-        </th>
-        <th>
-          {transactions[0] ? dateDifference(transactions[0].date[2]) : "0"}d
-        </th>
-        <th>
-          {transactions[0] ? dateDifference(transactions[0].date[3]) : "0"}d
-        </th>
+
         <th>trade</th>
       </tr>
     </thead>
@@ -36,41 +29,41 @@ const Portfolio = ({ transactions, cash }) => {
       <td>$0.00</td>
       <td>$0.00</td>
       <td>$0.00</td>
-      <td>$0.00</td>
-      <td>$0.00</td>
+
       <td />
     </tr>
   );
   let portfolioBody;
   if (transactions.length) {
     portfolioBody = transactions.map(single => (
-      <tr>
+      <tr key={"transaction" + single.symbol + single.date}>
+        {/* Symbol */}
         <td>{single.symbol}</td>
+        {/* Quantity */}
+        <td>{single.quantity}</td>
+        {/* Cost Basis */}
         <td>
-          {single.type === "BUY" ? "+" : "-"}
-          {single.quantity}
-        </td>
-        <td>
-          ${Number(
-            single.quantity * single.price[0] -
-              single.quantity * single.price[3] -
-              single.price[0]
+          ${(
+            Number(single.quantity) * Number(single.price) -
+            Number(single.quantity) * Number(latestStocks[single.symbol]) -
+            Number(single.price)
           ).toFixed(2)}
         </td>
-        <td>${Number(single.quantity * single.price[0]).toFixed(2)}</td>
+        {/* Transactioned Value */}
+        <td>${Number(single.quantity * single.price).toFixed(2)}</td>
+        {/* Profit/Loss */}
         <td>
           ${Number(
-            single.quantity * single.price[0] -
-              single.quantity * single.price[3]
+            single.quantity * single.price -
+              single.quantity * latestStocks[single.symbol]
           ).toFixed(2)}
         </td>
-        <td>${Number(single.price[0]).toFixed(2)}</td>
-        <td>${Number(single.price[0] - single.price[1]).toFixed(2)}</td>
-        <td>${Number(single.price[0] - single.price[2]).toFixed(2)}</td>
-        <td>${Number(single.price[0] - single.price[3]).toFixed(2)}</td>
+        {/* Current Price */}
+        <td>${Number(latestStocks[single.symbol]).toFixed(2)}</td>
+        {/* Trade Link */}
         <td>
           <Link
-            to={`/trade/${single.symbol}/${apiDate(single.date[0])}/${
+            to={`/trade/${single.symbol}/${apiDate(single.date)}/${
               single.price[0]
             }/`}
           >
@@ -104,9 +97,17 @@ const mapStateToProps = state => {
   };
 };
 
+const mapDispatchToProps = dispatch => {
+  return {
+    getApiData: (date, stocks) => {
+      dispatch(getApiData(date, stocks));
+    }
+  };
+};
+
 Portfolio.propTypes = {
   transactions: PropTypes.array.isRequired,
   cash: PropTypes.number.isRequired
 };
 
-export default connect(mapStateToProps)(Portfolio);
+export default connect(mapStateToProps, mapDispatchToProps)(Portfolio);

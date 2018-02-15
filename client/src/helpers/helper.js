@@ -72,6 +72,7 @@ export function dateDifference(firstDate, secondDate) {
   }
   let dateOne = new Date(firstDate);
   let dateTwo = new Date(secondDate);
+
   var _MS_PER_DAY = 1000 * 60 * 60 * 24;
 
   // Discard the time and time-zone information.
@@ -85,8 +86,7 @@ export function dateDifference(firstDate, secondDate) {
     dateTwo.getMonth(),
     dateTwo.getDate()
   );
-
-  return Math.floor((utc2 - utc1) / _MS_PER_DAY) - 1;
+  return Math.floor((utc2 - utc1) / _MS_PER_DAY);
 }
 
 export function hashStocks(stocks) {

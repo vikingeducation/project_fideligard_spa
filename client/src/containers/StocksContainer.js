@@ -34,7 +34,7 @@ class StocksContainer extends Component {
                 <StockHeader todaysDate={this.props.todaysDate} />
               </thead>
               <tbody id="stocks">
-                {Object.keys(stocks).length > 3 ? (
+                {Object.keys(stocks).length > 1 ? (
                   <Stock
                     todayStock={stocks[apiDate(todaysDate)]}
                     yesterStock={stocks[apiDate(previousDate(todaysDate, 1))]}

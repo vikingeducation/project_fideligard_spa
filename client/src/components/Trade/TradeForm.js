@@ -1,9 +1,6 @@
-import Input from "../elements/Input";
-import InputGroup from "../elements/InputGroup";
 import Button from "../elements/Button";
 import React, { Component } from "react";
 // import PropTypes from "prop-types";
-import serialize from "form-serialize";
 import {
   setTradeSymbol,
   setTradePrice,
@@ -14,7 +11,7 @@ import {
   setTransaction,
   getApiData
 } from "../../actions";
-import { displayDate, inputDate, apiDate } from "../../helpers/helper";
+import { apiDate } from "../../helpers/helper";
 import { connect } from "react-redux";
 
 import TradeSymbol from "./TradeForm/TradeSymbol";
@@ -59,7 +56,6 @@ class TradeForm extends Component {
 
   tradeStock = e => {
     e.preventDefault();
-    const form = e.target;
     let data = this.props.trade;
     data.quantity = Number(data.quantity);
     if (data.quantity > 0) {
@@ -69,29 +65,16 @@ class TradeForm extends Component {
           Number(this.props.cash) - Number(data.quantity) * Number(data.price)
         );
       } else {
+        data.quantity *= -1;
         this.props.setCashAmount(
           Number(this.props.cash) + Number(data.quantity) * Number(data.price)
         );
       }
-
-      form.reset();
     }
   };
 
   render() {
-    const {
-      trade,
-      cash,
-      transactions,
-      stocks,
-      tradeStock,
-      setSymbol,
-      setBuy,
-      setQuantity,
-      setDate,
-      setPrice
-    } = this.props;
-    //trade: { symbol: "", price: [0], date: [0], quantity: 0, buy: "BUY" }
+    const { trade, cash, transactions, stocks } = this.props;
 
     let valid = false;
     let cost = Number(trade.price) * Number(trade.quantity);
@@ -102,10 +85,16 @@ class TradeForm extends Component {
         }
       }
     } else {
-      if (
-        transactions.indexOf(trade.symbol) > -1 &&
-        trade.quantity <= transactions.indexOf(trade.symbol).quantity
-      ) {
+      let match = false;
+      let index = 0;
+      for (let i = 0; i < transactions.length; i++) {
+        if (transactions[i].symbol === trade.symbol) {
+          match = true;
+          index = i;
+          break;
+        }
+      }
+      if (match && trade.quantity <= transactions[index].quantity) {
         valid = true;
       }
     }

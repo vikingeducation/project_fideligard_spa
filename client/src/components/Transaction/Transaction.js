@@ -17,12 +17,20 @@ const Transaction = ({ transactions }) => {
   let transactionBody;
   if (transactions.length) {
     transactionBody = transactions.map(single => (
-      <tr>
-        <td>{single.date[0]}</td>
+      <tr
+        key={
+          single.date +
+          single.symbol +
+          single.buy +
+          single.quantity +
+          single.price
+        }
+      >
+        <td>{single.date}</td>
         <td>{single.symbol}</td>
-        <td>{single.type}</td>
+        <td>{single.buy}</td>
         <td>{single.quantity}</td>
-        <td>${Number(single.price[0]).toFixed(2)}</td>
+        <td>${Number(single.price).toFixed(2)}</td>
       </tr>
     ));
   } else {

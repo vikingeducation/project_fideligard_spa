@@ -90,7 +90,7 @@ export function fideligard(state = initalState, action) {
       return {
         ...state,
         transactions: [],
-        trade: { symbol: "", price: [0], date: [0], quantity: 0, buy: "BUY" },
+        trade: { symbol: "", price: "", date: "", quantity: 0, buy: "BUY" },
         cash: 10000
       };
     default:
