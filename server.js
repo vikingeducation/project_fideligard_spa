@@ -21,18 +21,22 @@ function checkStatus(response) {
   }
   return response;
 }
+app.use(function(req, res, next) {
+  res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+  next();
+});
 
 app.get("/:databaseCode/:dataset/:date/", (req, res, next) => {
   console.log(
-    `Requesting Search: ${baseUrl}${req.params.databaseCode}/${req.params
-      .dataset}?date=${req.params
-      .date}&qopts.columns=ticker,date,close&api_key=APIKEY`
+    `Requesting Search: ${baseUrl}${req.params.databaseCode}/${
+      req.params.dataset
+    }?date=${req.params.date}&qopts.columns=ticker,date,close&api_key=APIKEY`
   );
 
   fetch(
-    `${baseUrl}${req.params.databaseCode}/${req.params.dataset}?date=${req
-      .params
-      .date}&qopts.columns=ticker,date,close&api_key=${FIDELIGARD_API_KEY}`
+    `${baseUrl}${req.params.databaseCode}/${req.params.dataset}?date=${
+      req.params.date
+    }&qopts.columns=ticker,date,close&api_key=${FIDELIGARD_API_KEY}`
   )
     .then(checkStatus)
     .then(response => {

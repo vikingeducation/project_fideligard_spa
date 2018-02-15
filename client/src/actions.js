@@ -1,4 +1,3 @@
-import { previousDate, apiDate } from "./helpers/helper";
 export const CLEAR_DATA = "CLEAR_DATA";
 //API CALLS
 export const GET_STOCK_SUCCESS = "GET_STOCK_SUCCESS";
@@ -124,7 +123,7 @@ export function getApiData(date, stocks) {
     } else if (stocks[date] !== undefined) {
       dispatch(() => {});
     } else {
-      fetch(`WIKI/PRICES/${date}/`)
+      fetch(`http://10.0.0.5:3001/WIKI/PRICES/${date}/`)
         .then(checkStatus)
         .then(json => {
           if (json.datatable.data.length < 1) {

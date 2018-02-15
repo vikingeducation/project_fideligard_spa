@@ -48,6 +48,7 @@ export function previousDate(currentDate, daysBack) {
 
 export function inputDate(date) {
   date = new Date(date);
+
   let inputValue = "";
   let inputYear = date.getFullYear();
   let inputDay = Number(date.getDate());

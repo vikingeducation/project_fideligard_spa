@@ -1,46 +1,27 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { getApiData, setDate } from "../actions";
 import {
-  getApiData,
-  getStockSuccess,
-  setDate,
-  clearTransactionTrade
-} from "../actions";
-import { previousDate, displayDate } from "../helpers/helper";
+  previousDate,
+  displayDate,
+  apiDate,
+  inputDate
+} from "../helpers/helper";
 import JumbotronFluid from "./elements/JumbotronFluid";
-import Slider from "./elements/Slider";
+import Input from "./elements/Input";
 
 import StocksContainer from "../containers/StocksContainer";
 import PortfolioContainer from "../containers/PortfolioContainer";
 import TradeContainer from "../containers/TradeContainer";
 import TransactionContainer from "../containers/TransactionContainer";
-// import todayResponse from "../apiCalls/2017-11-14";
-// import yesterdayResponse from "../apiCalls/2017-11-13";
-// import weekResponse from "../apiCalls/2017-11-7";
-// import monthResponse from "../apiCalls/2017-10-16";
 
 class App extends Component {
   componentWillMount() {
-    this.props.setDateData(new Date(), {});
+    this.props.setDateData(apiDate(new Date()), {});
   }
 
-  onSliderChange = e => {
-    let date = e.target.value.split("-");
-    //2018-01-01 => 2018-1-1
-    if (date[1][0] === "0") {
-      date[1] = date[1][1];
-    }
-    if (date[2][0] === "0") {
-      date[2] = date[2][1];
-    }
-    date = date.join("-");
-    this.props.setDateData(date, this.props.stocks);
-  };
-
   render() {
-    let twoMonthsPrior = new Date();
-    twoMonthsPrior.setMonth(twoMonthsPrior.getMonth() - 2);
     return (
       <Router>
         <div>
@@ -57,9 +38,16 @@ class App extends Component {
               <div className="col-sm-6">
                 <p>{displayDate(this.props.todaysDate)}</p>
 
-                <Slider
-                  onChange={this.onSliderChange.bind(this)}
-                  value={this.props.todaysDate}
+                <Input
+                  type="date"
+                  onChange={e => {
+                    console.log(e.target.value);
+                    let date = new Date(e.target.value);
+                    console.log(date);
+                    date.setDate(date.getDate() + 1);
+                    this.props.setDateData(date, this.props.stocks);
+                  }}
+                  value={inputDate(this.props.todaysDate)}
                 />
 
                 <Switch>
@@ -95,9 +83,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    getData: date => {
-      dispatch(getApiData("WIKI", "PRICES", date));
-    },
     setDateData: (date, stocks) => {
       dispatch(setDate(date));
       dispatch(getApiData(previousDate(date, 0), stocks));
@@ -107,8 +92,6 @@ const mapDispatchToProps = dispatch => {
       dispatch(getApiData(previousDate(date, 7), stocks));
 
       dispatch(getApiData(previousDate(date, 30), stocks));
-
-      dispatch(clearTransactionTrade());
     }
   };
 };

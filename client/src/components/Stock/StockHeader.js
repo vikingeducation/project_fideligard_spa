@@ -1,7 +1,4 @@
 import React from "react";
-// import PropTypes from "prop-types";
-// import { dateDifference } from "../../helpers/helper";
-import { displayDate } from "../../helpers/helper";
 
 const StockHeader = ({ todaysDate }) => {
   return (

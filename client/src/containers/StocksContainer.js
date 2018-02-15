@@ -2,13 +2,9 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import Stock from "../components/Stock/Stock";
 import StockHeader from "../components/Stock/StockHeader";
-import {
-  sanitizeStocks,
-  displayDate,
-  apiDate,
-  previousDate
-} from "../helpers/helper";
+import { displayDate, apiDate, previousDate } from "../helpers/helper";
 import { setSearch } from "../actions";
+import { RingLoader } from "react-spinners";
 
 class StocksContainer extends Component {
   render() {
@@ -49,12 +45,21 @@ class StocksContainer extends Component {
                   />
                 ) : (
                   <tr>
-                    <td>-.--</td>
+                    <td />
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
+          {Object.keys(stocks).length > 3 ? (
+            ""
+          ) : (
+            <div className="row justify-content-center">
+              <div className="col-3">
+                <RingLoader />
+              </div>
+            </div>
+          )}
         </div>
       </span>
     );

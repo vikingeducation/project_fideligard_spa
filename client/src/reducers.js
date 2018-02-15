@@ -79,7 +79,7 @@ export function fideligard(state = initalState, action) {
     case Actions.SET_CASH:
       return {
         ...state,
-        cash: action.data
+        cash: Number(action.data)
       };
     case Actions.SET_TRANSACTION:
       return {
