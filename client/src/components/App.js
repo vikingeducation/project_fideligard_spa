@@ -36,14 +36,11 @@ class App extends Component {
                 <StocksContainer />
               </div>
               <div className="col-sm-6">
-                <p>{displayDate(this.props.todaysDate)}</p>
-
                 <Input
                   type="date"
                   onChange={e => {
-                    console.log(e.target.value);
                     let date = new Date(e.target.value);
-                    console.log(date);
+
                     date.setDate(date.getDate() + 1);
                     this.props.setDateData(date, this.props.stocks);
                   }}

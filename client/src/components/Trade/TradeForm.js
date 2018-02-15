@@ -59,13 +59,13 @@ class TradeForm extends Component {
     let data = this.props.trade;
     data.quantity = Number(data.quantity);
     if (data.quantity > 0) {
-      this.props.setTransaction(data);
       if (data.buy === "BUY") {
+        this.props.setTransaction(data);
         this.props.setCashAmount(
           Number(this.props.cash) - Number(data.quantity) * Number(data.price)
         );
       } else {
-        data.quantity *= -1;
+        this.props.setTransaction({ ...data, quantity: data.quantity * -1 });
         this.props.setCashAmount(
           Number(this.props.cash) + Number(data.quantity) * Number(data.price)
         );
@@ -86,16 +86,22 @@ class TradeForm extends Component {
       }
     } else {
       let match = false;
-      let index = 0;
+      let index = [];
       for (let i = 0; i < transactions.length; i++) {
         if (transactions[i].symbol === trade.symbol) {
           match = true;
-          index = i;
-          break;
+          index.push(i);
         }
       }
-      if (match && trade.quantity <= transactions[index].quantity) {
-        valid = true;
+
+      if (index.length) {
+        let quantity = 0;
+        for (let j = 0; j < index.length; j++) {
+          quantity += transactions[index[j]].quantity;
+        }
+        if (match && trade.quantity <= quantity) {
+          valid = true;
+        }
       }
     }
 
