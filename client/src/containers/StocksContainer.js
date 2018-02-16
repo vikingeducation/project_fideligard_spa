@@ -29,6 +29,7 @@ class StocksContainer extends Component {
               </label>
             </div>
           </div>
+
           <div className="row tableScroll ">
             <table className="table ">
               <thead>
@@ -52,6 +53,7 @@ class StocksContainer extends Component {
               </tbody>
             </table>
           </div>
+
           {Object.keys(stocks).length > 3 ? (
             ""
           ) : (

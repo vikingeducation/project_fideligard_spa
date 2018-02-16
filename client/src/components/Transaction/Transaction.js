@@ -1,5 +1,5 @@
 import React from "react";
-
+import { displayDate } from "../../helpers/helper";
 import { connect } from "react-redux";
 
 const Transaction = ({ transactions }) => {
@@ -26,7 +26,7 @@ const Transaction = ({ transactions }) => {
           single.price
         }
       >
-        <td>{single.date}</td>
+        <td>{displayDate(single.date)}</td>
         <td>{single.symbol}</td>
         <td>{single.buy}</td>
         <td>{single.quantity}</td>

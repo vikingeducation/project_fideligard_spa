@@ -26,9 +26,9 @@ const Portfolio = ({ transactions, cash, latestStocks, getApiData }) => {
       <td>${cash.toFixed(2)}</td>
       <td>${cash.toFixed(2)}</td>
       <td>${cash.toFixed(2)}</td>
-      <td>$0.00</td>
-      <td>$0.00</td>
-      <td>$0.00</td>
+      <td>${(Number(cash) - 10000).toFixed(2)}</td>
+      <td>--</td>
+      <td>--</td>
 
       <td />
     </tr>
