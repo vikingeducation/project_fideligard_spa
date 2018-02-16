@@ -56,7 +56,7 @@ const PortfolioContainer = ({ transactions, stocks }) => {
     }
   }
   return (
-    <div className="container-fluid portfolio bordered">
+    <div className="container-fluid portfolio stockElement bordered">
       <div className="row">
         <div className="col-8">
           <h4>Portfolio</h4>

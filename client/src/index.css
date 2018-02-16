@@ -5,18 +5,20 @@ body {
   background-color: white;
 }
 
-/* .bordered {
-  border: 2px solid black;
-  border-radius: 1%;
-} */
-
 .tableScroll {
   width: 100%;
   height: 20em;
   overflow: scroll;
 }
 
-#stocks {
+@media only screen and (max-width: 813px) {
+  .tableScroll {
+    width: 90%;
+    height: 20em;
+    overflow: scroll;
+    border: 2px solid black;
+    border-radius: 1%;
+  }
 }
 
 .stockElement .row:nth-child(2) {
@@ -28,11 +30,6 @@ body {
 .stockElement .row {
   width: auto;
   padding: 1px;
-}
-
-.slider {
-  text-align: center;
-  width: auto;
 }
 
 .portfolio {

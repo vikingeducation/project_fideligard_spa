@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import Dropdown from "../components/Dropdown";
 import Transaction from "../components/Transaction/Transaction";
-import { connect } from "react-redux";
 
 class TransactionContainer extends Component {
   render() {
     return (
-      <div className="container-fluid transactions bordered">
+      <div className="container-fluid transactions stockElement bordered">
         <div className="row">
           <div className="col-8">
             <h4>Transactions</h4>
@@ -23,16 +22,4 @@ class TransactionContainer extends Component {
   }
 }
 
-// const mapStateToProps = state => {
-//   return {
-//     transactions: state.transactions
-//   };
-// };
-
-// const mapDispatchToProps = dispatch => {
-//   return {
-//
-//   }
-// }
-
-export default connect()(TransactionContainer);
+export default TransactionContainer;
