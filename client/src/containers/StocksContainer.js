@@ -11,7 +11,7 @@ class StocksContainer extends Component {
     const { todaysDate, setSearchEnter, stocks, searchBox } = this.props;
     return (
       <span>
-        <div className="container stockElement bordered">
+        <div className="stockElement bordered">
           <div className="row">
             <div className="col-6">
               <h2>Stocks</h2>
@@ -24,12 +24,13 @@ class StocksContainer extends Component {
                   type="name"
                   id="filter"
                   onChange={e => setSearchEnter(e.target.value)}
+                  value={searchBox.toUpperCase()}
                 />
               </label>
             </div>
           </div>
-          <div className="row">
-            <table className="table table-bordered">
+          <div className="row tableScroll ">
+            <table className="table ">
               <thead>
                 <StockHeader todaysDate={this.props.todaysDate} />
               </thead>

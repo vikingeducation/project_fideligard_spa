@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 class TransactionContainer extends Component {
   render() {
     return (
-      <div className="container transactions bordered">
+      <div className="container-fluid transactions bordered">
         <div className="row">
           <div className="col-8">
             <h4>Transactions</h4>
@@ -15,7 +15,7 @@ class TransactionContainer extends Component {
             <Dropdown />
           </div>
         </div>
-        <div className="row">
+        <div className="row tableScroll">
           <Transaction />
         </div>
       </div>

@@ -29,37 +29,34 @@ const PortfolioContainer = ({ transactions, stocks }) => {
   };
   if (transactions.length) {
     for (var i = 0; i < transactions.length; i++) {
-      if (transactions[i].type === "BUY") {
-        portfolioHeadingCalc.costBasis += Number(
-          transactions[i].quantity * transactions[i].price -
-            transactions[i].quantity * latestStocks[transactions[i].symbol] -
-            transactions[i].price
-        );
-        portfolioHeadingCalc.currentValue += Number(
+      if (transactions[i].buy === "BUY") {
+        portfolioHeadingCalc.costBasis -= Number(
           transactions[i].quantity * transactions[i].price
         );
+
+        portfolioHeadingCalc.currentValue += Number(
+          transactions[i].quantity * latestStocks[transactions[i].symbol]
+        );
         portfolioHeadingCalc.profit += Number(
-          transactions[i].quantity * transactions[i].price -
-            transactions[i].quantity * latestStocks[transactions[i].symbol]
+          transactions[i].quantity * latestStocks[transactions[i].symbol] -
+            transactions[i].quantity * transactions[i].price
         );
       } else {
         portfolioHeadingCalc.costBasis -= Number(
-          transactions[i].quantity * transactions[i].price -
-            transactions[i].quantity * latestStocks[transactions[i].symbol] -
-            transactions[i].price
-        );
-        portfolioHeadingCalc.currentValue -= Number(
           transactions[i].quantity * transactions[i].price
         );
+        portfolioHeadingCalc.currentValue += Number(
+          transactions[i].quantity * latestStocks[transactions[i].symbol]
+        );
         portfolioHeadingCalc.profit -= Number(
-          transactions[i].quantity * transactions[i].price -
-            transactions[i].quantity * latestStocks[transactions[i].symbol]
+          transactions[i].quantity * latestStocks[transactions[i].symbol] -
+            transactions[i].quantity * transactions[i].price
         );
       }
     }
   }
   return (
-    <div className="container portfolio bordered">
+    <div className="container-fluid portfolio bordered">
       <div className="row">
         <div className="col-8">
           <h4>Portfolio</h4>
@@ -91,7 +88,7 @@ const PortfolioContainer = ({ transactions, stocks }) => {
         </table>
       </div>
 
-      <div className="row portfolioStocks">
+      <div className="row portfolioStocks tableScroll">
         <Portfolio latestStocks={latestStocks} />
       </div>
     </div>

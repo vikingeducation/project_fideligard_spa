@@ -9,7 +9,7 @@ class TradeContainer extends Component {
     const { match } = this.props;
 
     return (
-      <div className="container trade bordered">
+      <div className="container-fluid trade bordered">
         <div className="row">
           <div className="col-8">
             <h4>Trade</h4>

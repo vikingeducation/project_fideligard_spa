@@ -42,13 +42,7 @@ const Portfolio = ({ transactions, cash, latestStocks, getApiData }) => {
         {/* Quantity */}
         <td>{single.quantity}</td>
         {/* Cost Basis */}
-        <td>
-          ${(
-            Number(single.quantity) * Number(single.price) -
-            Number(single.quantity) * Number(latestStocks[single.symbol]) -
-            Number(single.price)
-          ).toFixed(2)}
-        </td>
+        <td>${(Number(single.quantity) * Number(single.price)).toFixed(2)}</td>
         {/* Transactioned Value */}
         <td>${Number(single.quantity * single.price).toFixed(2)}</td>
         {/* Profit/Loss */}

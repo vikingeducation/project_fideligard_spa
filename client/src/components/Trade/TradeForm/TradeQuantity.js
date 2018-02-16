@@ -7,6 +7,7 @@ const TradeQuantity = ({ setQuantity, trade }) => {
     <InputGroup name="quantity" labelText="Quantity">
       <Input
         name="quantity"
+        type="number"
         value={trade.quantity}
         onChange={e => {
           setQuantity(e.target.value);

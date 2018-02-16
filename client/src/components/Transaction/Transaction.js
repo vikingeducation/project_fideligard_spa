@@ -41,7 +41,7 @@ const Transaction = ({ transactions }) => {
     );
   }
   return (
-    <table className="table table-bordered transactionTable">
+    <table className="table transactionTable">
       {transactionHeader}
       <tbody>{transactionBody}</tbody>
     </table>

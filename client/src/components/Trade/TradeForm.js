@@ -79,7 +79,7 @@ class TradeForm extends Component {
     let valid = false;
     let cost = Number(trade.price) * Number(trade.quantity);
     if (trade.buy === "BUY") {
-      if (Number(cost) <= Number(cash)) {
+      if (Number(cost) <= Number(cash) && Number(cost) > 0) {
         if (stocks[trade.date]) {
           valid = true;
         }
