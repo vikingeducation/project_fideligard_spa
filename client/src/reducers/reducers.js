@@ -1,5 +1,5 @@
-import * as Actions from "./actions";
-import { hashStocks } from "./helpers/helper";
+import * as Actions from "../actions/types";
+import { hashStocks } from "../helpers/helper";
 const initalState = {
   todaysDate: new Date(),
   stocks: {},
