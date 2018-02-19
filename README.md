@@ -4,6 +4,8 @@ A single page app, using over 2,400 US publicly traded stocks to simulate buying
 
 ![Image of Stocks and Trading](screenshots/Fideligard.png)
 
+Live Demo: https://fast-ravine-38637.herokuapp.com/
+
 ## Getting Started
 
 ### Prerequisites
