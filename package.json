@@ -1,0 +1,26 @@
+{
+  "name": "project_fideligard_spa",
+  "version": "1.0.0",
+  "description": "Fideligard Historical Portfolio Simulator",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chuckinabox/project_fideligard_spa.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chuckinabox/project_fideligard_spa/issues"
+  },
+  "homepage": "https://github.com/chuckinabox/project_fideligard_spa#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "es6-promise": "^4.1.1",
+    "express": "^4.16.2",
+    "isomorphic-fetch": "^2.2.1"
+  }
+}
